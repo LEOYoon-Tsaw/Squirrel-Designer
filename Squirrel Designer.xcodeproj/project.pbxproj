@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D2830BBB24FEC87E00BF44BE /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2830BBA24FEC87E00BF44BE /* Template.swift */; };
+		D2830BBF24FEFDD400BF44BE /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2830BBE24FEFDD400BF44BE /* CodeView.swift */; };
 		D2B5B52024FD85CA00F7304E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B5B51F24FD85CA00F7304E /* AppDelegate.swift */; };
 		D2B5B52224FD85CA00F7304E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B5B52124FD85CA00F7304E /* ViewController.swift */; };
 		D2B5B52424FD85CC00F7304E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2B5B52324FD85CC00F7304E /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D2830BBA24FEC87E00BF44BE /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
+		D2830BBE24FEFDD400BF44BE /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 		D2B5B51C24FD85CA00F7304E /* Squirrel Designer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Squirrel Designer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2B5B51F24FD85CA00F7304E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2B5B52124FD85CA00F7304E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,9 +59,11 @@
 		D2B5B51E24FD85CA00F7304E /* Squirrel Designer */ = {
 			isa = PBXGroup;
 			children = (
+				D2830BBE24FEFDD400BF44BE /* CodeView.swift */,
 				D2B5B51F24FD85CA00F7304E /* AppDelegate.swift */,
 				D2B5B52124FD85CA00F7304E /* ViewController.swift */,
 				D2B5B53324FDCE2700F7304E /* LayoutModel.swift */,
+				D2830BBA24FEC87E00BF44BE /* Template.swift */,
 				D2B5B52324FD85CC00F7304E /* Assets.xcassets */,
 				D2B5B52824FD85CC00F7304E /* Info.plist */,
 				D2B5B53124FDC85500F7304E /* Main.storyboard */,
@@ -137,7 +143,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2B5B52224FD85CA00F7304E /* ViewController.swift in Sources */,
+				D2830BBB24FEC87E00BF44BE /* Template.swift in Sources */,
 				D2B5B52024FD85CA00F7304E /* AppDelegate.swift in Sources */,
+				D2830BBF24FEFDD400BF44BE /* CodeView.swift in Sources */,
 				D2B5B53424FDCE2700F7304E /* LayoutModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
