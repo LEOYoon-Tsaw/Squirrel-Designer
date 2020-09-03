@@ -30,8 +30,8 @@ class SquirrelLayout: NSObject {
     var inlinePreedit = false
     var isDisplayP3 = true
     
-    var font: NSFont?
-    var labelFont: NSFont?
+    var fonts = Array<NSFont>()
+    var labelFonts = Array<NSFont>()
     var textColor: NSColor?
     var highlightedTextColor: NSColor?
     var candidateTextColor: NSColor?
@@ -41,6 +41,12 @@ class SquirrelLayout: NSObject {
     var commentTextColor: NSColor?
     var highlightedCommentTextColor: NSColor?
     
+    var font: NSFont? {
+        return combineFonts(fonts)
+    }
+    var labelFont: NSFont? {
+        return combineFonts(labelFonts)
+    }
     var attrs: [NSAttributedString.Key : Any] {
         [.foregroundColor: candidateTextColor!,
          .font: font!,
@@ -107,16 +113,50 @@ class SquirrelLayout: NSObject {
     var halfLinespace: CGFloat {
         return linespace / 2
     }
+    func combineFonts(_ fonts: Array<NSFont>) -> NSFont? {
+        if fonts.count == 0 { return nil }
+        if fonts.count == 1 { return fonts[0] }
+        let attribute = [NSFontDescriptor.AttributeName.cascadeList: fonts[1...].map { $0.fontDescriptor } ]
+        let fontDescriptor = fonts[0].fontDescriptor.addingAttributes(attribute)
+        return NSFont.init(descriptor: fontDescriptor, size: fonts[0].pointSize)
+    }
+    func decodeFonts(from fontString: String, size: CGFloat) -> Array<NSFont> {
+        var seenFontFamilies = Set<String>()
+        let fontStrings = fontString.split(separator: ",")
+        var fonts = Array<NSFont>()
+        for string in fontStrings {
+            let trimedString = string.trimmingCharacters(in: .whitespaces)
+            if let fontFamilyName = trimedString.split(separator: "-").first.map({String($0)}) {
+                if seenFontFamilies.contains(fontFamilyName) {
+                    break
+                } else {
+                    seenFontFamilies.insert(fontFamilyName)
+                }
+            } else {
+                if seenFontFamilies.contains(trimedString) {
+                    break
+                } else {
+                    seenFontFamilies.insert(trimedString)
+                }
+            }
+            if let validFont = NSFont(name: String(trimedString), size: size) {
+                fonts.append(validFont)
+            }
+        }
+        return fonts
+    }
     func encode() -> String {
         var encoded = ""
         if !name.isEmpty {
             encoded += "name: \"\(name)\"\n"
         }
-        encoded += "font_face: \(font!.fontName.trimmingCharacters(in: .whitespaces))\n"
-        encoded += "font_point: \(font!.pointSize)\n"
-        if labelFont != nil {
-            encoded += "label_font_face: \(labelFont!.fontName.trimmingCharacters(in: .whitespaces))\n"
-            encoded += "label_font_point: \(labelFont!.pointSize)\n"
+        let fontNames = fonts.map { $0.fontName.trimmingCharacters(in: .whitespaces) }.joined(separator: ", ")
+        encoded += "font_face: \"\(fontNames)\"\n"
+        encoded += "font_point: \(fonts[0].pointSize)\n"
+        if !labelFonts.isEmpty {
+            let fontNames = labelFonts.map { $0.fontName.trimmingCharacters(in: .whitespaces) }.joined(separator: ", ")
+            encoded += "label_font_face: \"\(fontNames)\"\n"
+            encoded += "label_font_point: \(labelFonts[0].pointSize)\n"
         }
         encoded += "candidate_list_layout: \(linear ? "linear" : "stacked")\n"
         encoded += "text_orientation: \(vertical ? "vertical" : "horizontal")\n"
@@ -304,14 +344,14 @@ class SquirrelLayout: NSObject {
         let highlightedCommentTextColor = getColor(values["hilited_comment_text_color"], inDisplayP3: isDisplayP3 ?? false)
         let fontFace = values["font_face"]
         let fontPoint = getFloat(values["font_point"])
-        let label_font_face = values["font_face"]
-        let label_font_point = getFloat(values["font_point"])
-        let font = fontFace != nil ? NSFont(name: fontFace!, size: fontPoint ?? 15) : nil
-        let labelFont = label_font_face != nil ? NSFont(name: label_font_face!, size: label_font_point ?? 15) : nil
+        let labelFontFace = values["label_font_face"]
+        let labelFontPoint = getFloat(values["label_font_point"])
+        let fonts = fontFace != nil ? decodeFonts(from: fontFace!, size: fontPoint ?? 15) : Array<NSFont>()
+        let labelFonts = labelFontFace != nil ? decodeFonts(from: labelFontFace!, size: labelFontPoint ?? (fontPoint ?? 15)) : Array<NSFont>()
         
         self.name = name ?? "customized_color_scheme"
-        self.font = font ?? NSFont.userFont(ofSize: 15)
-        self.labelFont = labelFont
+        self.fonts = !fonts.isEmpty ? fonts : [NSFont.userFont(ofSize: 15)!]
+        self.labelFonts = labelFonts
         self.linear = linear ?? false
         self.vertical = vertical ?? false
         self.inlinePreedit = inlinePreedit ?? false
@@ -947,7 +987,18 @@ class SquirrelPanel: NSWindow {
     override var isVisible: Bool {
         _visible
     }
-    
+    override var canBecomeKey: Bool { true }
+    override var canBecomeMain: Bool { true }
+    override func keyDown(with event: NSEvent) {
+        if event.modifierFlags.contains(.command) {
+            switch event.charactersIgnoringModifiers! {
+            case "w":
+                self.hide()
+            default:
+                break
+            }
+        }
+    }
     func getCurrentScreen() {
         _screenRect = NSScreen.main!.frame
         let screens = NSScreen.screens

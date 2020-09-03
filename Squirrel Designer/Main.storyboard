@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1034,38 +1034,6 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <popUpButton verticalHuggingPriority="750" id="Sp8-i1-Fk0">
-                                                    <rect key="frame" x="180" y="653" width="95" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <popUpButtonCell key="cell" type="push" title="Family" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="m5V-6z-dhz" id="nt5-SJ-cvV">
-                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                        <menu key="menu" id="HVb-Ed-dpK">
-                                                            <items>
-                                                                <menuItem title="Family" state="on" id="m5V-6z-dhz"/>
-                                                            </items>
-                                                        </menu>
-                                                    </popUpButtonCell>
-                                                    <connections>
-                                                        <action selector="fontFamilyChange:" target="XfG-lQ-9wD" id="3Ub-WM-TLV"/>
-                                                    </connections>
-                                                </popUpButton>
-                                                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="odZ-bH-D22">
-                                                    <rect key="frame" x="289" y="653" width="95" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <popUpButtonCell key="cell" type="push" title="Trait" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Wf3-5B-Ovt" id="R9y-xO-GPm">
-                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                        <menu key="menu" id="6PH-CC-T5n">
-                                                            <items>
-                                                                <menuItem title="Trait" state="on" id="Wf3-5B-Ovt"/>
-                                                            </items>
-                                                        </menu>
-                                                    </popUpButtonCell>
-                                                    <connections>
-                                                        <action selector="fontStyleChange:" target="XfG-lQ-9wD" id="CAi-0T-O4R"/>
-                                                    </connections>
-                                                </popUpButton>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nyq-1j-QZJ">
                                                     <rect key="frame" x="398" y="659" width="30" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1127,38 +1095,6 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eqe-Zx-mfv">
-                                                    <rect key="frame" x="180" y="617" width="95" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <popUpButtonCell key="cell" type="push" title="Family" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="c98-dL-nrH" id="LDP-8V-Wmd">
-                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                        <menu key="menu" id="Tap-vS-yhw">
-                                                            <items>
-                                                                <menuItem title="Family" state="on" id="c98-dL-nrH"/>
-                                                            </items>
-                                                        </menu>
-                                                    </popUpButtonCell>
-                                                    <connections>
-                                                        <action selector="labelFontFamilyChange:" target="XfG-lQ-9wD" id="Pav-9e-sQP"/>
-                                                    </connections>
-                                                </popUpButton>
-                                                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dt9-ba-a8Q">
-                                                    <rect key="frame" x="289" y="617" width="95" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <popUpButtonCell key="cell" type="push" title="Trait" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ahG-Mq-QK1" id="qLB-b7-y5K">
-                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                        <menu key="menu" id="oSA-1H-p0D">
-                                                            <items>
-                                                                <menuItem title="Trait" state="on" id="ahG-Mq-QK1"/>
-                                                            </items>
-                                                        </menu>
-                                                    </popUpButtonCell>
-                                                    <connections>
-                                                        <action selector="labelFontStyleChange:" target="XfG-lQ-9wD" id="nxe-0G-KfG"/>
-                                                    </connections>
-                                                </popUpButton>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7TU-uU-fEE">
                                                     <rect key="frame" x="398" y="623" width="30" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1478,6 +1414,125 @@
                                                     <rect key="frame" x="20" y="691" width="475" height="5"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                 </box>
+                                                <gridView fixedFrame="YES" xPlacement="leading" yPlacement="bottom" rowAlignment="none" rowSpacing="15" columnSpacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="zIF-ni-WKZ">
+                                                    <rect key="frame" x="183" y="656" width="205" height="21"/>
+                                                    <rows>
+                                                        <gridRow yPlacement="center" height="21" id="2qu-gD-wvZ"/>
+                                                    </rows>
+                                                    <columns>
+                                                        <gridColumn width="80" trailingPadding="15" id="iAf-Ra-v7o"/>
+                                                        <gridColumn width="80" trailingPadding="5" id="HZg-0Z-WDC"/>
+                                                        <gridColumn xPlacement="center" width="21" id="Dfk-R9-y8s"/>
+                                                    </columns>
+                                                    <gridCells>
+                                                        <gridCell row="2qu-gD-wvZ" column="iAf-Ra-v7o" id="kpw-zE-Q9w">
+                                                            <popUpButton key="contentView" verticalHuggingPriority="750" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="Sp8-i1-Fk0">
+                                                                <rect key="frame" x="-2" y="-3" width="85" height="25"/>
+                                                                <popUpButtonCell key="cell" type="push" title="Family" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="m5V-6z-dhz" id="nt5-SJ-cvV">
+                                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <menu key="menu" id="HVb-Ed-dpK">
+                                                                        <items>
+                                                                            <menuItem title="Family" state="on" id="m5V-6z-dhz"/>
+                                                                        </items>
+                                                                    </menu>
+                                                                </popUpButtonCell>
+                                                                <connections>
+                                                                    <action selector="fontFamilyChange:" target="XfG-lQ-9wD" id="3Ub-WM-TLV"/>
+                                                                </connections>
+                                                            </popUpButton>
+                                                        </gridCell>
+                                                        <gridCell row="2qu-gD-wvZ" column="HZg-0Z-WDC" id="xwy-Mr-iIj">
+                                                            <popUpButton key="contentView" verticalHuggingPriority="750" ambiguous="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="21" id="odZ-bH-D22">
+                                                                <rect key="frame" x="95" y="-3" width="85" height="25"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                <popUpButtonCell key="cell" type="push" title="Trait" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Wf3-5B-Ovt" id="R9y-xO-GPm">
+                                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <menu key="menu" id="6PH-CC-T5n">
+                                                                        <items>
+                                                                            <menuItem title="Trait" state="on" id="Wf3-5B-Ovt"/>
+                                                                        </items>
+                                                                    </menu>
+                                                                </popUpButtonCell>
+                                                                <connections>
+                                                                    <action selector="fontStyleChange:" target="XfG-lQ-9wD" id="CAi-0T-O4R"/>
+                                                                </connections>
+                                                            </popUpButton>
+                                                        </gridCell>
+                                                        <gridCell row="2qu-gD-wvZ" column="Dfk-R9-y8s" id="BSp-I3-Its">
+                                                            <button key="contentView" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GeQ-kJ-eAX">
+                                                                <rect key="frame" x="179" y="-6" width="32" height="31"/>
+                                                                <buttonCell key="cell" type="round" bezelStyle="circular" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="LL8-DM-uqR">
+                                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="fontPickerGridAddRow:" target="XfG-lQ-9wD" id="uel-Bc-zGB"/>
+                                                                </connections>
+                                                            </button>
+                                                        </gridCell>
+                                                    </gridCells>
+                                                </gridView>
+                                                <gridView fixedFrame="YES" xPlacement="leading" yPlacement="bottom" rowAlignment="none" rowSpacing="15" columnSpacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Tvb-nv-kgO">
+                                                    <rect key="frame" x="183" y="620" width="205" height="21"/>
+                                                    <rows>
+                                                        <gridRow height="21" id="I4X-pr-MQa"/>
+                                                    </rows>
+                                                    <columns>
+                                                        <gridColumn width="80" trailingPadding="15" id="Y2e-3e-Joe"/>
+                                                        <gridColumn width="80" trailingPadding="5" id="qG2-t6-x3y"/>
+                                                        <gridColumn width="21" id="oxu-g3-1O1"/>
+                                                    </columns>
+                                                    <gridCells>
+                                                        <gridCell row="I4X-pr-MQa" column="Y2e-3e-Joe" id="raR-XA-u9I">
+                                                            <popUpButton key="contentView" verticalHuggingPriority="750" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="eqe-Zx-mfv">
+                                                                <rect key="frame" x="-2" y="-3" width="85" height="25"/>
+                                                                <popUpButtonCell key="cell" type="push" title="Family" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="c98-dL-nrH" id="LDP-8V-Wmd">
+                                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <menu key="menu" id="Tap-vS-yhw">
+                                                                        <items>
+                                                                            <menuItem title="Family" state="on" id="c98-dL-nrH"/>
+                                                                        </items>
+                                                                    </menu>
+                                                                </popUpButtonCell>
+                                                                <connections>
+                                                                    <action selector="labelFontFamilyChange:" target="XfG-lQ-9wD" id="Pav-9e-sQP"/>
+                                                                </connections>
+                                                            </popUpButton>
+                                                        </gridCell>
+                                                        <gridCell row="I4X-pr-MQa" column="qG2-t6-x3y" id="4lJ-yD-uJZ">
+                                                            <popUpButton key="contentView" verticalHuggingPriority="750" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="Dt9-ba-a8Q">
+                                                                <rect key="frame" x="95" y="-3" width="85" height="25"/>
+                                                                <popUpButtonCell key="cell" type="push" title="Trait" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ahG-Mq-QK1" id="qLB-b7-y5K">
+                                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                    <menu key="menu" id="oSA-1H-p0D">
+                                                                        <items>
+                                                                            <menuItem title="Trait" state="on" id="ahG-Mq-QK1"/>
+                                                                        </items>
+                                                                    </menu>
+                                                                </popUpButtonCell>
+                                                                <connections>
+                                                                    <action selector="labelFontStyleChange:" target="XfG-lQ-9wD" id="nxe-0G-KfG"/>
+                                                                </connections>
+                                                            </popUpButton>
+                                                        </gridCell>
+                                                        <gridCell row="I4X-pr-MQa" column="oxu-g3-1O1" id="D60-67-LHM">
+                                                            <button key="contentView" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vq8-WA-rzK">
+                                                                <rect key="frame" x="178" y="-7" width="32" height="31"/>
+                                                                <buttonCell key="cell" type="round" bezelStyle="circular" image="NSAddTemplate" imagePosition="overlaps" alignment="center" enabled="NO" borderStyle="border" inset="2" id="V4i-4t-l4f">
+                                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                                <connections>
+                                                                    <action selector="labelFontPickerGridAddRow:" target="XfG-lQ-9wD" id="78n-Kc-gFt"/>
+                                                                </connections>
+                                                            </button>
+                                                        </gridCell>
+                                                    </gridCells>
+                                                </gridView>
                                             </subviews>
                                         </view>
                                     </subviews>
@@ -1508,6 +1563,7 @@
                         <outlet property="cornerRadiusField" destination="npL-z5-zhC" id="dlC-aT-gkV"/>
                         <outlet property="displayP3Toggle" destination="meW-R0-0J1" id="O4d-Ih-KOp"/>
                         <outlet property="fontPicker" destination="Sp8-i1-Fk0" id="vcy-AG-fcp"/>
+                        <outlet property="fontPickerGrid" destination="zIF-ni-WKZ" id="2Fh-Qb-shb"/>
                         <outlet property="fontSizePicker" destination="ZRh-6v-JHV" id="E12-vm-lTZ"/>
                         <outlet property="fontStylePicker" destination="odZ-bH-D22" id="jkY-76-kGk"/>
                         <outlet property="generateCodeButton" destination="euo-uC-PJ7" id="FU6-MS-3S0"/>
@@ -1522,6 +1578,7 @@
                         <outlet property="hilitedPreeditBackColorToggle" destination="Xcm-5F-1BC" id="qU1-i8-coe"/>
                         <outlet property="hilitedPreeditTextColorPicker" destination="42e-di-tyZ" id="Qdv-0l-ESq"/>
                         <outlet property="labelFontPicker" destination="eqe-Zx-mfv" id="4xe-aS-hLb"/>
+                        <outlet property="labelFontPickerGrid" destination="Tvb-nv-kgO" id="hVM-gK-sb8"/>
                         <outlet property="labelFontSizePicker" destination="7jq-lw-VgD" id="aVv-RI-BvU"/>
                         <outlet property="labelFontStylePicker" destination="Dt9-ba-a8Q" id="Trb-Be-mTp"/>
                         <outlet property="labelFontToggle" destination="xxD-nP-14U" id="vjG-sa-rQa"/>
@@ -1637,4 +1694,7 @@
             <point key="canvasLocation" x="-480" y="1152"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="NSAddTemplate" width="11" height="11"/>
+    </resources>
 </document>

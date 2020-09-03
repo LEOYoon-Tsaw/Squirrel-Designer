@@ -6,16 +6,27 @@
 //  Copyright © 2020 Yuncao Liu. All rights reserved.
 //
 
+import CoreData
 import Cocoa
 
-let layout = SquirrelLayout()
+var layout = SquirrelLayout()
 let preview = SquirrelPanel(position: NSZeroRect)
+
+class FontPopUpButton: NSPopUpButton {
+    weak var fontTraits: NSPopUpButton?
+}
+
+class FontDeleteButton: NSButton {
+    weak var residenceRow: NSGridRow?
+}
 
 class ViewController: NSViewController {
     
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var contentView: NSView!
     @IBOutlet weak var nameField: NSTextField!
+    @IBOutlet weak var fontPickerGrid: NSGridView!
+    @IBOutlet weak var labelFontPickerGrid: NSGridView!
     
     @IBOutlet weak var fontPicker: NSPopUpButton!
     @IBOutlet weak var fontStylePicker: NSPopUpButton!
@@ -63,7 +74,140 @@ class ViewController: NSViewController {
     @IBOutlet weak var generateCodeButton: NSButton!
     
     var childWindow: NSWindowController?
-
+    
+    func resize(_ view: NSView?, width: CGFloat?, height: CGFloat?) {
+        if var frame = view?.frame {
+            if let width = width {
+                frame.size.width = width
+            }
+            if let height = height {
+                frame.size.height = height
+            }
+            view?.frame = frame
+        }
+    }
+    func shift(_ view: NSView?, x: CGFloat?, y: CGFloat?) {
+        if var frame = view?.frame {
+            if let x = x {
+                frame.origin.x += x
+            }
+            if let y = y {
+                frame.origin.y += y
+            }
+            view?.frame = frame
+        }
+    }
+    func shiftBellow(_ currentY: CGFloat, by dy: CGFloat, in parentView: NSView) {
+        for subview in parentView.subviews {
+            if let subview = (subview as? NSGridView) {
+                if NSMinY(parentView.convert(subview.frame, to: parentView)) > currentY {
+                    shift(subview, x: nil, y: -dy)
+                }
+            } else {
+                if NSMinY(parentView.convert(subview.frame, to: parentView)) < currentY - 5 {
+                    shift(subview, x: nil, y: dy)
+                }
+            }
+        }
+    }
+    func addRow(in grid: NSGridView) {
+        let rowHeight = grid.rowSpacing + grid.row(at: 0).height
+        let columnWidth = grid.column(at: 0).width
+        let picker = FontPopUpButton()
+        resize(picker, width: columnWidth, height: nil)
+        populateFontFamilies(picker)
+        let stylePicker = NSPopUpButton()
+        resize(stylePicker, width: columnWidth, height: nil)
+        populateFontMember(stylePicker, inFamily: picker)
+        stylePicker.action = #selector(ViewController.fontStyleChanged(sender:))
+        picker.fontTraits = stylePicker
+        picker.action = #selector(ViewController.fontFamilyChanged(sender:))
+        let deleteButton = FontDeleteButton()
+        deleteButton.title = ""
+        deleteButton.setButtonType(.switch)
+        deleteButton.bezelStyle = .circular
+        deleteButton.isBordered = true
+        deleteButton.image = NSImage(named: NSImage.removeTemplateName)
+        deleteButton.imagePosition = .imageOverlaps
+        resize(deleteButton, width: grid.row(at: 0).height, height: grid.row(at: 0).height)
+        let currentY = NSMinY(contentView.convert(grid.frame, to: contentView))
+        shiftBellow(currentY, by: -rowHeight, in: contentView)
+        grid.addRow(with: [picker, stylePicker, deleteButton])
+        deleteButton.residenceRow = grid.row(at: grid.numberOfRows-1)
+        deleteButton.action = #selector(ViewController.deleteFontRow(sender:))
+        resize(contentView, width: nil, height: contentView.frame.height + rowHeight)
+        let viewPoint = view.convert(contentView.frame.origin, to: scrollView.contentView)
+        contentView.scroll(NSPoint(x: 0, y: viewPoint.y + 221 + rowHeight)) // MAGIC NUMBER!
+    }
+    func deleteRow(_ row: NSGridRow?, in grid: NSGridView?) {
+        guard let grid = grid else { return }
+        let rowHeight = grid.rowSpacing + grid.row(at: 0).height
+        if let row = row {
+            row.isHidden = true
+            let rowIndex = grid.index(of: row)
+            grid.removeRow(at: rowIndex)
+            let currentY = NSMinY(contentView.convert(grid.frame, to: contentView))
+            shiftBellow(currentY, by: rowHeight, in: contentView)
+            resize(contentView, width: nil, height: contentView.frame.height - rowHeight)
+            let viewPoint = view.convert(contentView.frame.origin, to: scrollView.contentView)
+            if contentView.frame.height - (viewPoint.y + 221) > 237.1 {  // MAGIC NUMBER!
+                contentView.scroll(NSPoint(x: 0, y: viewPoint.y + 221 - rowHeight))  // MAGIC NUMBER!
+            }
+        }
+    }
+    func updateFonts(in grid: NSGridView, size: NSTextField, to: WritableKeyPath<SquirrelLayout, Array<NSFont>>) {
+        var fonts = Array<NSFont>()
+        for i in 0..<grid.numberOfRows {
+            let row = grid.row(at: i)
+            if let fontFamilyPicker = row.cell(at: 0).contentView as? NSPopUpButton,
+               let fontTraitsPicker = row.cell(at: 1).contentView as? NSPopUpButton {
+                if let font = readFont(family: fontFamilyPicker, style: fontTraitsPicker, size: size) {
+                    fonts.append(font)
+                }
+            }
+        }
+        layout[keyPath: to] = fonts
+    }
+    @IBAction func fontPickerGridAddRow(_ sender: Any) {
+        addRow(in: fontPickerGrid)
+        syncFonts()
+        updateFonts(in: fontPickerGrid, size: fontSizePicker, to: \SquirrelLayout.fonts)
+        preview.layout = layout
+    }
+    @IBAction func labelFontPickerGridAddRow(_ sender: Any) {
+        addRow(in: labelFontPickerGrid)
+        updateFonts(in: labelFontPickerGrid, size: labelFontSizePicker, to: \SquirrelLayout.labelFonts)
+        preview.layout = layout
+    }
+    @objc func fontFamilyChanged(sender: FontPopUpButton) {
+        if let traits = sender.fontTraits {
+            populateFontMember(traits, inFamily: sender)
+            syncFonts()
+        }
+        updateFonts(in: fontPickerGrid, size: fontSizePicker, to: \SquirrelLayout.fonts)
+        if labelFontToggle.state == .on {
+            updateFonts(in: labelFontPickerGrid, size: labelFontSizePicker, to: \SquirrelLayout.labelFonts)
+        }
+        preview.layout = layout
+    }
+    @objc func fontStyleChanged(sender: NSPopUpButton) {
+        syncFonts()
+        updateFonts(in: fontPickerGrid, size: fontSizePicker, to: \SquirrelLayout.fonts)
+        if labelFontToggle.state == .on {
+            updateFonts(in: labelFontPickerGrid, size: labelFontSizePicker, to: \SquirrelLayout.labelFonts)
+        }
+        preview.layout = layout
+    }
+    @objc func deleteFontRow(sender: FontDeleteButton) {
+        deleteRow(sender.residenceRow, in: sender.residenceRow?.gridView)
+        syncFonts()
+        updateFonts(in: fontPickerGrid, size: fontSizePicker, to: \SquirrelLayout.fonts)
+        if labelFontToggle.state == .on {
+            updateFonts(in: labelFontPickerGrid, size: labelFontSizePicker, to: \SquirrelLayout.labelFonts)
+        }
+        preview.layout = layout
+    }
+    
     @IBAction func nameChanged(_ sender: Any) {
         layout.name = nameField.stringValue
     }
@@ -129,15 +273,21 @@ class ViewController: NSViewController {
     }
     @IBAction func labelFontToggled(_ sender: Any) {
         if labelFontToggle.state == .off {
-            labelFontPicker.isEnabled = false
-            labelFontStylePicker.isEnabled = false
+            for subview in labelFontPickerGrid.subviews {
+                if let button = subview as? NSButton {
+                    button.isEnabled = false
+                }
+            }
             labelFontSizePicker.isEnabled = false
-            layout.labelFont = nil
+            layout.labelFonts = Array<NSFont>()
         } else {
-            labelFontPicker.isEnabled = true
-            labelFontStylePicker.isEnabled = true
+            for subview in labelFontPickerGrid.subviews {
+                if let button = subview as? NSButton {
+                    button.isEnabled = true
+                }
+            }
             labelFontSizePicker.isEnabled = true
-            layout.labelFont = readFont(family: labelFontPicker, style: labelFontStylePicker, size: labelFontSizePicker)
+            updateFonts(in: labelFontPickerGrid, size: labelFontSizePicker, to: \SquirrelLayout.labelFonts)
         }
         preview.layout = layout
     }
@@ -234,31 +384,31 @@ class ViewController: NSViewController {
     
     @IBAction func fontFamilyChange(_ sender: Any) {
         populateFontMember(fontStylePicker, inFamily: fontPicker)
-        layout.font = readFont(family: fontPicker, style: fontStylePicker, size: fontSizePicker)
-        syncFont()
+        syncFonts()
+        updateFonts(in: fontPickerGrid, size: fontSizePicker, to: \SquirrelLayout.fonts)
         preview.layout = layout
     }
     @IBAction func labelFontFamilyChange(_ sender: Any) {
         populateFontMember(labelFontStylePicker, inFamily: labelFontPicker)
-        layout.labelFont = readFont(family: labelFontPicker, style: labelFontStylePicker, size: labelFontSizePicker)
+        updateFonts(in: labelFontPickerGrid, size: labelFontSizePicker, to: \SquirrelLayout.labelFonts)
         preview.layout = layout
     }
     @IBAction func fontStyleChange(_ sender: Any) {
-        layout.font = readFont(family: fontPicker, style: fontStylePicker, size: fontSizePicker)
-        syncFont()
+        syncFonts()
+        updateFonts(in: fontPickerGrid, size: fontSizePicker, to: \SquirrelLayout.fonts)
         preview.layout = layout
     }
     @IBAction func labelFontStyleChange(_ sender: Any) {
-        layout.labelFont = readFont(family: labelFontPicker, style: labelFontStylePicker, size: labelFontSizePicker)
+        updateFonts(in: labelFontPickerGrid, size: labelFontSizePicker, to: \SquirrelLayout.labelFonts)
         preview.layout = layout
     }
     @IBAction func fontSizeChange(_ sender: Any) {
-        layout.font = readFont(family: fontPicker, style: fontStylePicker, size: fontSizePicker)
-        syncFont()
+        updateFonts(in: fontPickerGrid, size: fontSizePicker, to: \SquirrelLayout.fonts)
+        syncFonts()
         preview.layout = layout
     }
     @IBAction func labelFontSizeChange(_ sender: Any) {
-        layout.labelFont = readFont(family: labelFontPicker, style: labelFontStylePicker, size: labelFontSizePicker)
+        updateFonts(in: labelFontPickerGrid, size: labelFontSizePicker, to: \SquirrelLayout.labelFonts)
         preview.layout = layout
     }
     
@@ -349,22 +499,42 @@ class ViewController: NSViewController {
         }
     }
     
-    func syncFont() {
+    func syncFonts() {
         if labelFontToggle.state == .off {
             labelFontPicker.selectItem(withTitle: fontPicker.titleOfSelectedItem!)
             populateFontMember(labelFontStylePicker, inFamily: labelFontPicker)
             labelFontStylePicker.selectItem(at: fontStylePicker.indexOfSelectedItem)
+            while labelFontPickerGrid.numberOfRows > fontPickerGrid.numberOfRows{
+                deleteRow(labelFontPickerGrid.row(at: labelFontPickerGrid.numberOfRows - 1), in: labelFontPickerGrid)
+            }
+            while labelFontPickerGrid.numberOfRows < fontPickerGrid.numberOfRows{
+                addRow(in: labelFontPickerGrid)
+            }
+            if fontPickerGrid.numberOfRows > 1 {
+                for i in 1..<fontPickerGrid.numberOfRows {
+                    if let fontPopup = fontPickerGrid.row(at: i).cell(at: 0).contentView as? FontPopUpButton,
+                       let labelFontPopup = labelFontPickerGrid.row(at: i).cell(at: 0).contentView as? FontPopUpButton {
+                        labelFontPopup.selectItem(withTitle: fontPopup.titleOfSelectedItem!)
+                        populateFontMember(labelFontPopup.fontTraits!, inFamily: labelFontPopup)
+                        labelFontPopup.fontTraits!.selectItem(at: fontPopup.fontTraits!.indexOfSelectedItem)
+                    }
+                }
+                labelFontToggled(labelFontToggle!)
+            }
             labelFontSizePicker.doubleValue = fontSizePicker.doubleValue
-            layout.labelFont = readFont(family: labelFontPicker, style: labelFontStylePicker, size: labelFontSizePicker)
         }
     }
-    func readFont(family: NSPopUpButton, style: NSPopUpButton, size: NSTextField) -> NSFont {
-        let fontFamily = family.titleOfSelectedItem!
-        let fontMembers = NSFontManager.shared.availableMembers(ofFontFamily: fontFamily)!
-        let fontMember = fontMembers[style.indexOfSelectedItem]
-        let traits = fontMember[3] as! UInt
-        let weight = fontMember[2] as! Int
-        return NSFontManager.shared.font(withFamily: fontFamily, traits: .init(rawValue: traits), weight: weight, size: CGFloat(size.doubleValue))!
+    func readFont(family: NSPopUpButton, style: NSPopUpButton, size: NSTextField) -> NSFont? {
+        let fontFamily: String = family.titleOfSelectedItem!.filter { !$0.isWhitespace }
+        let fontTraits: String = style.titleOfSelectedItem!.filter { !$0.isWhitespace }
+        if let fontSize = Double(size.stringValue) {
+            if let font = NSFont(name: "\(fontFamily)-\(fontTraits)", size: CGFloat(fontSize)) {
+                return font
+            } else if let font = NSFont(name: fontFamily, size: CGFloat(fontSize)) {
+                return font
+            }
+        }
+        return nil
     }
     func scrollToTop() {
         let maxHeight = max(scrollView.bounds.height, contentView.bounds.height)
@@ -374,6 +544,13 @@ class ViewController: NSViewController {
         picker.removeAllItems()
         picker.addItems(withTitles: NSFontManager.shared.availableFontFamilies)
         picker.selectItem(withTitle: NSFont.userFont(ofSize: 15)!.familyName!)
+    }
+    func clearAdditionalFont(in grid: NSGridView) {
+        if grid.numberOfRows > 1 {
+            for i in 1..<grid.numberOfRows {
+                deleteRow(grid.row(at: grid.numberOfRows - i), in: grid)
+            }
+        }
     }
     func clearFontMember(_ picker: NSPopUpButton) {
         picker.removeAllItems()
@@ -388,40 +565,67 @@ class ViewController: NSViewController {
                 }
             }
         }
+        picker.selectItem(at: 0)
     }
     func updateUI() {
         nameField.stringValue = layout.name
-        fontPicker.selectItem(withTitle: layout.font!.familyName!)
+        fontPicker.selectItem(withTitle: layout.fonts[0].familyName!)
         populateFontMember(fontStylePicker, inFamily: fontPicker)
-        let members = NSFontManager.shared.availableMembers(ofFontFamily: layout.font!.familyName!)
-        if let traits = layout.font?.fontName.split(separator: "-").last {
-            for i in 0..<(members?.count ?? 0) {
-                if (members![i][1] as? String) == String(traits) {
-                    fontStylePicker.selectItem(at: i)
-                    break
-                }
-            }
-        } else {
+        if let traits = layout.fonts[0].fontName.split(separator: "-").last {
+            fontStylePicker.selectItem(withTitle: String(traits))
+        }
+        if fontStylePicker.selectedItem == nil {
             fontStylePicker.selectItem(at: 0)
         }
-        fontSizePicker.stringValue = "\(layout.font!.pointSize)"
-        if layout.labelFont != nil {
-            labelFontPicker.selectItem(withTitle: layout.labelFont!.familyName!)
-            populateFontMember(labelFontStylePicker, inFamily: labelFontPicker)
-            let members = NSFontManager.shared.availableMembers(ofFontFamily: layout.labelFont!.familyName!)
-            if let traits = layout.labelFont?.fontName.split(separator: "-").last {
-                for i in 0..<(members?.count ?? 0) {
-                    if (members![i][1] as? String) == String(traits) {
-                        labelFontStylePicker.selectItem(at: i)
-                        break
+        fontSizePicker.stringValue = "\(layout.fonts[0].pointSize)"
+        clearAdditionalFont(in: fontPickerGrid)
+        if layout.fonts.count > 1 {
+            for font in layout.fonts[1...] {
+                addRow(in: fontPickerGrid)
+                if let _fontPicker = fontPickerGrid.cell(atColumnIndex: 0, rowIndex: fontPickerGrid.numberOfRows-1).contentView as? NSPopUpButton,
+                   let _fontStylePicker = fontPickerGrid.cell(atColumnIndex: 1, rowIndex: fontPickerGrid.numberOfRows-1).contentView as? NSPopUpButton {
+                    _fontPicker.selectItem(withTitle: font.familyName!)
+                    populateFontMember(_fontStylePicker, inFamily: _fontPicker)
+                    if let traits = font.fontName.split(separator: "-").last {
+                        _fontStylePicker.selectItem(withTitle: String(traits))
+                    }
+                    if _fontStylePicker.selectedItem == nil {
+                        _fontStylePicker.selectItem(at: 0)
                     }
                 }
-            } else {
+            }
+        }
+        if !layout.labelFonts.isEmpty {
+            labelFontPicker.selectItem(withTitle: layout.labelFonts[0].familyName!)
+            populateFontMember(labelFontStylePicker, inFamily: labelFontPicker)
+            if let traits = layout.labelFont?.fontName.split(separator: "-").last {
+                labelFontStylePicker.selectItem(withTitle: String(traits))
+            }
+            if labelFontStylePicker.selectedItem == nil {
                 labelFontStylePicker.selectItem(at: 0)
             }
-            labelFontSizePicker.stringValue = "\(layout.labelFont!.pointSize)"
+            labelFontSizePicker.stringValue = "\(layout.labelFonts[0].pointSize)"
+            clearAdditionalFont(in: labelFontPickerGrid)
+            if layout.labelFonts.count > 1 {
+                for font in layout.labelFonts[1...] {
+                    addRow(in: labelFontPickerGrid)
+                    if let _fontPicker = labelFontPickerGrid.cell(atColumnIndex: 0, rowIndex: labelFontPickerGrid.numberOfRows-1).contentView as? NSPopUpButton,
+                       let _fontStylePicker = labelFontPickerGrid.cell(atColumnIndex: 1, rowIndex: labelFontPickerGrid.numberOfRows-1).contentView as? NSPopUpButton {
+                        _fontPicker.selectItem(withTitle: font.familyName!)
+                        populateFontMember(_fontStylePicker, inFamily: _fontPicker)
+                        if let traits = font.fontName.split(separator: "-").last {
+                            _fontStylePicker.selectItem(withTitle: String(traits))
+                        }
+                        if _fontStylePicker.selectedItem == nil {
+                            _fontStylePicker.selectItem(at: 0)
+                        }
+                    }
+                }
+            }
+            labelFontToggle.state = .on
+            labelFontToggled(labelFontToggle!)
         } else {
-            syncFont()
+            syncFonts()
         }
         candidateListLayoutSwitch.selectSegment(withTag: layout.linear ? 1 : 0)
         textOrientationSwitch.selectSegment(withTag: layout.vertical ? 1 : 0)
@@ -487,7 +691,6 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollToTop()
         populateFontFamilies(fontPicker)
         populateFontMember(fontStylePicker, inFamily: fontPicker)
         populateFontFamilies(labelFontPicker)
@@ -495,7 +698,7 @@ class ViewController: NSViewController {
         labelTextColorPicker.color = blendColor(foregroundColor: candidateTextColorPicker.color, backgroundColor: backgroundColorPicker.color)
         hilitedLabelTextColorPicker.color = blendColor(foregroundColor: hilitedCandidateTextColorPicker.color, backgroundColor:         hilitedCandidateBackColorPicker.color)
         
-        layout.font = readFont(family: fontPicker, style: fontStylePicker, size: fontSizePicker)
+        updateFonts(in: fontPickerGrid, size: fontSizePicker, to: \SquirrelLayout.fonts)
         layout.isDisplayP3 = displayP3Toggle.state == .on
         layout.backgroundColor = backgroundColorPicker.color
         layout.candidateTextColor = candidateTextColorPicker.color
@@ -519,6 +722,7 @@ class ViewController: NSViewController {
         textOrientationSwitch.selectSegment(withTag: layout.vertical ? 1 : 0)
         preeditPositionSwitch.selectSegment(withTag: layout.inlinePreedit ? 1 : 0)
         displayP3Toggle.state = layout.isDisplayP3 ? .on : .off
+        scrollToTop()
         
         preview.layout = layout
         preview.setup(preedit: preedit, selRange: selRange, candidates: candidates, comments: comments, labels: labels, hilited: index, candidateFormat: "%c. %@")

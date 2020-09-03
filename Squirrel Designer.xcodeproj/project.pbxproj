@@ -14,6 +14,7 @@
 		D2B5B52424FD85CC00F7304E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2B5B52324FD85CC00F7304E /* Assets.xcassets */; };
 		D2B5B53224FDC85500F7304E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2B5B53124FDC85500F7304E /* Main.storyboard */; };
 		D2B5B53424FDCE2700F7304E /* LayoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B5B53324FDCE2700F7304E /* LayoutModel.swift */; };
+		D2BAA6A825009BEF007B6521 /* SquirrelLayout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D2BAA6A625009BEF007B6521 /* SquirrelLayout.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		D2B5B52924FD85CC00F7304E /* Squirrel_Designer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Squirrel_Designer.entitlements; sourceTree = "<group>"; };
 		D2B5B53124FDC85500F7304E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		D2B5B53324FDCE2700F7304E /* LayoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutModel.swift; sourceTree = "<group>"; };
+		D2BAA6A725009BEF007B6521 /* SquirrelLayout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SquirrelLayout.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				D2B5B52824FD85CC00F7304E /* Info.plist */,
 				D2B5B53124FDC85500F7304E /* Main.storyboard */,
 				D2B5B52924FD85CC00F7304E /* Squirrel_Designer.entitlements */,
+				D2BAA6A625009BEF007B6521 /* SquirrelLayout.xcdatamodeld */,
 			);
 			path = "Squirrel Designer";
 			sourceTree = "<group>";
@@ -99,7 +102,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1170;
 				ORGANIZATIONNAME = "Yuncao Liu";
 				TargetAttributes = {
 					D2B5B51B24FD85CA00F7304E = {
@@ -142,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2BAA6A825009BEF007B6521 /* SquirrelLayout.xcdatamodeld in Sources */,
 				D2B5B52224FD85CA00F7304E /* ViewController.swift in Sources */,
 				D2830BBB24FEC87E00BF44BE /* Template.swift in Sources */,
 				D2B5B52024FD85CA00F7304E /* AppDelegate.swift in Sources */,
@@ -271,6 +275,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Squirrel Designer/Squirrel_Designer.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 28HU5A7B46;
@@ -291,6 +296,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Squirrel Designer/Squirrel_Designer.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 28HU5A7B46;
@@ -328,6 +334,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D2BAA6A625009BEF007B6521 /* SquirrelLayout.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D2BAA6A725009BEF007B6521 /* SquirrelLayout.xcdatamodel */,
+			);
+			currentVersion = D2BAA6A725009BEF007B6521 /* SquirrelLayout.xcdatamodel */;
+			path = SquirrelLayout.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D2B5B51424FD85CA00F7304E /* Project object */;
 }
