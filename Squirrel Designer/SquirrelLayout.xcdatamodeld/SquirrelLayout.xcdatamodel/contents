@@ -5,7 +5,7 @@
         <attribute name="blue" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="green" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="isDisplayP3" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="nil" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isNil" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="red" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Font" representedClassName="Font" syncable="YES" codeGenerationType="class">
@@ -45,9 +45,9 @@
         <relationship name="textColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
     </entity>
     <elements>
-        <element name="Theme" positionX="-63" positionY="-18" width="128" height="343"/>
         <element name="Color" positionX="-45" positionY="9" width="128" height="133"/>
         <element name="Font" positionX="-27" positionY="63" width="128" height="73"/>
         <element name="Layout" positionX="-9" positionY="81" width="128" height="163"/>
+        <element name="Theme" positionX="-63" positionY="-18" width="128" height="343"/>
     </elements>
 </model>

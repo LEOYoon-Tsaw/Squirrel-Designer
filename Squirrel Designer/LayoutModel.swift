@@ -10,8 +10,8 @@ import AppKit
 
 class SquirrelLayout: NSObject {
     var name: String = "customized_color_scheme"
-    var backgroundColor: NSColor?
-    var highlightedStripColor: NSColor?
+    var backgroundColor: NSColor? = .windowBackgroundColor
+    var highlightedStripColor: NSColor? = .selectedContentBackgroundColor
     var highlightedPreeditColor: NSColor?
     var preeditBackgroundColor: NSColor?
     var borderColor: NSColor?
@@ -32,13 +32,13 @@ class SquirrelLayout: NSObject {
     
     var fonts = Array<NSFont>()
     var labelFonts = Array<NSFont>()
-    var textColor: NSColor?
-    var highlightedTextColor: NSColor?
-    var candidateTextColor: NSColor?
-    var highlightedCandidateTextColor: NSColor?
+    var textColor: NSColor? = .disabledControlTextColor
+    var highlightedTextColor: NSColor? = .controlTextColor
+    var candidateTextColor: NSColor? = .controlTextColor
+    var highlightedCandidateTextColor: NSColor? = .selectedControlTextColor
     var candidateLabelColor: NSColor?
     var highlightedCandidateLabelColor: NSColor?
-    var commentTextColor: NSColor?
+    var commentTextColor: NSColor? = .disabledControlTextColor
     var highlightedCommentTextColor: NSColor?
     
     var font: NSFont? {
@@ -951,6 +951,7 @@ class SquirrelPanel: NSWindow {
     private var _labels = Array<String>()
     private var _hilitedIndex: UInt = 0
     private var upperLeft: NSPoint?
+    weak var parentView: ViewController?
     
     init(position: NSRect) {
         _position = position
@@ -1089,6 +1090,7 @@ class SquirrelPanel: NSWindow {
         self.orderOut(nil)
         _maxHeight = 0
         self._visible = false
+        parentView?.showPreviewButton.title = "Show Preview"
     }
     
     func setup(preedit: String, selRange: NSRange, candidates: Array<String>, comments: Array<String>, labels: Array<String>, hilited index: UInt, candidateFormat: String) {

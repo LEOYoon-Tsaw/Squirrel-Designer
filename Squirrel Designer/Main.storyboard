@@ -710,7 +710,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X23-Hi-l4l">
-                                <rect key="frame" x="55" y="7" width="175" height="42"/>
+                                <rect key="frame" x="55" y="7" width="120" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <buttonCell key="cell" type="push" title="Show Preview" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="2Li-yx-Pl2">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -725,7 +725,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </box>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="euo-uC-PJ7">
-                                <rect key="frame" x="295" y="7" width="175" height="42"/>
+                                <rect key="frame" x="350" y="7" width="120" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <buttonCell key="cell" type="push" title="Show Code" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="sj4-SO-WsK">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1443,9 +1443,8 @@
                                                             </popUpButton>
                                                         </gridCell>
                                                         <gridCell row="2qu-gD-wvZ" column="HZg-0Z-WDC" id="xwy-Mr-iIj">
-                                                            <popUpButton key="contentView" verticalHuggingPriority="750" ambiguous="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="21" id="odZ-bH-D22">
+                                                            <popUpButton key="contentView" verticalHuggingPriority="750" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="odZ-bH-D22">
                                                                 <rect key="frame" x="95" y="-3" width="85" height="25"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Trait" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Wf3-5B-Ovt" id="R9y-xO-GPm">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                     <font key="font" metaFont="system"/>
@@ -1547,6 +1546,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xdb-rt-ofg">
+                                <rect key="frame" x="202" y="7" width="120" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="V9F-ww-S2S">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="resetPressed:" target="XfG-lQ-9wD" id="JJQ-vu-S9d"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>

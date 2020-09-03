@@ -10,6 +10,7 @@ import CoreData
 import Cocoa
 
 var layout = SquirrelLayout()
+let inputSource = InputSource()
 let preview = SquirrelPanel(position: NSZeroRect)
 
 class FontPopUpButton: NSPopUpButton {
@@ -454,6 +455,10 @@ class ViewController: NSViewController {
             showPreviewButton.title = "Hide Preview"
         }
     }
+    @IBAction func resetPressed(_ sender: Any) {
+        reset()
+        preview.layout = layout
+    }
     @IBAction func generateCode(_ sender: Any) {
         func getCurrentScreen(at position: NSPoint) -> NSRect {
             var screenRect = NSScreen.main!.frame
@@ -525,12 +530,21 @@ class ViewController: NSViewController {
         }
     }
     func readFont(family: NSPopUpButton, style: NSPopUpButton, size: NSTextField) -> NSFont? {
-        let fontFamily: String = family.titleOfSelectedItem!.filter { !$0.isWhitespace }
-        let fontTraits: String = style.titleOfSelectedItem!.filter { !$0.isWhitespace }
+        let fontFamily: String = family.titleOfSelectedItem!
+        let fontTraits: String = style.titleOfSelectedItem!
         if let fontSize = Double(size.stringValue) {
-            if let font = NSFont(name: "\(fontFamily)-\(fontTraits)", size: CGFloat(fontSize)) {
+            if let font = NSFont(name: "\(fontFamily.filter {!$0.isWhitespace})-\(fontTraits.filter {!$0.isWhitespace})", size: CGFloat(fontSize)) {
                 return font
-            } else if let font = NSFont(name: fontFamily, size: CGFloat(fontSize)) {
+            }
+            let members = NSFontManager.shared.availableMembers(ofFontFamily: fontFamily) ?? [[Any]]()
+            for i in 0..<members.count {
+                if let memberName = members[i][1] as? String, memberName == fontTraits,
+                    let weight = members[i][2] as? Int,
+                    let traits = members[i][3] as? UInt {
+                    return NSFontManager.shared.font(withFamily: fontFamily, traits: NSFontTraitMask(rawValue: traits), weight: weight, size: CGFloat(fontSize))
+                }
+            }
+            if let font = NSFont(name: fontFamily, size: CGFloat(fontSize)) {
                 return font
             }
         }
@@ -688,44 +702,30 @@ class ViewController: NSViewController {
     func codeViewDidDispear() {
         generateCodeButton.title = "Show Code"
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func reset() {
+        layout = SquirrelLayout()
         populateFontFamilies(fontPicker)
         populateFontMember(fontStylePicker, inFamily: fontPicker)
         populateFontFamilies(labelFontPicker)
         populateFontMember(labelFontStylePicker, inFamily: fontPicker)
-        labelTextColorPicker.color = blendColor(foregroundColor: candidateTextColorPicker.color, backgroundColor: backgroundColorPicker.color)
-        hilitedLabelTextColorPicker.color = blendColor(foregroundColor: hilitedCandidateTextColorPicker.color, backgroundColor:         hilitedCandidateBackColorPicker.color)
-        
         updateFonts(in: fontPickerGrid, size: fontSizePicker, to: \SquirrelLayout.fonts)
-        layout.isDisplayP3 = displayP3Toggle.state == .on
-        layout.backgroundColor = backgroundColorPicker.color
-        layout.candidateTextColor = candidateTextColorPicker.color
-        layout.highlightedStripColor = hilitedCandidateBackColorPicker.color
-        layout.highlightedCandidateTextColor = hilitedCandidateTextColorPicker.color
-        layout.textColor = preeditTextColorPicker.color
-        layout.highlightedTextColor = hilitedPreeditTextColorPicker.color
-        layout.commentTextColor = commentTextColorPicker.color
-        
-        nameField.stringValue = layout.name
-        borderWidthField.doubleValue = Double(layout.borderWidth)
-        borderHeightField.doubleValue = Double(layout.borderHeight)
-        cornerRadiusField.doubleValue = Double(layout.cornerRadius)
-        hilitedCornerRadiusField.doubleValue = Double(layout.hilitedCornerRadius)
-        lineSpacingField.doubleValue = Double(layout.linespace)
-        preeditLineSpacingField.doubleValue = Double(layout.preeditLinespace)
-        baselineOffsetField.doubleValue = Double(layout.baseOffset)
-        windowAlphaField.doubleValue = Double(layout.alpha)
-        
-        candidateListLayoutSwitch.selectSegment(withTag: layout.linear ? 1 : 0)
-        textOrientationSwitch.selectSegment(withTag: layout.vertical ? 1 : 0)
-        preeditPositionSwitch.selectSegment(withTag: layout.inlinePreedit ? 1 : 0)
-        displayP3Toggle.state = layout.isDisplayP3 ? .on : .off
+        updateUI()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        reset()
         scrollToTop()
-        
         preview.layout = layout
-        preview.setup(preedit: preedit, selRange: selRange, candidates: candidates, comments: comments, labels: labels, hilited: index, candidateFormat: "%c. %@")
+        preview.parentView = self
+        preview.setup(preedit: inputSource.preedit,
+                      selRange: inputSource.selRange,
+                      candidates: inputSource.candidates,
+                      comments: inputSource.comments,
+                      labels: inputSource.labels,
+                      hilited: inputSource.index,
+                      candidateFormat: inputSource.candidateFormat
+        )
         NSColorPanel.shared.showsAlpha = true
         NSColorPanel.shared.mode = .RGB
     }
