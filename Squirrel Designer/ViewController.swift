@@ -707,10 +707,7 @@ class ViewController: NSViewController {
     func reset() {
         layout = SquirrelLayout()
         populateFontFamilies(fontPicker)
-        populateFontMember(fontStylePicker, inFamily: fontPicker)
         populateFontFamilies(labelFontPicker)
-        populateFontMember(labelFontStylePicker, inFamily: fontPicker)
-        updateFonts(in: fontPickerGrid, size: fontSizePicker, to: \SquirrelLayout.fonts)
         updateUI()
     }
     
@@ -723,12 +720,22 @@ class ViewController: NSViewController {
         if let fetchedEntities = try? managedContext.fetch(fetchRequest),
             let savedLayout = fetchedEntities.last?.value(forKey: "code") as? String {
             SquirrelLayout.template = savedLayout
+            if fetchedEntities.count > 1 {
+                for i in 0..<(fetchedEntities.count-1) {
+                    managedContext.delete(fetchedEntities[i])
+                }
+            }
 
         }
         fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Input")
         if let fetchedEntities = try? managedContext.fetch(fetchRequest),
             let savedInput = fetchedEntities.last?.value(forKey: "code") as? String {
             InputSource.template = savedInput
+            if fetchedEntities.count > 1 {
+                for i in 0..<(fetchedEntities.count-1) {
+                    managedContext.delete(fetchedEntities[i])
+                }
+            }
         }
         
         reset()

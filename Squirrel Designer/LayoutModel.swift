@@ -32,7 +32,7 @@ class SquirrelLayout {
     var inlinePreedit = false
     var isDisplayP3 = true
     
-    var fonts = Array<NSFont>()
+    var fonts: Array<NSFont> = [NSFont.userFont(ofSize: 15)!]
     var labelFonts = Array<NSFont>()
     var textColor: NSColor? = .disabledControlTextColor
     var highlightedTextColor: NSColor? = .controlTextColor
@@ -242,7 +242,7 @@ class SquirrelLayout {
     }
     func decode(from style: String) {
         func getFloat(_ string: String?) -> CGFloat? {
-            guard let string = string, !string.isEmpty else {
+            guard let string = string?.trimmingCharacters(in: .whitespaces), !string.isEmpty else {
                 return nil
             }
             return Double(string) != nil ? CGFloat(Double(string)!) : nil
@@ -261,7 +261,7 @@ class SquirrelLayout {
             }
         }
         func getColor(_ string: String?, inDisplayP3: Bool) -> NSColor? {
-            guard let string = string, !string.isEmpty else {
+            guard let string = string?.trimmingCharacters(in: .whitespaces), !string.isEmpty else {
                 return nil
             }
             var r = 0, g = 0, b = 0, a = 0xff
@@ -295,7 +295,7 @@ class SquirrelLayout {
                 return NSColor(srgbRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
             }
         }
-        let regex = try! NSRegularExpression(pattern: "([a-z_0-9]+)\\s*:[\\s\"]*([^\\s\"][^\"]*)[\\s\"]*$", options: .caseInsensitive)
+        let regex = try! NSRegularExpression(pattern: "([a-z_0-9]+)\\s*:[\\s\"]*([^\\s\"#][^\"#]*)[\\s\"#]*(#*.*)$", options: .caseInsensitive)
         var values = Dictionary<String, String>()
         for line in style.split(whereSeparator: \.isNewline) {
             let line = String(line)
@@ -304,7 +304,6 @@ class SquirrelLayout {
                 values[(line as NSString).substring(with: match.range(at: 1))] = (line as NSString).substring(with: match.range(at: 2))
             }
         }
-        
         let isDisplayP3 = getBool(values["in_display_p3"])
         var linear: Bool? = nil
         if let lin = values["candidate_list_layout"] {
@@ -354,7 +353,7 @@ class SquirrelLayout {
         let fontPoint = getFloat(values["font_point"])
         let labelFontFace = values["label_font_face"]
         let labelFontPoint = getFloat(values["label_font_point"])
-        let fonts = fontFace != nil ? decodeFonts(from: fontFace!, size: fontPoint ?? 15) : Array<NSFont>()
+        let fonts = fontFace != nil ? decodeFonts(from: fontFace!, size: fontPoint ?? 15) : self.fonts
         let labelFonts = labelFontFace != nil ? decodeFonts(from: labelFontFace!, size: labelFontPoint ?? (fontPoint ?? 15)) : Array<NSFont>()
         
         self.name = name ?? "customized_color_scheme"

@@ -41,18 +41,18 @@ class InputSource {
     
     func encode() -> String {
         var encoded = ""
-        encoded += "preedit:\(preedit)\n"
-        encoded += "sel_range:\(selRange.lowerBound)-\(selRange.upperBound)\n"
-        encoded += "candidates:\(candidates.joined(separator: ","))\n"
-        encoded += "comments:\(comments.joined(separator: ","))\n"
-        encoded += "labels:\(labels.joined(separator: ","))\n"
-        encoded += "index:\(index)\n"
-        encoded += "candidate_format:\(candidateFormat)"
+        encoded += "preedit: \(preedit)\n"
+        encoded += "sel_range: \(selRange.lowerBound)-\(selRange.upperBound)\n"
+        encoded += "candidates: \(candidates.joined(separator: " , "))\n"
+        encoded += "comments: \(comments.joined(separator: " , "))\n"
+        encoded += "labels: \(labels.joined(separator: " , "))\n"
+        encoded += "index: \(index)\n"
+        encoded += "candidate_format: \(candidateFormat)"
         return encoded
     }
     
     func decode(from string: String) {
-        let regex = try! NSRegularExpression(pattern: "([a-z_0-9]+):(.+)$", options: .caseInsensitive)
+        let regex = try! NSRegularExpression(pattern: "([a-z_0-9]+): ?(.+)$", options: .caseInsensitive)
         var values = Dictionary<String, String>()
         for line in string.split(whereSeparator: \.isNewline) {
             let line = String(line)
@@ -85,19 +85,19 @@ class InputSource {
         var candidates = Array<String>()
         if let candidatesString = values["candidates"] {
             for candidateString in candidatesString.split(separator: ",") {
-                candidates.append(String(candidateString))
+                candidates.append(candidateString.trimmingCharacters(in: .whitespaces))
             }
         }
         var comments = Array<String>()
         if let commentsString = values["comments"] {
             for commentString in commentsString.split(separator: ",") {
-                comments.append(String(commentString))
+                comments.append(commentString.trimmingCharacters(in: .whitespaces))
             }
         }
         var labels = Array<String>()
         if let labelsString = values["labels"] {
             for labelString in labelsString.split(separator: ",") {
-                labels.append(String(labelString))
+                labels.append(labelString.trimmingCharacters(in: .whitespaces))
             }
         }
         var index: UInt?
@@ -202,10 +202,6 @@ class SettingViewController: NSViewController {
                 let viewPoint = view.convert(scrollView.frame.origin, to: contentView)
                 contentView.scroll(NSPoint(x: 0, y: max(0, viewPoint.y)))
             }
-            let viewPoint = view.convert(contentView.frame.origin, to: scrollView.contentView)
-            if contentView.frame.height - (viewPoint.y + 221) > 237.1 {  // MAGIC NUMBER!
-                contentView.scroll(NSPoint(x: 0, y: viewPoint.y + 221 - rowHeight))  // MAGIC NUMBER!
-            }
         }
     }
     @objc func deleteInputRow(sender: FontDeleteButton) {
@@ -219,6 +215,7 @@ class SettingViewController: NSViewController {
         let rowHeight = labelsGrid.rowSpacing + cellHeight
         let columnWidth = labelsGrid.column(at: 0).width
         let labelField = NSTextField()
+        labelField.font = NSFont.systemFont(ofSize: NSFont.systemFontSize)
         resize(labelField, width: columnWidth, height: nil)
         let deleteButton = FontDeleteButton()
         deleteButton.title = ""
@@ -253,8 +250,10 @@ class SettingViewController: NSViewController {
         let toggle = NSButton(title: "", target: nil, action: #selector(SettingViewController.highlightSelection(_:)))
         toggle.setButtonType(.radio)
         let candidateField = NSTextField()
+        candidateField.font = NSFont.systemFont(ofSize: NSFont.systemFontSize)
         resize(candidateField, width: columnWidth, height: nil)
         let commentField = NSTextField()
+        commentField.font = NSFont.systemFont(ofSize: NSFont.systemFontSize)
         resize(commentField, width: columnWidth, height: nil)
         let deleteButton = FontDeleteButton()
         deleteButton.title = ""

@@ -42,7 +42,7 @@ class CodeViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         codeField.string = layout.encode()
-        codeField.textStorage?.font = NSFont.userFont(ofSize: 15)!
+        codeField.font = NSFont.systemFont(ofSize: NSFont.systemFontSize)
         saveLayoutCode(codeField.string)
     }
     override func viewDidDisappear() {
