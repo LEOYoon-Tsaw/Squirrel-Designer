@@ -8,6 +8,20 @@
 
 import Cocoa
 
+func saveLayoutCode(_ code: String) {
+    guard let appDelegate = NSApplication.shared.delegate as? AppDelegate else { return }
+    let managedContext = appDelegate.persistentContainer.viewContext
+    managedContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+    let layoutEntity = NSEntityDescription.entity(forEntityName: "Layout", in: managedContext)!
+    let savedLayout = NSManagedObject(entity: layoutEntity, insertInto: managedContext)
+    savedLayout.setValue(code, forKey: "code")
+    do {
+        try managedContext.save()
+    } catch let error as NSError {
+        print("Could not save. \(error), \(error.userInfo)")
+    }
+}
+
 class CodeViewController: NSViewController {
     @IBOutlet weak var codeField: NSTextView!
     @IBOutlet weak var generateCodeButton: NSButton!
@@ -17,6 +31,7 @@ class CodeViewController: NSViewController {
     
     @IBAction func generateCodeButtonPressed(_ sender: Any) {
         codeField.string = layout.encode()
+        saveLayoutCode(codeField.string)
     }
     @IBAction func readCodeButtonPressed(_ sender: Any) {
         layout.decode(from: codeField.string)
@@ -28,6 +43,7 @@ class CodeViewController: NSViewController {
         super.viewDidLoad()
         codeField.string = layout.encode()
         codeField.textStorage?.font = NSFont.userFont(ofSize: 15)!
+        saveLayoutCode(codeField.string)
     }
     override func viewDidDisappear() {
         if let parent = parentView {

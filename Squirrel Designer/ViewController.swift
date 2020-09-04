@@ -10,7 +10,7 @@ import CoreData
 import Cocoa
 
 var layout = SquirrelLayout()
-let inputSource = InputSource()
+var inputSource = InputSource()
 let preview = SquirrelPanel(position: NSZeroRect)
 
 class FontPopUpButton: NSPopUpButton {
@@ -137,8 +137,8 @@ class ViewController: NSViewController {
         deleteButton.residenceRow = grid.row(at: grid.numberOfRows-1)
         deleteButton.action = #selector(ViewController.deleteFontRow(sender:))
         resize(contentView, width: nil, height: contentView.frame.height + rowHeight)
-        let viewPoint = view.convert(contentView.frame.origin, to: scrollView.contentView)
-        contentView.scroll(NSPoint(x: 0, y: viewPoint.y + 221 + rowHeight)) // MAGIC NUMBER!
+        let viewPoint = view.convert(scrollView.frame.origin, to: contentView)
+        contentView.scroll(NSPoint(x: 0, y: viewPoint.y + rowHeight))
     }
     func deleteRow(_ row: NSGridRow?, in grid: NSGridView?) {
         guard let grid = grid else { return }
@@ -149,21 +149,23 @@ class ViewController: NSViewController {
             grid.removeRow(at: rowIndex)
             let currentY = NSMinY(contentView.convert(grid.frame, to: contentView))
             shiftBellow(currentY, by: rowHeight, in: contentView)
+            let viewPoint = view.convert(scrollView.frame.origin, to: contentView)
             resize(contentView, width: nil, height: contentView.frame.height - rowHeight)
-            let viewPoint = view.convert(contentView.frame.origin, to: scrollView.contentView)
-            if contentView.frame.height - (viewPoint.y + 221) > 237.1 {  // MAGIC NUMBER!
-                contentView.scroll(NSPoint(x: 0, y: viewPoint.y + 221 - rowHeight))  // MAGIC NUMBER!
-            }
+            contentView.scroll(NSPoint(x: 0, y: viewPoint.y - rowHeight))
         }
     }
     func updateFonts(in grid: NSGridView, size: NSTextField, to: WritableKeyPath<SquirrelLayout, Array<NSFont>>) {
         var fonts = Array<NSFont>()
+        var existingFonts = Set<String>()
         for i in 0..<grid.numberOfRows {
             let row = grid.row(at: i)
             if let fontFamilyPicker = row.cell(at: 0).contentView as? NSPopUpButton,
                let fontTraitsPicker = row.cell(at: 1).contentView as? NSPopUpButton {
                 if let font = readFont(family: fontFamilyPicker, style: fontTraitsPicker, size: size) {
-                    fonts.append(font)
+                    if !existingFonts.contains(font.familyName!) {
+                        fonts.append(font)
+                        existingFonts.insert(font.familyName!)
+                    }
                 }
             }
         }
@@ -714,18 +716,26 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        var fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Layout")
+        if let fetchedEntities = try? managedContext.fetch(fetchRequest),
+            let savedLayout = fetchedEntities.last?.value(forKey: "code") as? String {
+            SquirrelLayout.template = savedLayout
+
+        }
+        fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Input")
+        if let fetchedEntities = try? managedContext.fetch(fetchRequest),
+            let savedInput = fetchedEntities.last?.value(forKey: "code") as? String {
+            InputSource.template = savedInput
+        }
+        
         reset()
         scrollToTop()
         preview.layout = layout
         preview.parentView = self
-        preview.setup(preedit: inputSource.preedit,
-                      selRange: inputSource.selRange,
-                      candidates: inputSource.candidates,
-                      comments: inputSource.comments,
-                      labels: inputSource.labels,
-                      hilited: inputSource.index,
-                      candidateFormat: inputSource.candidateFormat
-        )
+        preview.setup(input: inputSource)
         NSColorPanel.shared.showsAlpha = true
         NSColorPanel.shared.mode = .RGB
     }

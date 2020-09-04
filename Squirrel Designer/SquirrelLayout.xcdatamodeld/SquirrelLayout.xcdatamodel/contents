@@ -1,53 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Color" representedClassName="Color" syncable="YES" codeGenerationType="class">
-        <attribute name="alpha" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="blue" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="green" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="isDisplayP3" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="isNil" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="red" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-    </entity>
-    <entity name="Font" representedClassName="Font" syncable="YES" codeGenerationType="class">
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="size" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    <entity name="Input" representedClassName="Input" syncable="YES" codeGenerationType="class">
+        <attribute name="code" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Layout" representedClassName="Layout" syncable="YES" codeGenerationType="class">
-        <attribute name="alpha" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="baseOffset" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="borderHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="borderWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="cornerRadius" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="hilitedCornerRadius" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="linespace" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="preeditLinespace" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-    </entity>
-    <entity name="Theme" representedClassName="Theme" syncable="YES" codeGenerationType="class">
-        <attribute name="inlinePreedit" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="isDisplayP3" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="linear" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="vertical" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <relationship name="backgroundColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
-        <relationship name="borderColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
-        <relationship name="candidateLabelColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
-        <relationship name="candidateTextColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
-        <relationship name="commentTextColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
-        <relationship name="font" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Font"/>
-        <relationship name="highlightedCandidateLabelColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
-        <relationship name="highlightedCandidateTextColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
-        <relationship name="highlightedCommentTextColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
-        <relationship name="highlightedPreeditColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
-        <relationship name="highlightedStripColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
-        <relationship name="highlightedTextColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
-        <relationship name="labelFont" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Font"/>
-        <relationship name="preeditBackgroundColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
-        <relationship name="textColor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Color"/>
+        <attribute name="code" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Color" positionX="-45" positionY="9" width="128" height="133"/>
-        <element name="Font" positionX="-27" positionY="63" width="128" height="73"/>
-        <element name="Layout" positionX="-9" positionY="81" width="128" height="163"/>
-        <element name="Theme" positionX="-63" positionY="-18" width="128" height="343"/>
+        <element name="Layout" positionX="-63" positionY="-18" width="128" height="58"/>
+        <element name="Input" positionX="-54" positionY="-9" width="128" height="58"/>
     </elements>
 </model>

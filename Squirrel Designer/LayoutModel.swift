@@ -8,10 +8,12 @@
 
 import AppKit
 
-class SquirrelLayout: NSObject {
+class SquirrelLayout {
+    static var template: String?
+    
     var name: String = "customized_color_scheme"
     var backgroundColor: NSColor? = .windowBackgroundColor
-    var highlightedStripColor: NSColor? = .selectedContentBackgroundColor
+    var highlightedStripColor: NSColor? = .selectedTextBackgroundColor
     var highlightedPreeditColor: NSColor?
     var preeditBackgroundColor: NSColor?
     var borderColor: NSColor?
@@ -40,6 +42,12 @@ class SquirrelLayout: NSObject {
     var highlightedCandidateLabelColor: NSColor?
     var commentTextColor: NSColor? = .disabledControlTextColor
     var highlightedCommentTextColor: NSColor?
+    
+    init() {
+        if let template = Self.template {
+            self.decode(from: template)
+        }
+    }
     
     var font: NSFont? {
         return combineFonts(fonts)
@@ -128,13 +136,13 @@ class SquirrelLayout: NSObject {
             let trimedString = string.trimmingCharacters(in: .whitespaces)
             if let fontFamilyName = trimedString.split(separator: "-").first.map({String($0)}) {
                 if seenFontFamilies.contains(fontFamilyName) {
-                    break
+                    continue
                 } else {
                     seenFontFamilies.insert(fontFamilyName)
                 }
             } else {
                 if seenFontFamilies.contains(trimedString) {
-                    break
+                    continue
                 } else {
                     seenFontFamilies.insert(trimedString)
                 }
@@ -1093,14 +1101,14 @@ class SquirrelPanel: NSWindow {
         parentView?.showPreviewButton.title = "Show Preview"
     }
     
-    func setup(preedit: String, selRange: NSRange, candidates: Array<String>, comments: Array<String>, labels: Array<String>, hilited index: UInt, candidateFormat: String) {
-        _preedit = preedit
-        _selRange = selRange
-        _candidates = candidates
-        _comments = comments
-        _labels = labels
-        _hilitedIndex = index
-        _candidateFormat = candidateFormat
+    func setup(input: InputSource) {
+        _preedit = input.preedit
+        _selRange = input.selRange
+        _candidates = input.candidates
+        _comments = input.comments
+        _labels = input.labels
+        _hilitedIndex = input.index
+        _candidateFormat = input.candidateFormat
     }
     
     func updateAndShow() {
