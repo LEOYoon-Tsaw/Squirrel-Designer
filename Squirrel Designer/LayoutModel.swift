@@ -827,15 +827,15 @@ class SquirrelView: NSView {
                         highlightedRect.origin.y -= _layout.hilitedCornerRadius / 2
                     }
                 }
+                var outerBox = backgroundRect
+                outerBox.size.height -= preeditRect.size.height
+                outerBox.origin.y += preeditRect.size.height
                 if _layout.hilitedCornerRadius == 0 {
                     // fill in small gaps between highlighted rect and the bounding rect.
-                    highlightedRect = checkBorders(highlightedRect, againstBoundary: backgroundRect)
+                    highlightedRect = checkBorders(highlightedRect, againstBoundary: outerBox)
                 } else {
                     // leave a small gap between highlighted rect and the bounding rect
-                    var candidateRect = backgroundRect
-                    candidateRect.size.height -= preeditRect.size.height
-                    candidateRect.origin.y += preeditRect.size.height
-                    highlightedRect = makeRoom(highlightedRect, inBoundary: candidateRect, forCorner: _layout.hilitedCornerRadius / 2)
+                    highlightedRect = makeRoom(highlightedRect, inBoundary: outerBox, forCorner: _layout.hilitedCornerRadius / 2)
                 }
                 highlightedPath = drawSmoothLines(vertex(ofRect: highlightedRect), alpha: _layout.hilitedCornerRadius*0.3, beta: _layout.hilitedCornerRadius*1.4)
             }
@@ -933,7 +933,7 @@ class SquirrelView: NSView {
             highlightedPreeditPath2?.fill()
         }
 
-        if _layout.borderColor != nil {
+        if _layout.borderColor != nil && _layout.borderLineWidth > 0 {
             _layout.borderColor!.setStroke()
             borderPath?.stroke()
         }

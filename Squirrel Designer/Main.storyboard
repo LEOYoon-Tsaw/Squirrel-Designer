@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1435,7 +1434,7 @@
                                                                 <rect key="frame" x="-2" y="-3" width="85" height="25"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Family" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="m5V-6z-dhz" id="nt5-SJ-cvV">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                    <font key="font" metaFont="menu"/>
+                                                                    <font key="font" metaFont="system"/>
                                                                     <menu key="menu" id="HVb-Ed-dpK">
                                                                         <items>
                                                                             <menuItem title="Family" state="on" id="m5V-6z-dhz"/>
@@ -1452,7 +1451,7 @@
                                                                 <rect key="frame" x="95" y="-3" width="85" height="25"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Trait" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Wf3-5B-Ovt" id="R9y-xO-GPm">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                    <font key="font" metaFont="menu"/>
+                                                                    <font key="font" metaFont="system"/>
                                                                     <menu key="menu" id="6PH-CC-T5n">
                                                                         <items>
                                                                             <menuItem title="Trait" state="on" id="Wf3-5B-Ovt"/>
@@ -1494,7 +1493,7 @@
                                                                 <rect key="frame" x="-2" y="-3" width="85" height="25"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Family" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="c98-dL-nrH" id="LDP-8V-Wmd">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                    <font key="font" metaFont="menu"/>
+                                                                    <font key="font" metaFont="system"/>
                                                                     <menu key="menu" id="Tap-vS-yhw">
                                                                         <items>
                                                                             <menuItem title="Family" state="on" id="c98-dL-nrH"/>
@@ -1511,7 +1510,7 @@
                                                                 <rect key="frame" x="95" y="-3" width="85" height="25"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Trait" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ahG-Mq-QK1" id="qLB-b7-y5K">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                    <font key="font" metaFont="menu"/>
+                                                                    <font key="font" metaFont="system"/>
                                                                     <menu key="menu" id="oSA-1H-p0D">
                                                                         <items>
                                                                             <menuItem title="Trait" state="on" id="ahG-Mq-QK1"/>
@@ -1594,8 +1593,10 @@
                         <outlet property="labelFontPicker" destination="eqe-Zx-mfv" id="4xe-aS-hLb"/>
                         <outlet property="labelFontPickerGrid" destination="Tvb-nv-kgO" id="hVM-gK-sb8"/>
                         <outlet property="labelFontSizePicker" destination="7jq-lw-VgD" id="aVv-RI-BvU"/>
+                        <outlet property="labelFontSizeUIString" destination="7TU-uU-fEE" id="8R6-8z-kKi"/>
                         <outlet property="labelFontStylePicker" destination="Dt9-ba-a8Q" id="Trb-Be-mTp"/>
                         <outlet property="labelFontToggle" destination="xxD-nP-14U" id="vjG-sa-rQa"/>
+                        <outlet property="labelFontUIString" destination="dXu-Tc-1xD" id="2Wa-c7-PLu"/>
                         <outlet property="labelTextColorPicker" destination="jyG-wY-Mnu" id="DVf-l5-jZ2"/>
                         <outlet property="labelTextColorToggle" destination="Hsr-JE-eWh" id="yP4-7Q-pYM"/>
                         <outlet property="lineSpacingField" destination="Xe1-6o-GCP" id="Ps9-dD-f1I"/>

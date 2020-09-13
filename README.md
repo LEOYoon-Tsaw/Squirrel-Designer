@@ -8,3 +8,4 @@
 * Load color scheme from code
 
 *Requires macOS 10.15+*
+*This app does not collect any user data*

@@ -33,8 +33,10 @@ class ViewController: NSViewController {
     @IBOutlet weak var fontStylePicker: NSPopUpButton!
     @IBOutlet weak var fontSizePicker: NSTextField!
     @IBOutlet weak var labelFontToggle: NSSwitch!
+    @IBOutlet weak var labelFontUIString: NSTextField!
     @IBOutlet weak var labelFontPicker: NSPopUpButton!
     @IBOutlet weak var labelFontStylePicker: NSPopUpButton!
+    @IBOutlet weak var labelFontSizeUIString: NSTextField!
     @IBOutlet weak var labelFontSizePicker: NSTextField!
     
     @IBOutlet weak var candidateListLayoutSwitch: NSSegmentedControl!
@@ -739,6 +741,15 @@ class ViewController: NSViewController {
         }
         
         reset()
+        let rowHeight = fontPickerGrid.rowSpacing + fontPickerGrid.row(at: 0).height
+        let fontRow = fontPickerGrid.numberOfRows - 1
+        let labelFontRow = labelFontPickerGrid.numberOfRows - 1
+        for grid in [fontPickerGrid, labelFontPickerGrid] {
+            shift(grid, x: nil, y: -CGFloat(fontRow + labelFontRow) * rowHeight)
+        }
+        for ui in [labelFontUIString, labelFontToggle, labelFontSizeUIString, labelFontSizePicker] {
+            shift(ui, x: nil, y: CGFloat(labelFontRow) * rowHeight)
+        }
         scrollToTop()
         preview.layout = layout
         preview.parentView = self

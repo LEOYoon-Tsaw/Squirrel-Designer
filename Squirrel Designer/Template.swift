@@ -52,7 +52,7 @@ class InputSource {
     }
     
     func decode(from string: String) {
-        let regex = try! NSRegularExpression(pattern: "([a-z_0-9]+): ?(.+)$", options: .caseInsensitive)
+        let regex = try! NSRegularExpression(pattern: "([a-z_0-9]+): (.+)$", options: .caseInsensitive)
         var values = Dictionary<String, String>()
         for line in string.split(whereSeparator: \.isNewline) {
             let line = String(line)
