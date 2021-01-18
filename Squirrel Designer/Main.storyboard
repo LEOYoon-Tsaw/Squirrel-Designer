@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1431,10 +1431,10 @@
                                                     <gridCells>
                                                         <gridCell row="2qu-gD-wvZ" column="iAf-Ra-v7o" id="kpw-zE-Q9w">
                                                             <popUpButton key="contentView" verticalHuggingPriority="750" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="Sp8-i1-Fk0">
-                                                                <rect key="frame" x="-2" y="-3" width="85" height="25"/>
+                                                                <rect key="frame" x="-3" y="-4" width="87" height="26"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Family" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="m5V-6z-dhz" id="nt5-SJ-cvV">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                    <font key="font" metaFont="system"/>
+                                                                    <font key="font" metaFont="menu"/>
                                                                     <menu key="menu" id="HVb-Ed-dpK">
                                                                         <items>
                                                                             <menuItem title="Family" state="on" id="m5V-6z-dhz"/>
@@ -1448,10 +1448,10 @@
                                                         </gridCell>
                                                         <gridCell row="2qu-gD-wvZ" column="HZg-0Z-WDC" id="xwy-Mr-iIj">
                                                             <popUpButton key="contentView" verticalHuggingPriority="750" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="odZ-bH-D22">
-                                                                <rect key="frame" x="95" y="-3" width="85" height="25"/>
+                                                                <rect key="frame" x="94" y="-4" width="87" height="26"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Trait" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Wf3-5B-Ovt" id="R9y-xO-GPm">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                    <font key="font" metaFont="system"/>
+                                                                    <font key="font" metaFont="menu"/>
                                                                     <menu key="menu" id="6PH-CC-T5n">
                                                                         <items>
                                                                             <menuItem title="Trait" state="on" id="Wf3-5B-Ovt"/>
@@ -1465,7 +1465,7 @@
                                                         </gridCell>
                                                         <gridCell row="2qu-gD-wvZ" column="Dfk-R9-y8s" id="BSp-I3-Its">
                                                             <button key="contentView" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GeQ-kJ-eAX">
-                                                                <rect key="frame" x="179" y="-6" width="32" height="31"/>
+                                                                <rect key="frame" x="182" y="-2" width="26" height="26"/>
                                                                 <buttonCell key="cell" type="round" bezelStyle="circular" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="LL8-DM-uqR">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                     <font key="font" metaFont="system"/>
@@ -1490,10 +1490,10 @@
                                                     <gridCells>
                                                         <gridCell row="I4X-pr-MQa" column="Y2e-3e-Joe" id="raR-XA-u9I">
                                                             <popUpButton key="contentView" verticalHuggingPriority="750" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="eqe-Zx-mfv">
-                                                                <rect key="frame" x="-2" y="-3" width="85" height="25"/>
+                                                                <rect key="frame" x="-3" y="-4" width="87" height="26"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Family" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="c98-dL-nrH" id="LDP-8V-Wmd">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                    <font key="font" metaFont="system"/>
+                                                                    <font key="font" metaFont="menu"/>
                                                                     <menu key="menu" id="Tap-vS-yhw">
                                                                         <items>
                                                                             <menuItem title="Family" state="on" id="c98-dL-nrH"/>
@@ -1507,10 +1507,10 @@
                                                         </gridCell>
                                                         <gridCell row="I4X-pr-MQa" column="qG2-t6-x3y" id="4lJ-yD-uJZ">
                                                             <popUpButton key="contentView" verticalHuggingPriority="750" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="Dt9-ba-a8Q">
-                                                                <rect key="frame" x="95" y="-3" width="85" height="25"/>
+                                                                <rect key="frame" x="94" y="-4" width="87" height="26"/>
                                                                 <popUpButtonCell key="cell" type="push" title="Trait" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ahG-Mq-QK1" id="qLB-b7-y5K">
                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                    <font key="font" metaFont="system"/>
+                                                                    <font key="font" metaFont="menu"/>
                                                                     <menu key="menu" id="oSA-1H-p0D">
                                                                         <items>
                                                                             <menuItem title="Trait" state="on" id="ahG-Mq-QK1"/>
@@ -1524,7 +1524,7 @@
                                                         </gridCell>
                                                         <gridCell row="I4X-pr-MQa" column="oxu-g3-1O1" id="D60-67-LHM">
                                                             <button key="contentView" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vq8-WA-rzK">
-                                                                <rect key="frame" x="178" y="-6" width="32" height="31"/>
+                                                                <rect key="frame" x="181" y="-2" width="26" height="26"/>
                                                                 <buttonCell key="cell" type="round" bezelStyle="circular" image="NSAddTemplate" imagePosition="overlaps" alignment="center" enabled="NO" borderStyle="border" inset="2" id="V4i-4t-l4f">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                     <font key="font" metaFont="system"/>
@@ -1862,7 +1862,7 @@
                                                         </gridCell>
                                                         <gridCell row="IjD-z9-fFY" column="mVh-na-OSs" id="6wL-w5-InF">
                                                             <button key="contentView" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="S56-T0-3iK">
-                                                                <rect key="frame" x="72" y="-6" width="32" height="31"/>
+                                                                <rect key="frame" x="75" y="-2" width="26" height="26"/>
                                                                 <buttonCell key="cell" type="round" bezelStyle="circular" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="yFM-sC-5Q0">
                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                     <font key="font" metaFont="system"/>
@@ -1917,7 +1917,7 @@
                                                         </gridCell>
                                                         <gridCell row="eQ5-0j-iMz" column="oss-lY-oFW" id="ySe-3b-SpZ">
                                                             <button key="contentView" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AG7-Et-Iyd">
-                                                                <rect key="frame" x="382" y="-6" width="32" height="31"/>
+                                                                <rect key="frame" x="385" y="-2" width="26" height="26"/>
                                                                 <buttonCell key="cell" type="round" bezelStyle="circular" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="mdA-gl-Ud6">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                     <font key="font" metaFont="system"/>
@@ -2021,6 +2021,6 @@ Gw
         </scene>
     </scenes>
     <resources>
-        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSAddTemplate" width="14" height="13"/>
     </resources>
 </document>

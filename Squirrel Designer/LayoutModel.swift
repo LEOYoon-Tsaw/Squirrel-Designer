@@ -96,6 +96,12 @@ class SquirrelLayout {
          .baselineOffset: baseOffset]
     }
 
+    var firstParagraphStyle: NSParagraphStyle {
+        let style = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        style.paragraphSpacing = linespace / 2
+        style.paragraphSpacingBefore = linespace / 2 + hilitedCornerRadius / 2
+        return style as NSParagraphStyle
+    }
     var paragraphStyle: NSParagraphStyle {
         let style = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         style.paragraphSpacing = linespace / 2
@@ -104,7 +110,7 @@ class SquirrelLayout {
     }
     var preeditParagraphStyle: NSParagraphStyle {
         let style = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-        style.paragraphSpacing = preeditLinespace
+        style.paragraphSpacing = preeditLinespace + hilitedCornerRadius / 2
         return style as NSParagraphStyle
     }
     
@@ -753,14 +759,8 @@ class SquirrelView: NSView {
         if (_preeditRange.length > 0) {
             preeditRect = self.contentRect(forRange: _preeditRange)
             preeditRect.size.width = textField.size.width
-            preeditRect.size.height += _layout.preeditLinespace
+            preeditRect.size.height += _layout.edgeInset.height + _layout.preeditLinespace + _layout.hilitedCornerRadius / 2
             preeditRect.origin = NSMakePoint(textField.origin.x - _layout.edgeInset.width, textField.origin.y - _layout.edgeInset.height)
-            preeditRect.size.height += _layout.edgeInset.height
-            if _highlightedRange.location - (_preeditRange.location+_preeditRange.length) <= 1 {
-                if (_preeditRange.length > 0) && !_layout.linear {
-                    preeditRect.size.height -= _layout.hilitedCornerRadius / 2
-                }
-            }
             if _highlightedRange.length == 0 {
                 preeditRect.size.height += _layout.edgeInset.height - _layout.preeditLinespace
             }
@@ -784,8 +784,8 @@ class SquirrelView: NSView {
                     innerBox.origin.y += _layout.edgeInset.height + 1
                     innerBox.size.height -= (_layout.edgeInset.height + 1) * 2
                 } else {
-                    innerBox.origin.y += preeditRect.size.height + _layout.halfLinespace + 1
-                    innerBox.size.height -= _layout.edgeInset.height + preeditRect.size.height + _layout.halfLinespace + 2
+                    innerBox.origin.y += preeditRect.size.height + _layout.halfLinespace + _layout.hilitedCornerRadius / 2 + 1
+                    innerBox.size.height -= _layout.edgeInset.height + preeditRect.size.height + _layout.halfLinespace + _layout.hilitedCornerRadius / 2 + 2
                 }
                 var outerBox = backgroundRect
                 outerBox.size.height -= _layout.hilitedCornerRadius + preeditRect.size.height
@@ -851,7 +851,7 @@ class SquirrelView: NSView {
             if _highlightedRange.length == 0 {
                 innerBox.size.height -= (_layout.edgeInset.height + 1) * 2
             } else {
-                innerBox.size.height -= _layout.edgeInset.height+_layout.preeditLinespace + 2
+                innerBox.size.height -= _layout.edgeInset.height + _layout.preeditLinespace + _layout.hilitedCornerRadius / 2 + 2
             }
             var outerBox = preeditRect
             outerBox.size.height -= _layout.hilitedCornerRadius
@@ -1278,13 +1278,20 @@ class SquirrelPanel: NSWindow {
             if i > 0 {
                 text.append(seperator)
             }
-            let paragraphStyleCandidate = self.layout.paragraphStyle.mutableCopy() as! NSMutableParagraphStyle
-            if (self.layout.vertical) {
-                convertToVerticalGlyph(line, inRange: NSMakeRange(candidateStart, line.length-candidateStart))
-                paragraphStyleCandidate.minimumLineHeight = minimumHeight(attribute: attrs)
+            func modifiedStyle(baseStyle: NSParagraphStyle) -> NSParagraphStyle {
+                let paragraphStyleCandidate = baseStyle.mutableCopy() as! NSMutableParagraphStyle
+                if (self.layout.vertical) {
+                    convertToVerticalGlyph(line, inRange: NSMakeRange(candidateStart, line.length-candidateStart))
+                    paragraphStyleCandidate.minimumLineHeight = minimumHeight(attribute: attrs)
+                }
+                paragraphStyleCandidate.headIndent = labelWidth
+                return paragraphStyleCandidate as NSParagraphStyle
             }
-            paragraphStyleCandidate.headIndent = labelWidth
-            line.addAttribute(.paragraphStyle, value: paragraphStyleCandidate, range: NSMakeRange(0, line.length))
+            if i == 0 {
+                line.addAttribute(.paragraphStyle, value: modifiedStyle(baseStyle: self.layout.firstParagraphStyle), range: NSMakeRange(0, line.length))
+            } else {
+                line.addAttribute(.paragraphStyle, value: modifiedStyle(baseStyle: self.layout.paragraphStyle), range: NSMakeRange(0, line.length))
+            }
             
             if i == _hilitedIndex {
                 highlightedRange = NSMakeRange(text.length, line.length)
