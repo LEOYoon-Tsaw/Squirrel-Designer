@@ -656,29 +656,47 @@ class ViewController: NSViewController {
         preeditBackColorToggle.state = layout.preeditBackgroundColor == nil ? .off : .on
         if let preeditBackgroundColor = layout.preeditBackgroundColor {
             preeditBackColorPicker.color = preeditBackgroundColor
+            preeditBackColorPicker.isEnabled = true
+        } else {
+            preeditBackColorPicker.isEnabled = false
         }
         preeditTextColorPicker.color = layout.textColor!
         hilitedPreeditBackColorToggle.state = layout.highlightedPreeditColor == nil ? .off : .on
         if let highlightedPreeditColor = layout.highlightedPreeditColor {
             hilitedPreeditBackColorPicker.color = highlightedPreeditColor
+            hilitedPreeditBackColorPicker.isEnabled = true
+        } else {
+            hilitedPreeditBackColorPicker.isEnabled = false
         }
         hilitedPreeditTextColorPicker.color = layout.highlightedTextColor!
         borderColorToggle.state = layout.borderColor == nil ? .off : .on
         if let borderColor = layout.borderColor {
             borderColorPicker.color = borderColor
+            borderColorPicker.isEnabled = true
+        } else {
+            borderColorPicker.isEnabled = false
         }
         commentTextColorPicker.color = layout.commentTextColor!
         hilitedCommentTextColorToggle.state = layout.highlightedCommentTextColor == nil ? .off : .on
         if let highlightedCommentTextColor = layout.highlightedCommentTextColor {
             hilitedCommentTextColorPicker.color = highlightedCommentTextColor
+            hilitedCommentTextColorPicker.isEnabled = true
+        } else {
+            hilitedCommentTextColorPicker.isEnabled = false
         }
         labelTextColorToggle.state = layout.candidateLabelColor == nil ? .off : .on
         if let candidateLabelColor = layout.candidateLabelColor {
             labelTextColorPicker.color = candidateLabelColor
+            labelTextColorPicker.isEnabled = true
+        } else {
+            labelTextColorPicker.isEnabled = false
         }
         hilitedLabelTextColorToggle.state = layout.highlightedCandidateLabelColor == nil ? .off : .on
         if let highlightedCandidateLabelColor = layout.highlightedCandidateLabelColor {
             hilitedLabelTextColorPicker.color = highlightedCandidateLabelColor
+            hilitedLabelTextColorPicker.isEnabled = true
+        } else {
+            hilitedLabelTextColorPicker.isEnabled = false
         }
         
         if hilitedCommentTextColorToggle.state == .off {
