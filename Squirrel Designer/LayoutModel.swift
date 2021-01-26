@@ -200,7 +200,9 @@ class SquirrelLayout {
             encoded += "alpha: \(alpha)\n"
         }
         if isDisplayP3 {
-            encoded += "in_display_p3: true\n"
+            encoded += "color_space: display_p3\n"
+        } else {
+            encoded += "color_space: srgb\n"
         }
         func colorToString(_ color: NSColor, inDisplayP3: Bool) -> String {
             var colorString = "0x"
@@ -310,7 +312,7 @@ class SquirrelLayout {
                 values[(line as NSString).substring(with: match.range(at: 1))] = (line as NSString).substring(with: match.range(at: 2))
             }
         }
-        let isDisplayP3 = getBool(values["in_display_p3"])
+        let isDisplayP3 = (values["color_space"] == "display_p3")
         var linear: Bool? = nil
         if let lin = values["candidate_list_layout"] {
             if lin == "linear" {
@@ -341,20 +343,20 @@ class SquirrelLayout {
         let preeditLinespace = getFloat(values["spacing"])
         let baseOffset = getFloat(values["base_offset"])
         let alpha = getFloat(values["alpha"])
-        let backgroundColor = getColor(values["back_color"], inDisplayP3: isDisplayP3 ?? false)
-        let highlightedStripColor = getColor(values["hilited_candidate_back_color"], inDisplayP3: isDisplayP3 ?? false)
-        let highlightedPreeditColor = getColor(values["hilited_back_color"], inDisplayP3: isDisplayP3 ?? false)
-        let preeditBackgroundColor = getColor(values["preedit_back_color"], inDisplayP3: isDisplayP3 ?? false)
-        let borderColor = getColor(values["border_color"], inDisplayP3: isDisplayP3 ?? false)
+        let backgroundColor = getColor(values["back_color"], inDisplayP3: isDisplayP3)
+        let highlightedStripColor = getColor(values["hilited_candidate_back_color"], inDisplayP3: isDisplayP3)
+        let highlightedPreeditColor = getColor(values["hilited_back_color"], inDisplayP3: isDisplayP3)
+        let preeditBackgroundColor = getColor(values["preedit_back_color"], inDisplayP3: isDisplayP3)
+        let borderColor = getColor(values["border_color"], inDisplayP3: isDisplayP3)
         
-        let textColor = getColor(values["text_color"], inDisplayP3: isDisplayP3 ?? false)
-        let highlightedTextColor = getColor(values["hilited_text_color"], inDisplayP3: isDisplayP3 ?? false)
-        let candidateTextColor = getColor(values["candidate_text_color"], inDisplayP3: isDisplayP3 ?? false)
-        let highlightedCandidateTextColor = getColor(values["hilited_candidate_text_color"], inDisplayP3: isDisplayP3 ?? false)
-        let candidateLabelColor = getColor(values["label_color"], inDisplayP3: isDisplayP3 ?? false)
-        let highlightedCandidateLabelColor = getColor(values["hilited_candidate_label_color"], inDisplayP3: isDisplayP3 ?? false)
-        let commentTextColor = getColor(values["comment_text_color"], inDisplayP3: isDisplayP3 ?? false)
-        let highlightedCommentTextColor = getColor(values["hilited_comment_text_color"], inDisplayP3: isDisplayP3 ?? false)
+        let textColor = getColor(values["text_color"], inDisplayP3: isDisplayP3)
+        let highlightedTextColor = getColor(values["hilited_text_color"], inDisplayP3: isDisplayP3)
+        let candidateTextColor = getColor(values["candidate_text_color"], inDisplayP3: isDisplayP3)
+        let highlightedCandidateTextColor = getColor(values["hilited_candidate_text_color"], inDisplayP3: isDisplayP3)
+        let candidateLabelColor = getColor(values["label_color"], inDisplayP3: isDisplayP3)
+        let highlightedCandidateLabelColor = getColor(values["hilited_candidate_label_color"], inDisplayP3: isDisplayP3)
+        let commentTextColor = getColor(values["comment_text_color"], inDisplayP3: isDisplayP3)
+        let highlightedCommentTextColor = getColor(values["hilited_comment_text_color"], inDisplayP3: isDisplayP3)
         let fontFace = values["font_face"]
         let fontPoint = getFloat(values["font_point"])
         let labelFontFace = values["label_font_face"]
@@ -368,7 +370,7 @@ class SquirrelLayout {
         self.linear = linear ?? false
         self.vertical = vertical ?? false
         self.inlinePreedit = inlinePreedit ?? false
-        self.isDisplayP3 = isDisplayP3 ?? false
+        self.isDisplayP3 = isDisplayP3
         self.backgroundColor = backgroundColor ?? NSColor.windowBackgroundColor
         self.candidateTextColor = candidateTextColor ?? NSColor.controlTextColor
         self.highlightedStripColor = highlightedStripColor ?? NSColor.selectedTextBackgroundColor
