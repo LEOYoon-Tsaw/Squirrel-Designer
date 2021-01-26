@@ -99,7 +99,7 @@ class SquirrelLayout {
     var firstParagraphStyle: NSParagraphStyle {
         let style = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         style.paragraphSpacing = linespace / 2
-        style.paragraphSpacingBefore = linespace / 2 + hilitedCornerRadius / 2
+        style.paragraphSpacingBefore = preeditLinespace / 2 + hilitedCornerRadius / 2
         return style as NSParagraphStyle
     }
     var paragraphStyle: NSParagraphStyle {
@@ -110,7 +110,7 @@ class SquirrelLayout {
     }
     var preeditParagraphStyle: NSParagraphStyle {
         let style = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-        style.paragraphSpacing = preeditLinespace + hilitedCornerRadius / 2
+        style.paragraphSpacing = preeditLinespace / 2 + hilitedCornerRadius / 2
         return style as NSParagraphStyle
     }
     
@@ -489,51 +489,15 @@ class SquirrelView: NSView {
     
     // All draws happen here
     override func draw(_ dirtyRect: NSRect) {
-        // If an edge is close to border, will use border instead. To fix rounding errors
-        func checkBorders(_ rect: NSRect, againstBoundary boundary: NSRect) -> NSRect {
-            let ROUND_UP: CGFloat = 1.0
-            var diff: CGFloat = 0.0
-            var newRect = rect
-            if NSMinX(rect) - ROUND_UP < NSMinX(boundary) {
-                diff = NSMinX(rect) - NSMinX(boundary)
-                newRect.origin.x -= diff
-                newRect.size.width += diff
+        
+        func xyTranslate(points: Array<NSPoint>, direction: NSPoint) -> Array<NSPoint> {
+            var newVertex = Array<NSPoint>()
+            for point in points {
+                newVertex.append(point.applying(CGAffineTransform(translationX: direction.x, y: direction.y)))
             }
-            if NSMaxX(rect) + ROUND_UP > NSMaxX(boundary) {
-                diff = NSMaxX(boundary) - NSMaxX(rect)
-                newRect.size.width += diff
-            }
-            if NSMinY(rect) - ROUND_UP < NSMinY(boundary) {
-                diff = NSMinY(rect) - NSMinY(boundary)
-                newRect.origin.y -= diff
-                newRect.size.height += diff
-            }
-            if NSMaxY(rect) + ROUND_UP > NSMaxY(boundary) {
-                diff = NSMaxY(boundary) - NSMaxY(rect)
-                newRect.size.height += diff
-            }
-            return newRect
+            return newVertex
         }
         
-        func makeRoom(_ rect: NSRect, inBoundary boundary: NSRect, forCorner corner: CGFloat) -> NSRect {
-            let ROUND_UP: CGFloat = 1.0
-            var newRect = rect
-            if NSMinX(rect) - ROUND_UP < NSMinX(boundary) {
-                newRect.size.width -= corner;
-                newRect.origin.x += corner;
-            }
-            if NSMaxX(rect) + ROUND_UP > NSMaxX(boundary) {
-                newRect.size.width -= corner;
-            }
-            if NSMinY(rect) - ROUND_UP < NSMinY(boundary) {
-                newRect.size.height -= corner;
-                newRect.origin.y += corner;
-            }
-            if NSMaxY(rect) + ROUND_UP > NSMaxY(boundary) {
-                newRect.size.height -= corner;
-            }
-            return newRect
-        }
         // A tweaked sign function, to winddown corner radius when the size is small
         func sign(_ number: CGFloat) -> CGFloat {
             if number >= 2 {
@@ -759,39 +723,38 @@ class SquirrelView: NSView {
         if (_preeditRange.length > 0) {
             preeditRect = self.contentRect(forRange: _preeditRange)
             preeditRect.size.width = textField.size.width
-            preeditRect.size.height += _layout.edgeInset.height + _layout.preeditLinespace + _layout.hilitedCornerRadius / 2
+            preeditRect.size.height += _layout.edgeInset.height + _layout.preeditLinespace / 2 + _layout.hilitedCornerRadius / 2
             preeditRect.origin = NSMakePoint(textField.origin.x - _layout.edgeInset.width, textField.origin.y - _layout.edgeInset.height)
             if _highlightedRange.length == 0 {
-                preeditRect.size.height += _layout.edgeInset.height - _layout.preeditLinespace
+                preeditRect.size.height += _layout.edgeInset.height - _layout.preeditLinespace / 2
             }
-            preeditRect = checkBorders(preeditRect, againstBoundary: backgroundRect)
             if _layout.preeditBackgroundColor != nil {
                 preeditPath = drawSmoothLines(vertex(ofRect: preeditRect), alpha: 0, beta: 0)
             }
         }
         // Draw highlighted Rect
         if (_highlightedRange.length > 0) && (_layout.highlightedStripColor != nil) {
+            var innerBox = backgroundRect
+            innerBox.size.width -= (_layout.edgeInset.width + 1 + textFrameWidth) * 2
+            innerBox.origin.x += _layout.edgeInset.width + 1 + textFrameWidth
+            if _preeditRange.length == 0 {
+                innerBox.origin.y += _layout.edgeInset.height + 1
+                innerBox.size.height -= (_layout.edgeInset.height + 1) * 2
+            } else {
+                innerBox.origin.y += preeditRect.size.height + _layout.preeditLinespace / 2 + _layout.hilitedCornerRadius / 2 + 1
+                innerBox.size.height -= _layout.edgeInset.height + preeditRect.size.height + _layout.preeditLinespace / 2 + _layout.hilitedCornerRadius / 2 + 2
+            }
+            var outerBox = backgroundRect
+            outerBox.size.height -= _layout.hilitedCornerRadius + preeditRect.size.height
+            outerBox.size.width -= _layout.hilitedCornerRadius
+            outerBox.origin.x += _layout.hilitedCornerRadius / 2
+            outerBox.origin.y += _layout.hilitedCornerRadius / 2 + preeditRect.size.height
+            
             if _layout.linear {
                 var (leadingRect, bodyRect, trailingRect) = multilineRects(forRange: _highlightedRange)
                 leadingRect = addGapBetweenHorizontalCandidates(leadingRect)
                 bodyRect = addGapBetweenHorizontalCandidates(bodyRect)
                 trailingRect = addGapBetweenHorizontalCandidates(trailingRect)
-                
-                var innerBox = backgroundRect
-                innerBox.size.width -= (_layout.edgeInset.width + 1 + textFrameWidth) * 2
-                innerBox.origin.x += _layout.edgeInset.width + 1 + textFrameWidth
-                if _preeditRange.length == 0 {
-                    innerBox.origin.y += _layout.edgeInset.height + 1
-                    innerBox.size.height -= (_layout.edgeInset.height + 1) * 2
-                } else {
-                    innerBox.origin.y += preeditRect.size.height + _layout.halfLinespace + _layout.hilitedCornerRadius / 2 + 1
-                    innerBox.size.height -= _layout.edgeInset.height + preeditRect.size.height + _layout.halfLinespace + _layout.hilitedCornerRadius / 2 + 2
-                }
-                var outerBox = backgroundRect
-                outerBox.size.height -= _layout.hilitedCornerRadius + preeditRect.size.height
-                outerBox.size.width -= _layout.hilitedCornerRadius
-                outerBox.origin.x += _layout.hilitedCornerRadius / 2
-                outerBox.origin.y += _layout.hilitedCornerRadius / 2 + preeditRect.size.height
                 
                 var highlightedPoints, highlightedPoints2: Array<NSPoint>
                 // Handles the special case where containing boxes are separated
@@ -802,6 +765,9 @@ class SquirrelView: NSView {
                     highlightedPoints = multilineVertex(ofLeadingRect: leadingRect, bodyRect: bodyRect, trailingRect: trailingRect)
                     highlightedPoints2 = Array<NSPoint>()
                 }
+                highlightedPoints = xyTranslate(points: highlightedPoints, direction: NSMakePoint(0, -_layout.linespace / 2))
+                highlightedPoints2 = xyTranslate(points: highlightedPoints2, direction: NSMakePoint(0, -_layout.linespace / 2))
+                innerBox.size.height -= _layout.linespace / 2
                 // Expand the boxes to reach proper border
                 highlightedPoints = expand(vertex: highlightedPoints, innerBorder: innerBox, outerBorder: outerBox)
                 highlightedPoints2 = expand(vertex: highlightedPoints2, innerBorder: innerBox, outerBorder: outerBox)
@@ -827,17 +793,9 @@ class SquirrelView: NSView {
                         highlightedRect.origin.y -= _layout.hilitedCornerRadius / 2
                     }
                 }
-                var outerBox = backgroundRect
-                outerBox.size.height -= preeditRect.size.height
-                outerBox.origin.y += preeditRect.size.height
-                if _layout.hilitedCornerRadius == 0 {
-                    // fill in small gaps between highlighted rect and the bounding rect.
-                    highlightedRect = checkBorders(highlightedRect, againstBoundary: outerBox)
-                } else {
-                    // leave a small gap between highlighted rect and the bounding rect
-                    highlightedRect = makeRoom(highlightedRect, inBoundary: outerBox, forCorner: _layout.hilitedCornerRadius / 2)
-                }
-                highlightedPath = drawSmoothLines(vertex(ofRect: highlightedRect), alpha: _layout.hilitedCornerRadius*0.3, beta: _layout.hilitedCornerRadius*1.4)
+                
+                let highlightedPoints = expand(vertex: vertex(ofRect: highlightedRect), innerBorder: innerBox, outerBorder: outerBox)
+                highlightedPath = drawSmoothLines(highlightedPoints, alpha: _layout.hilitedCornerRadius*0.3, beta: _layout.hilitedCornerRadius*1.4)
             }
         }
         // Draw highlighted part of preedit text
@@ -1283,6 +1241,10 @@ class SquirrelPanel: NSWindow {
                 if (self.layout.vertical) {
                     convertToVerticalGlyph(line, inRange: NSMakeRange(candidateStart, line.length-candidateStart))
                     paragraphStyleCandidate.minimumLineHeight = minimumHeight(attribute: attrs)
+                }
+                if self.layout.linear {
+                    paragraphStyleCandidate.lineSpacing = self.layout.linespace
+                    
                 }
                 paragraphStyleCandidate.headIndent = labelWidth
                 return paragraphStyleCandidate as NSParagraphStyle
