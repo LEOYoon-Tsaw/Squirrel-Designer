@@ -7,5 +7,5 @@
 * Auto-generate code
 * Load color scheme from code
 
-*Requires macOS 10.15+*
+*Requires macOS 11.0+*
 *This app does not collect any user data*
