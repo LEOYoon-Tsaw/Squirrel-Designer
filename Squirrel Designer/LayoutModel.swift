@@ -1130,27 +1130,13 @@ class SquirrelPanel: NSWindow {
             }
         }
         
-        func extractFonts(_ fonts: Set<NSFont>) -> Set<NSFont> {
-            var expandedFonts = Set<NSFont>()
-            for font in fonts {
-                expandedFonts.insert(font)
-                guard let fontCascadeList = font.fontDescriptor.fontAttributes[.cascadeList] as? Array<NSFontDescriptor> else { continue }
-                for subFonts in fontCascadeList {
-                    guard let subFont = NSFont(descriptor: subFonts, size: font.pointSize) else { continue }
-                    expandedFonts.insert(subFont)
-                }
-            }
-            return expandedFonts
-        }
-        
-        func fixDefaultFont(text: NSMutableAttributedString, fonts: Set<NSFont>) {
+        func fixDefaultFont(text: NSMutableAttributedString) {
             text.fixAttributes(in: NSMakeRange(0, text.length))
-            let expandedFonts = extractFonts(fonts)
             var currentFontRange = NSMakeRange(NSNotFound, 0)
             var i = 0
             while (i < text.length) {
                 let charFont: NSFont = text.attribute(.font, at: i, effectiveRange: &currentFontRange) as! NSFont
-                if !expandedFonts.contains(charFont) {
+                if charFont.fontName == "AppleColorEmoji" {
                     let defaultFont = NSFont.systemFont(ofSize: charFont.pointSize)
                     text.addAttribute(.font, value: defaultFont, range: currentFontRange)
                 }
@@ -1296,10 +1282,7 @@ class SquirrelPanel: NSWindow {
         }
         
         // Fix font rendering
-        fixDefaultFont(text: text, fonts: Set([
-            self.layout.attrs[.font],
-            self.layout.labelAttrs[.font]
-        ] as! Array<NSFont>))
+        fixDefaultFont(text: text)
         
         _view.text = text
         _view.drawView(withHilitedRange: highlightedRange, preeditRange: _preeditRange, hilitedPreeditRange: highlightedPreeditRange, seperatorWidth: seperatorWidth)
