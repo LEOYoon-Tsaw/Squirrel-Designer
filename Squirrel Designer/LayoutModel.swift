@@ -1130,13 +1130,27 @@ class SquirrelPanel: NSWindow {
             }
         }
         
+        func extractFonts(_ fonts: Set<NSFont>) -> Set<NSFont> {
+            var expandedFonts = Set<NSFont>()
+            for font in fonts {
+                expandedFonts.insert(font)
+                guard let fontCascadeList = font.fontDescriptor.fontAttributes[.cascadeList] as? Array<NSFontDescriptor> else { continue }
+                for subFonts in fontCascadeList {
+                    guard let subFont = NSFont(descriptor: subFonts, size: font.pointSize) else { continue }
+                    expandedFonts.insert(subFont)
+                }
+            }
+            return expandedFonts
+        }
+        
         func fixDefaultFont(text: NSMutableAttributedString, fonts: Set<NSFont>) {
             text.fixAttributes(in: NSMakeRange(0, text.length))
+            let expandedFonts = extractFonts(fonts)
             var currentFontRange = NSMakeRange(NSNotFound, 0)
             var i = 0
             while (i < text.length) {
                 let charFont: NSFont = text.attribute(.font, at: i, effectiveRange: &currentFontRange) as! NSFont
-                if !fonts.contains(charFont) {
+                if !expandedFonts.contains(charFont) {
                     let defaultFont = NSFont.systemFont(ofSize: charFont.pointSize)
                     text.addAttribute(.font, value: defaultFont, range: currentFontRange)
                 }
