@@ -34,6 +34,7 @@ class SquirrelLayout {
     
     var fonts: Array<NSFont> = [NSFont.userFont(ofSize: 15)!]
     var labelFonts = Array<NSFont>()
+    var commentFonts = Array<NSFont>()
     var textColor: NSColor? = .disabledControlTextColor
     var highlightedTextColor: NSColor? = .controlTextColor
     var candidateTextColor: NSColor? = .controlTextColor
@@ -55,6 +56,9 @@ class SquirrelLayout {
     var labelFont: NSFont? {
         return combineFonts(labelFonts)
     }
+    var commentFont: NSFont? {
+        return combineFonts(commentFonts)
+    }
     var attrs: [NSAttributedString.Key : Any] {
         [.foregroundColor: candidateTextColor!,
          .font: font!,
@@ -67,12 +71,12 @@ class SquirrelLayout {
     }
     var commentAttrs: [NSAttributedString.Key : Any] {
         [.foregroundColor: commentTextColor!,
-         .font: font!,
+         .font: commentFont ?? font!,
          .baselineOffset: baseOffset]
     }
     var commentHighlightedAttrs: [NSAttributedString.Key : Any] {
         [.foregroundColor: highlightedCommentTextColor ?? commentTextColor!,
-         .font: font!,
+         .font: commentFont ?? font!,
          .baselineOffset: baseOffset]
     }
     var preeditAttrs: [NSAttributedString.Key : Any] {
@@ -171,6 +175,11 @@ class SquirrelLayout {
             let fontNames = labelFonts.map { $0.fontName.trimmingCharacters(in: .whitespaces) }.joined(separator: ", ")
             encoded += "label_font_face: \"\(fontNames)\"\n"
             encoded += "label_font_point: \(labelFonts[0].pointSize)\n"
+        }
+        if !commentFonts.isEmpty {
+            let fontNames = commentFonts.map { $0.fontName.trimmingCharacters(in: .whitespaces) }.joined(separator: ", ")
+            encoded += "comment_font_face: \"\(fontNames)\"\n"
+            encoded += "comment_font_point: \(commentFonts[0].pointSize)\n"
         }
         encoded += "candidate_list_layout: \(linear ? "linear" : "stacked")\n"
         encoded += "text_orientation: \(vertical ? "vertical" : "horizontal")\n"
@@ -361,12 +370,16 @@ class SquirrelLayout {
         let fontPoint = getFloat(values["font_point"])
         let labelFontFace = values["label_font_face"]
         let labelFontPoint = getFloat(values["label_font_point"])
+        let commentFontFace = values["comment_font_face"]
+        let commentFontPoint = getFloat(values["comment_font_point"])
         let fonts = fontFace != nil ? decodeFonts(from: fontFace!, size: fontPoint ?? 15) : self.fonts
         let labelFonts = labelFontFace != nil ? decodeFonts(from: labelFontFace!, size: labelFontPoint ?? (fontPoint ?? 15)) : Array<NSFont>()
+        let commentFonts = commentFontFace != nil ? decodeFonts(from: commentFontFace!, size: commentFontPoint ?? (fontPoint ?? 15)) : Array<NSFont>()
         
         self.name = name ?? "customized_color_scheme"
         self.fonts = !fonts.isEmpty ? fonts : [NSFont.userFont(ofSize: 15)!]
         self.labelFonts = labelFonts
+        self.commentFonts = commentFonts
         self.linear = linear ?? false
         self.vertical = vertical ?? false
         self.inlinePreedit = inlinePreedit ?? false
@@ -443,13 +456,29 @@ class SquirrelView: NSView {
     // Get the rectangle containing entire contents, expensive to calculate
     var contentRect: NSRect {
         let glyphRange = _text.layoutManagers[0].glyphRange(for: _text.layoutManagers[0].textContainers[0])
-        let rect = _text.layoutManagers[0].boundingRect(forGlyphRange: glyphRange, in: _text.layoutManagers[0].textContainers[0])
+        var rect = _text.layoutManagers[0].boundingRect(forGlyphRange: glyphRange, in: _text.layoutManagers[0].textContainers[0])
+        var actualWidth: CGFloat = 0;
+        _text.layoutManagers[0].enumerateLineFragments(forGlyphRange: glyphRange) {
+            rect, usedRect, container, usedRange, stop in
+            if actualWidth < usedRect.size.width {
+                actualWidth = usedRect.size.width
+            }
+        }
+        rect.size.width = actualWidth
         return rect
     }
     // Get the rectangle containing the range of text, will first convert to glyph range, expensive to calculate
     func contentRect(forRange range: NSRange) -> NSRect {
         let glyphRange = _text.layoutManagers[0].glyphRange(forCharacterRange: range, actualCharacterRange: nil)
-        let rect = _text.layoutManagers[0].boundingRect(forGlyphRange: glyphRange, in: _text.layoutManagers[0].textContainers[0])
+        var rect = _text.layoutManagers[0].boundingRect(forGlyphRange: glyphRange, in: _text.layoutManagers[0].textContainers[0])
+        var actualWidth: CGFloat = 0;
+        _text.layoutManagers[0].enumerateLineFragments(forGlyphRange: glyphRange) {
+            rect, usedRect, container, usedRange, stop in
+            if actualWidth < usedRect.size.width {
+                actualWidth = usedRect.size.width
+            }
+        }
+        rect.size.width = actualWidth
         return rect
     }
     var textContainerWidth: CGFloat {
@@ -972,16 +1001,20 @@ class SquirrelPanel: NSWindow {
             }
         }
     }
+    func getMaxTextWidth(layout: SquirrelLayout) -> CGFloat {
+        let currentFont = layout.attrs[.font] as! NSFont
+        let fontScale = currentFont.pointSize / 12
+        let textWidthRatio = min(1.0, 1.0 / (layout.vertical ? 4 : 3) + fontScale / 12)
+        let maxTextWidth = layout.vertical
+            ? NSHeight(_screenRect) * textWidthRatio - layout.edgeInset.height * 2
+            : NSWidth(_screenRect) * textWidthRatio - layout.edgeInset.width * 2
+        return maxTextWidth
+    }
     
     func show() {
         self.getCurrentScreen()
         var textWidth = _view.text.size().width
-        let currentFont = self.layout.attrs[.font] as! NSFont
-        let fontScale = currentFont.pointSize / 12
-        let textWidthRatio = min(1.0, 1.0 / (self.layout.vertical ? 4 : 3) + fontScale / 12)
-        let maxTextWidth = self.layout.vertical
-            ? NSHeight(_screenRect) * textWidthRatio - self.layout.edgeInset.height * 2
-            : NSWidth(_screenRect) * textWidthRatio - self.layout.edgeInset.width * 2
+        let maxTextWidth = getMaxTextWidth(layout: self.layout)
         if textWidth > maxTextWidth {
             textWidth = maxTextWidth
         }
@@ -1113,7 +1146,7 @@ class SquirrelPanel: NSWindow {
             let hangulSize = hangulChar.boundingRect(with: NSZeroSize)
             let stringRange = (originalText.string as NSString).rangeOfComposedCharacterSequences(for: stringRange)
             var i = stringRange.location
-            while i < stringRange.location+stringRange.length {
+            while i < NSMaxRange(stringRange) {
                 let range = (originalText.string as NSString).rangeOfComposedCharacterSequence(at: i)
                 i = NSMaxRange(range)
                 let charRect = originalText.attributedSubstring(from: range).boundingRect(with: NSZeroSize)
@@ -1241,7 +1274,7 @@ class SquirrelPanel: NSWindow {
             
             if i < _comments.count && !_comments[i].isEmpty {
                 let commentStart = line.length
-                line.append(NSAttributedString(string: " ", attributes: attrs))
+                line.append(NSAttributedString(string: " ", attributes: commentAttrs))
                 let comment = _comments[i]
                 line.append(NSAttributedString(string: comment.precomposedStringWithCanonicalMapping, attributes: commentAttrs))
                 if self.layout.vertical {

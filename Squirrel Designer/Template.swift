@@ -31,7 +31,7 @@ class InputSource {
     var comments: Array<String> = ["", "", "", "", "疑依模去、疑娃歌去", "幫娃先入"]
     var labels: Array<String> = ["〡", "〢", "〣", "〤", "〥", "〦", "〧", "〨", "〩"]
     var index: UInt = 0
-    var candidateFormat = "%c. %@"
+    var candidateFormat = "%c.\u{00A0}%@"
     
     init() {
         if let template = Self.template {
