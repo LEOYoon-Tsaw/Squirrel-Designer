@@ -21,6 +21,24 @@ class FontDeleteButton: NSButton {
     weak var residenceRow: NSGridRow?
 }
 
+class VerticallyCenteredTextFieldCell: NSTextFieldCell {
+
+    override func titleRect(forBounds rect: NSRect) -> NSRect {
+        var titleFrame = super.titleRect(forBounds: rect)
+        let textRect = self.attributedStringValue.boundingRect(with: titleFrame.size, options: .usesLineFragmentOrigin)
+        if textRect.size.height < titleFrame.size.height {
+            titleFrame.origin.y = rect.origin.y + (rect.size.height - textRect.size.height) / 2.0
+            titleFrame.size.height = textRect.size.height
+        }
+        return titleFrame
+    }
+    
+    override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
+        let titleRect = self.titleRect(forBounds: cellFrame)
+        self.attributedStringValue.draw(in: titleRect)
+    }
+}
+
 class ViewController: NSViewController {
     
     @IBOutlet weak var scrollView: NSScrollView!
@@ -69,7 +87,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var labelTextColorPicker: NSColorWell!
     @IBOutlet weak var hilitedLabelTextColorToggle: NSSwitch!
     @IBOutlet weak var hilitedLabelTextColorPicker: NSColorWell!
-    @IBOutlet weak var displayP3Toggle: NSSwitch!
+    @IBOutlet weak var colorSpacePicker: NSPopUpButton!
     
     @IBOutlet weak var borderHeightField: NSTextField!
     @IBOutlet weak var borderWidthField: NSTextField!
@@ -352,8 +370,8 @@ class ViewController: NSViewController {
         layout.inlinePreedit = preeditPositionSwitch.selectedSegment == 1
         preview.layout = layout
     }
-    @IBAction func isDisplayP3Toggled(_ sender: Any) {
-        layout.isDisplayP3 = displayP3Toggle.state == .on
+    @IBAction func colorSpaceChanged(_ sender: Any) {
+        layout.isDisplayP3 = colorSpacePicker.selectedItem?.title == "Display P3"
         preview.layout = layout
     }
     
@@ -766,7 +784,11 @@ class ViewController: NSViewController {
         candidateListLayoutSwitch.selectSegment(withTag: layout.linear ? 1 : 0)
         textOrientationSwitch.selectSegment(withTag: layout.vertical ? 1 : 0)
         preeditPositionSwitch.selectSegment(withTag: layout.inlinePreedit ? 1 : 0)
-        displayP3Toggle.state = layout.isDisplayP3 ? .on : .off
+        if layout.isDisplayP3 {
+            colorSpacePicker.selectItem(at: 1)
+        } else {
+            colorSpacePicker.selectItem(at: 0)
+        }
         backgroundColorPicker.color = layout.backgroundColor!
         candidateTextColorPicker.color = layout.candidateTextColor!
         hilitedCandidateBackColorPicker.color = layout.highlightedStripColor!

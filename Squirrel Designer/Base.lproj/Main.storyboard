@@ -544,9 +544,14 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
                                     <items>
-                                        <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV">
+                                        <menuItem title="Close" keyEquivalent="w" id="OY7-WF-poV">
                                             <connections>
-                                                <action selector="performMiniaturize:" target="Ady-hI-5gd" id="VwT-WD-YPe"/>
+                                                <action selector="performClose:" target="Ady-hI-5gd" id="DvZ-dl-NjB"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Minimize" keyEquivalent="m" id="HPq-m0-YNJ">
+                                            <connections>
+                                                <action selector="performMiniaturize:" target="Ady-hI-5gd" id="zgG-VZ-oOc"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Zoom" id="R4o-n2-Eq4">
@@ -587,7 +592,7 @@
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="75" y="-62"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -608,7 +613,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="67" y="204"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -656,9 +661,9 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <subviews>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cmQ-rp-LNW">
-                                                    <rect key="frame" x="18" y="694" width="32" height="16"/>
+                                                    <rect key="frame" x="18" y="693" width="110" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Font" id="t7d-ym-22T">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Font" id="t7d-ym-22T" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -667,7 +672,7 @@
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nyq-1j-QZJ">
                                                     <rect key="frame" x="398" y="694" width="30" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Size" id="Dc0-ND-2ef">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Size" id="Dc0-ND-2ef" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -697,9 +702,9 @@
                                                     </connections>
                                                 </switch>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dXu-Tc-1xD">
-                                                    <rect key="frame" x="18" y="658" width="68" height="16"/>
+                                                    <rect key="frame" x="18" y="657" width="110" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Label Font" id="N8b-oU-G1z">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Label Font" id="N8b-oU-G1z" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -708,7 +713,7 @@
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7TU-uU-fEE">
                                                     <rect key="frame" x="398" y="658" width="30" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Size" id="pjz-Mg-1UA">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Size" id="pjz-Mg-1UA" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -737,19 +742,10 @@
                                                         <action selector="commentFontToggled:" target="XfG-lQ-9wD" id="Chf-0y-Dxe"/>
                                                     </connections>
                                                 </switch>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Dr-mV-Hp5">
-                                                    <rect key="frame" x="18" y="622" width="94" height="16"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Comment Font" id="TzM-Kb-ocX">
-                                                        <font key="font" usesAppearanceFont="YES"/>
-                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c4l-Ga-AAT" userLabel="Comment Font Size">
                                                     <rect key="frame" x="398" y="622" width="30" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Size" id="Qv6-z0-SYQ">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Size" id="Qv6-z0-SYQ" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -780,9 +776,9 @@
                                                     </connections>
                                                 </colorWell>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K1x-rh-Oxg">
-                                                    <rect key="frame" x="289" y="431" width="110" height="32"/>
+                                                    <rect key="frame" x="289" y="430" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Candidate Text Color" id="LB0-F7-42K">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Candidate Text Color" id="LB0-F7-42K" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -818,9 +814,9 @@
                                                     </connections>
                                                 </switch>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zrO-e7-tXM">
-                                                    <rect key="frame" x="18" y="359" width="110" height="32"/>
+                                                    <rect key="frame" x="18" y="358" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Preedit Back Color" id="yb5-Zr-qfD">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Preedit Back Color" id="yb5-Zr-qfD" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -835,9 +831,9 @@
                                                     </connections>
                                                 </colorWell>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AUL-ff-UPI">
-                                                    <rect key="frame" x="289" y="359" width="110" height="32"/>
+                                                    <rect key="frame" x="289" y="358" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Preedit Text Color" id="USh-nX-faZ">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Preedit Text Color" id="USh-nX-faZ" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -859,9 +855,9 @@
                                                     </connections>
                                                 </switch>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qYQ-Im-nvQ">
-                                                    <rect key="frame" x="18" y="323" width="110" height="32"/>
+                                                    <rect key="frame" x="18" y="322" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hilited Preedit Back Color" id="URF-qC-1FJ">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hilited Preedit Back Color" id="URF-qC-1FJ" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -876,9 +872,9 @@
                                                     </connections>
                                                 </colorWell>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j5w-hz-JQc">
-                                                    <rect key="frame" x="289" y="323" width="110" height="32"/>
+                                                    <rect key="frame" x="289" y="322" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hilited Preedit Text Color" id="ozV-j4-UAy">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hilited Preedit Text Color" id="ozV-j4-UAy" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -900,25 +896,18 @@
                                                     </connections>
                                                 </switch>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="npf-HP-rB0">
-                                                    <rect key="frame" x="18" y="295" width="110" height="16"/>
+                                                    <rect key="frame" x="18" y="294" width="110" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Border Color" id="3H7-p9-izp">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Border Color" id="3H7-p9-izp" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" baseWritingDirection="leftToRight" alignment="left" state="on" translatesAutoresizingMaskIntoConstraints="NO" id="meW-R0-0J1">
-                                                    <rect key="frame" x="133" y="255" width="42" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <connections>
-                                                        <action selector="isDisplayP3Toggled:" target="XfG-lQ-9wD" id="ae6-ub-hes"/>
-                                                    </connections>
-                                                </switch>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iyf-Q3-0yV">
                                                     <rect key="frame" x="18" y="251" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Display P3 Colorspace" id="GFQ-yL-V2f">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Colorspace" id="GFQ-yL-V2f" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -933,9 +922,9 @@
                                                     </connections>
                                                 </colorWell>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Q8-IL-VGA">
-                                                    <rect key="frame" x="290" y="287" width="110" height="32"/>
+                                                    <rect key="frame" x="290" y="286" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Comment Text Color" id="Jhu-dL-gX9">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Comment Text Color" id="Jhu-dL-gX9" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -950,9 +939,9 @@
                                                     </connections>
                                                 </colorWell>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ISw-WN-EHc">
-                                                    <rect key="frame" x="290" y="251" width="110" height="32"/>
+                                                    <rect key="frame" x="290" y="250" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hillited Comment Text Color" id="RXC-Bv-sn2">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hillited Comment Text Color" id="RXC-Bv-sn2" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -967,9 +956,9 @@
                                                     </connections>
                                                 </colorWell>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oqT-nY-ljq">
-                                                    <rect key="frame" x="290" y="223" width="110" height="16"/>
+                                                    <rect key="frame" x="290" y="214" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Label Color" id="ied-p3-JXF">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Label Color" id="ied-p3-JXF" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -984,9 +973,9 @@
                                                     </connections>
                                                 </colorWell>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Oj-ZO-ADV">
-                                                    <rect key="frame" x="289" y="179" width="110" height="32"/>
+                                                    <rect key="frame" x="289" y="178" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hillited Label Color" id="Xc8-cI-l02">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hillited Label Color" id="Xc8-cI-l02" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1001,9 +990,9 @@
                                                     </connections>
                                                 </colorWell>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gzi-Jd-RWg">
-                                                    <rect key="frame" x="18" y="395" width="110" height="32"/>
+                                                    <rect key="frame" x="18" y="394" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hilited Candidate Back Color" id="KTg-L7-5X3">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hilited Candidate Back Color" id="KTg-L7-5X3" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1018,9 +1007,9 @@
                                                     </connections>
                                                 </colorWell>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lnU-VI-Jhb">
-                                                    <rect key="frame" x="289" y="395" width="110" height="32"/>
+                                                    <rect key="frame" x="289" y="394" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hilited Candidate Text Color" id="556-Qw-tmJ">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hilited Candidate Text Color" id="556-Qw-tmJ" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1037,34 +1026,34 @@
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flJ-hB-qa4">
                                                     <rect key="frame" x="19" y="749" width="128" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Color Scheme Name" id="IXO-54-Ddy">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Color Scheme Name" id="IXO-54-Ddy" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MMw-YM-OoH">
-                                                    <rect key="frame" x="18" y="560" width="110" height="32"/>
+                                                    <rect key="frame" x="18" y="559" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Candidate List Layout" id="ZyV-vo-u2W">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Candidate List Layout" id="ZyV-vo-u2W" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="op2-kl-0Ud">
-                                                    <rect key="frame" x="18" y="532" width="110" height="16"/>
+                                                    <rect key="frame" x="18" y="524" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Text Orientation" id="ldI-s7-Lw1">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Text Orientation" id="ldI-s7-Lw1" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m2E-Fs-a0z">
-                                                    <rect key="frame" x="18" y="488" width="110" height="32"/>
+                                                    <rect key="frame" x="18" y="487" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Preedit Text Position" id="Coz-ZO-avN">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Preedit Text Position" id="Coz-ZO-avN" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1241,72 +1230,63 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                 </box>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iZv-Eo-CEp">
-                                                    <rect key="frame" x="19" y="130" width="110" height="16"/>
+                                                    <rect key="frame" x="19" y="121" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Border Height" id="Bha-md-78P">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Border Height" id="Bha-md-78P" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jw3-m3-u9h">
-                                                    <rect key="frame" x="289" y="130" width="110" height="16"/>
+                                                    <rect key="frame" x="289" y="121" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Border Width" id="SyS-v5-no2">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Border Width" id="SyS-v5-no2" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vKG-0j-dxe">
-                                                    <rect key="frame" x="19" y="58" width="110" height="16"/>
+                                                    <rect key="frame" x="19" y="49" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Line Spacing" id="dro-W6-Vf4">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Line Spacing" id="dro-W6-Vf4" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tNm-y5-k4A">
-                                                    <rect key="frame" x="19" y="22" width="110" height="16"/>
+                                                    <rect key="frame" x="19" y="14" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Baseline Offset" id="bND-eZ-qwf">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Baseline Offset" id="bND-eZ-qwf" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="43l-8x-Lh7">
-                                                    <rect key="frame" x="290" y="50" width="110" height="32"/>
+                                                    <rect key="frame" x="290" y="49" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Preedit Line Spacing" id="L81-YR-JiO">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Preedit Line Spacing" id="L81-YR-JiO" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Vn-vR-ncV">
-                                                    <rect key="frame" x="19" y="94" width="110" height="16"/>
+                                                    <rect key="frame" x="19" y="85" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Corner Radius" id="tZh-AD-nem">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Corner Radius" id="tZh-AD-nem" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bwh-8a-Qug">
-                                                    <rect key="frame" x="290" y="86" width="92" height="32"/>
+                                                    <rect key="frame" x="290" y="85" width="92" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hilited Corner Radius" id="VLm-mq-dDq">
-                                                        <font key="font" usesAppearanceFont="YES"/>
-                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="esa-Le-hOD">
-                                                    <rect key="frame" x="19" y="431" width="110" height="32"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Background Color" id="YfF-uc-0rm">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Hilited Corner Radius" id="VLm-mq-dDq" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1329,9 +1309,9 @@
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xR6-39-YG9">
-                                                    <rect key="frame" x="289" y="22" width="110" height="16"/>
+                                                    <rect key="frame" x="289" y="13" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Window Alpha" id="NNK-oP-O23">
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Window Alpha" id="NNK-oP-O23" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1541,6 +1521,41 @@
                                                         </gridCell>
                                                     </gridCells>
                                                 </gridView>
+                                                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="9KM-lc-afm">
+                                                    <rect key="frame" x="131" y="253" width="100" height="26"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <popUpButtonCell key="cell" type="push" title="Display P3" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="h2z-xi-wWP" id="07L-3c-jFg">
+                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="menu"/>
+                                                        <menu key="menu" id="WHn-gK-au2">
+                                                            <items>
+                                                                <menuItem title="sRGB" id="lv4-ti-osK"/>
+                                                                <menuItem title="Display P3" state="on" id="h2z-xi-wWP"/>
+                                                            </items>
+                                                        </menu>
+                                                    </popUpButtonCell>
+                                                    <connections>
+                                                        <action selector="colorSpaceChanged:" target="XfG-lQ-9wD" id="462-fe-XSe"/>
+                                                    </connections>
+                                                </popUpButton>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Dr-mV-Hp5">
+                                                    <rect key="frame" x="18" y="621" width="110" height="16"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Comment Font" id="TzM-Kb-ocX" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
+                                                        <font key="font" usesAppearanceFont="YES"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FqU-hO-Uen">
+                                                    <rect key="frame" x="19" y="431" width="110" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Background Color" id="HvM-Tr-nCw" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
+                                                        <font key="font" usesAppearanceFont="YES"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
                                             </subviews>
                                         </view>
                                     </subviews>
@@ -1549,7 +1564,7 @@
                                     <rect key="frame" x="-100" y="-100" width="523" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="heW-H9-Cu5">
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="heW-H9-Cu5">
                                     <rect key="frame" x="509" y="0.0" width="16" height="310"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -1576,6 +1591,7 @@
                         <outlet property="borderWidthField" destination="LsO-43-mJV" id="7mC-Eg-PhQ"/>
                         <outlet property="candidateListLayoutSwitch" destination="4lU-6o-ENw" id="NRw-of-949"/>
                         <outlet property="candidateTextColorPicker" destination="FT0-k2-ob6" id="Ttk-Gh-Nl5"/>
+                        <outlet property="colorSpacePicker" destination="9KM-lc-afm" id="cyb-G8-JTy"/>
                         <outlet property="commentFontPicker" destination="hem-zX-FrP" id="JY5-fI-Yjo"/>
                         <outlet property="commentFontPickerGrid" destination="zAM-xS-pF4" id="cbN-fS-ghV"/>
                         <outlet property="commentFontSizePicker" destination="S8o-vq-Agu" id="bzt-8L-IRY"/>
@@ -1586,7 +1602,6 @@
                         <outlet property="commentTextColorPicker" destination="Yii-sh-h3o" id="lH1-7s-Oft"/>
                         <outlet property="contentView" destination="NQK-P0-OAi" id="vak-bY-Cpj"/>
                         <outlet property="cornerRadiusField" destination="npL-z5-zhC" id="dlC-aT-gkV"/>
-                        <outlet property="displayP3Toggle" destination="meW-R0-0J1" id="O4d-Ih-KOp"/>
                         <outlet property="fontPicker" destination="Sp8-i1-Fk0" id="vcy-AG-fcp"/>
                         <outlet property="fontPickerGrid" destination="zIF-ni-WKZ" id="2Fh-Qb-shb"/>
                         <outlet property="fontSizePicker" destination="ZRh-6v-JHV" id="E12-vm-lTZ"/>
@@ -1627,7 +1642,7 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="PuH-Ft-bvf"/>
             </objects>
-            <point key="canvasLocation" x="74.5" y="749.5"/>
+            <point key="canvasLocation" x="74.5" y="748.5"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="FyC-x5-7WL">
@@ -1761,18 +1776,18 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5A6-ER-SjH">
-                                                    <rect key="frame" x="21" y="258" width="48" height="16"/>
+                                                    <rect key="frame" x="23" y="255" width="63" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Preedit" id="rd1-Zv-Wlt">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Preedit" id="rd1-Zv-Wlt" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Il4-75-P32">
-                                                    <rect key="frame" x="88" y="228" width="74" height="16"/>
+                                                    <rect key="frame" x="88" y="228" width="489" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Highlighted" id="Zzo-CO-3O6">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Highlighted" id="Zzo-CO-3O6" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1817,9 +1832,9 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                 </box>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o0y-Yr-f5Q">
-                                                    <rect key="frame" x="21" y="97" width="113" height="16"/>
+                                                    <rect key="frame" x="23" y="97" width="113" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Candidate Format" id="13s-tM-clA">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Candidate Format" id="13s-tM-clA" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1835,9 +1850,9 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DeL-G7-oBj">
-                                                    <rect key="frame" x="21" y="59" width="44" height="16"/>
+                                                    <rect key="frame" x="23" y="59" width="44" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Labels" id="gfe-7T-fPc">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Labels" id="gfe-7T-fPc" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1846,14 +1861,14 @@
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="coR-ZK-ZVw">
                                                     <rect key="frame" x="202" y="59" width="73" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Candidates" id="0lj-VR-Ps4">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Candidates" id="0lj-VR-Ps4" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <gridView fixedFrame="YES" xPlacement="leading" yPlacement="center" rowAlignment="none" rowSpacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="hHG-wU-qCu">
-                                                    <rect key="frame" x="23" y="22" width="98" height="21"/>
+                                                    <rect key="frame" x="25" y="22" width="98" height="21"/>
                                                     <rows>
                                                         <gridRow height="21" id="IjD-z9-fFY"/>
                                                     </rows>
@@ -1944,7 +1959,7 @@
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="suN-U0-PTl">
                                                     <rect key="frame" x="378" y="59" width="70" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Comments" id="jKc-IU-tnU">
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Comments" id="jKc-IU-tnU" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

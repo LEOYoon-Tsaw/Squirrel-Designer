@@ -1,0 +1,559 @@
+
+/* Class = "NSTextFieldCell"; title = "Candidates"; ObjectID = "0lj-VR-Ps4"; */"0lj-VR-Ps4.title" = "Candidates";
+"0lj-VR-Ps4.title" = "候选";
+
+/* Class = "NSTextFieldCell"; title = "Candidate Format"; ObjectID = "13s-tM-clA"; */
+"13s-tM-clA.title" = "候选模版";
+
+/* Class = "NSMenuItem"; title = "Squirrel Designer"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "鼠须管皮肤绘制";
+
+/* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
+"1b7-l0-nxx.title" = "找";
+
+/* Class = "NSSegmentedCell"; 1ln-Mi-0Oj.ibShadowedLabels[0] = "Inline"; ObjectID = "1ln-Mi-0Oj"; */
+"1ln-Mi-0Oj.ibShadowedLabels[0]" = "候选框";
+
+/* Class = "NSSegmentedCell"; 1ln-Mi-0Oj.ibShadowedLabels[1] = "Inline"; ObjectID = "1ln-Mi-0Oj"; */
+"1ln-Mi-0Oj.ibShadowedLabels[1]" = "行内";
+
+/* Class = "NSWindow"; title = "Color Scheme Code"; ObjectID = "1tr-Bv-B4a"; */
+"1tr-Bv-B4a.title" = "皮肤代码";
+
+/* Class = "NSMenuItem"; title = "Lower"; ObjectID = "1tx-W0-xDw"; */
+"1tx-W0-xDw.title" = "压低";
+
+/* Class = "NSButtonCell"; title = "Show Preview"; ObjectID = "2Li-yx-Pl2"; */
+"2Li-yx-Pl2.title" = "预览";
+
+/* Class = "NSMenuItem"; title = "Raise"; ObjectID = "2h7-ER-AoG"; */
+"2h7-ER-AoG.title" = "抬高";
+
+/* Class = "NSTextFieldCell"; title = "Border Color"; ObjectID = "3H7-p9-izp"; */
+"3H7-p9-izp.title" = "外框色";
+
+/* Class = "NSMenu"; title = "Spelling"; ObjectID = "3IN-sU-3Bg"; */
+"3IN-sU-3Bg.title" = "句法";
+
+/* Class = "NSMenuItem"; title = "Use Default"; ObjectID = "3Om-Ey-2VK"; */
+"3Om-Ey-2VK.title" = "默认";
+
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "3rS-ZA-NoH"; */
+"3rS-ZA-NoH.title" = "读出";
+
+/* Class = "NSMenuItem"; title = "Tighten"; ObjectID = "46P-cB-AYj"; */
+"46P-cB-AYj.title" = "变紧";
+
+/* Class = "NSMenuItem"; title = "Find"; ObjectID = "4EN-yA-p0u"; */
+"4EN-yA-p0u.title" = "找";
+
+/* Class = "NSMenuItem"; title = "Quit Squirrel Designer"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "退出";
+
+/* Class = "NSTextFieldCell"; title = "Hilited Candidate Text Color"; ObjectID = "556-Qw-tmJ"; */
+"556-Qw-tmJ.title" = "选中项字色";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
+"5QF-Oa-p0T.title" = "编辑";
+
+/* Class = "NSMenuItem"; title = "Copy Style"; ObjectID = "5Vv-lz-BsD"; */
+"5Vv-lz-BsD.title" = "摄取样式";
+
+/* Class = "NSMenuItem"; title = "About Squirrel Designer"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "关于本品";
+
+/* Class = "NSWindow"; title = "Input Templete Setting"; ObjectID = "5tH-kl-pWX"; */
+"5tH-kl-pWX.title" = "预览内容设定";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
+"6dh-zS-Vam.title" = "重做";
+
+/* Class = "NSMenuItem"; title = "Correct Spelling Automatically"; ObjectID = "78Y-hA-62v"; */
+"78Y-hA-62v.title" = "自正錯字";
+
+/* Class = "NSMenu"; title = "Writing Direction"; ObjectID = "8mr-sm-Yjd"; */
+"8mr-sm-Yjd.title" = "行文向";
+
+/* Class = "NSMenuItem"; title = "Substitutions"; ObjectID = "9ic-FL-obx"; */
+"9ic-FL-obx.title" = "替换";
+
+/* Class = "NSMenuItem"; title = "Smart Copy/Paste"; ObjectID = "9yt-4B-nSM"; */
+"9yt-4B-nSM.title" = "智能粘贴";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "Main Menu";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
+"BOF-NM-1cW.title" = "预览内容设定";
+
+/* Class = "NSMenuItem"; title = "    Left to Right"; ObjectID = "BgM-ve-c93"; */
+"BgM-ve-c93.title" = "　　左至右";
+
+/* Class = "NSTextFieldCell"; title = "Border Height"; ObjectID = "Bha-md-78P"; */
+"Bha-md-78P.title" = "外框高";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "CRD-E2-Y6t"; */
+"CRD-E2-Y6t.title" = "得";
+
+/* Class = "NSTextFieldCell"; title = "Preedit Text Position"; ObjectID = "Coz-ZO-avN"; */
+"Coz-ZO-avN.title" = "字母位于";
+
+/* Class = "NSTextFieldCell"; title = "Size"; ObjectID = "Dc0-ND-2ef"; */
+"Dc0-ND-2ef.title" = "字号";
+
+/* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "Dv1-io-Yv7"; */
+"Dv1-io-Yv7.title" = "句法";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
+"F2S-fz-NVQ.title" = "帮助";
+
+/* Class = "NSMenuItem"; title = "Squirrel Designer Help"; ObjectID = "FKE-Sm-Kum"; */
+"FKE-Sm-Kum.title" = "鼠须管皮肤绘制帮助";
+
+/* Class = "NSMenuItem"; title = "Text"; ObjectID = "Fal-I4-PZk"; */
+"Fal-I4-PZk.title" = "字";
+
+/* Class = "NSMenu"; title = "Substitutions"; ObjectID = "FeM-D8-WVr"; */
+"FeM-D8-WVr.title" = "替换";
+
+/* Class = "NSMenuItem"; title = "Bold"; ObjectID = "GB9-OM-e27"; */
+"GB9-OM-e27.title" = "粗";
+
+/* Class = "NSMenu"; title = "Format"; ObjectID = "GEO-Iw-cKr"; */
+"GEO-Iw-cKr.title" = "样式";
+
+/* Class = "NSTextFieldCell"; title = "Colorspace"; ObjectID = "GFQ-yL-V2f"; */
+"GFQ-yL-V2f.title" = "色空间";
+
+/* Class = "NSMenuItem"; title = "Use Default"; ObjectID = "GUa-eO-cwY"; */
+"GUa-eO-cwY.title" = "默认";
+
+/* Class = "NSSegmentedCell"; Gd0-v1-z21.ibShadowedLabels[0] = "Vertical"; ObjectID = "Gd0-v1-z21"; */
+"Gd0-v1-z21.ibShadowedLabels[0]" = "横";
+
+/* Class = "NSSegmentedCell"; Gd0-v1-z21.ibShadowedLabels[1] = "Vertical"; ObjectID = "Gd0-v1-z21"; */
+"Gd0-v1-z21.ibShadowedLabels[1]" = "纵";
+
+/* Class = "NSMenuItem"; title = "Font"; ObjectID = "Gi5-1S-RQB"; */
+"Gi5-1S-RQB.title" = "字体";
+
+/* Class = "NSMenuItem"; title = "Writing Direction"; ObjectID = "H1b-Si-o9J"; */
+"H1b-Si-o9J.title" = "行文向";
+
+/* Class = "NSTextFieldCell"; title = "1"; ObjectID = "H4E-Om-NQW"; */
+"H4E-Om-NQW.title" = "1";
+
+/* Class = "NSMenuItem"; title = "Text Replacement"; ObjectID = "HFQ-gK-NFA"; */
+"HFQ-gK-NFA.title" = "文本替换";
+
+/* Class = "NSMenuItem"; title = "Show Spelling and Grammar"; ObjectID = "HFo-cy-zxI"; */
+"HFo-cy-zxI.title" = "文法";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "HvF-lM-vgx"; */
+"HvF-lM-vgx.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "Background Color"; ObjectID = "HvM-Tr-nCw"; */
+"HvM-Tr-nCw.title" = "底色";
+
+/* Class = "NSMenuItem"; title = "Subscript"; ObjectID = "I0S-gh-46l"; */
+"I0S-gh-46l.title" = "下标";
+
+/* Class = "NSWindow"; title = "Squirrel Style Creator"; ObjectID = "IQv-IB-iLA"; */
+"IQv-IB-iLA.title" = "鼠须管皮肤绘制";
+
+/* Class = "NSTextFieldCell"; title = "Color Scheme Name"; ObjectID = "IXO-54-Ddy"; */
+"IXO-54-Ddy.title" = "皮肤名";
+
+/* Class = "NSMenuItem"; title = "Justify"; ObjectID = "J5U-5w-g23"; */
+"J5U-5w-g23.title" = "保宽";
+
+/* Class = "NSMenuItem"; title = "Use None"; ObjectID = "J7y-lM-qPV"; */
+"J7y-lM-qPV.title" = "无";
+
+/* Class = "NSTextFieldCell"; title = "Comment Text Color"; ObjectID = "Jhu-dL-gX9"; */
+"Jhu-dL-gX9.title" = "注字色";
+
+/* Class = "NSTextFieldCell"; title = "Hilited Candidate Back Color"; ObjectID = "KTg-L7-5X3"; */
+"KTg-L7-5X3.title" = "选中项底色";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "Kd2-mp-pUS"; */
+"Kd2-mp-pUS.title" = "不再隐藏";
+
+/* Class = "NSTextFieldCell"; title = "Preedit Line Spacing"; ObjectID = "L81-YR-JiO"; */
+"L81-YR-JiO.title" = "字母区空隙";
+
+/* Class = "NSTextFieldCell"; title = "Candidate Text Color"; ObjectID = "LB0-F7-42K"; */
+"LB0-F7-42K.title" = "候选字色";
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
+"LE2-aR-0XJ.title" = "提前";
+
+/* Class = "NSMenuItem"; title = "Paste Ruler"; ObjectID = "LVM-kO-fVI"; */
+"LVM-kO-fVI.title" = "贴上尺";
+
+/* Class = "NSMenuItem"; title = "    Left to Right"; ObjectID = "Lbh-J2-qVU"; */
+"Lbh-J2-qVU.title" = "　　左至右";
+
+/* Class = "NSMenuItem"; title = "Copy Ruler"; ObjectID = "MkV-Pr-PK5"; */
+"MkV-Pr-PK5.title" = "摄取尺";
+
+/* Class = "NSTextFieldCell"; title = "customized_color_scheme"; ObjectID = "Ms1-rF-Lj4"; */
+"Ms1-rF-Lj4.title" = "customized_color_scheme";
+
+/* Class = "NSMenuItem"; title = "Family"; ObjectID = "MuK-B1-2E3"; */
+"MuK-B1-2E3.title" = "字族";
+
+/* Class = "NSTextFieldCell"; title = "Label Font"; ObjectID = "N8b-oU-G1z"; */
+"N8b-oU-G1z.title" = "序号字体";
+
+/* Class = "NSMenuItem"; title = "Services"; ObjectID = "NMo-om-nkz"; */
+"NMo-om-nkz.title" = "服务";
+
+/* Class = "NSTextFieldCell"; title = "Window Alpha"; ObjectID = "NNK-oP-O23"; */
+"NNK-oP-O23.title" = "框透光率";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "NeE-sX-TWf"; */
+"NeE-sX-TWf.title" = "0";
+
+/* Class = "NSMenuItem"; title = "    Default"; ObjectID = "Nop-cj-93Q"; */
+"Nop-cj-93Q.title" = "　　默认";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "HPq-m0-YNJ"; */
+"HPq-m0-YNJ.title" = "缩起";
+
+/* Class = "NSMenuItem"; title = "Close"; ObjectID = "OY7-WF-poV"; */
+"OY7-WF-poV.title" = "关闭";
+
+/* Class = "NSMenuItem"; title = "Baseline"; ObjectID = "OaQ-X3-Vso"; */
+"OaQ-X3-Vso.title" = "字基";
+
+/* Class = "NSMenuItem"; title = "Hide Squirrel Designer"; ObjectID = "Olw-nP-bQN"; */
+"Olw-nP-bQN.title" = "隐藏本品";
+
+/* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "OwM-mh-QMV"; */
+"OwM-mh-QMV.title" = "向前找";
+
+/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "Oyz-dy-DGm"; */
+"Oyz-dy-DGm.title" = "停住";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "P7l-9B-tld"; */
+"P7l-9B-tld.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "15"; ObjectID = "PFT-H1-wTP"; */
+"PFT-H1-wTP.title" = "15";
+
+/* Class = "NSMenuItem"; title = "Bigger"; ObjectID = "Ptp-SP-VEL"; */
+"Ptp-SP-VEL.title" = "变大";
+
+/* Class = "NSMenuItem"; title = "Show Fonts"; ObjectID = "Q5e-8K-NDq"; */
+"Q5e-8K-NDq.title" = "选字体";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "QAi-4X-0Hw"; */
+"QAi-4X-0Hw.title" = "0";
+
+/* Class = "NSTextFieldCell"; title = "Size"; ObjectID = "Qv6-z0-SYQ"; */
+"Qv6-z0-SYQ.title" = "字号";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
+"R4o-n2-Eq4.title" = "扩展";
+
+/* Class = "NSMenuItem"; title = "    Right to Left"; ObjectID = "RB4-Sm-HuC"; */
+"RB4-Sm-HuC.title" = "　　右至左";
+
+/* Class = "NSTextFieldCell"; title = "Hillited Comment Text Color"; ObjectID = "RXC-Bv-sn2"; */
+"RXC-Bv-sn2.title" = "选中注字色";
+
+/* Class = "NSMenuItem"; title = "Superscript"; ObjectID = "Rqc-34-cIF"; */
+"Rqc-34-cIF.title" = "上标";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
+"Ruw-6m-B2m.title" = "全选";
+
+/* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "S0p-oC-mLd"; */
+"S0p-oC-mLd.title" = "跳至选中者";
+
+/* Class = "NSTextFieldCell"; title = "Border Width"; ObjectID = "SyS-v5-no2"; */
+"SyS-v5-no2.title" = "外框宽";
+
+/* Class = "NSSegmentedCell"; T6v-tc-yvb.ibShadowedLabels[0] = "Linear"; ObjectID = "T6v-tc-yvb"; */
+"T6v-tc-yvb.ibShadowedLabels[0]" = "层叠";
+
+/* Class = "NSSegmentedCell"; T6v-tc-yvb.ibShadowedLabels[1] = "Linear"; ObjectID = "T6v-tc-yvb"; */
+"T6v-tc-yvb.ibShadowedLabels[1]" = "行";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
+"Td7-aD-5lo.title" = "窗体";
+
+/* Class = "NSTextFieldCell"; title = "Comment Font"; ObjectID = "TzM-Kb-ocX"; */
+"TzM-Kb-ocX.title" = "注字体";
+
+/* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "UEZ-Bs-lqG"; */
+"UEZ-Bs-lqG.title" = "首字大写";
+
+/* Class = "NSTextFieldCell"; title = "Hilited Preedit Back Color"; ObjectID = "URF-qC-1FJ"; */
+"URF-qC-1FJ.title" = "选中字母底色";
+
+/* Class = "NSTextFieldCell"; title = "Preedit Text Color"; ObjectID = "USh-nX-faZ"; */
+"USh-nX-faZ.title" = "字母字色";
+
+/* Class = "NSButtonCell"; title = "Reset"; ObjectID = "V9F-ww-S2S"; */
+"V9F-ww-S2S.title" = "复原";
+
+/* Class = "NSMenuItem"; title = "Center"; ObjectID = "VIY-Ag-zcb"; */
+"VIY-Ag-zcb.title" = "中看齐";
+
+/* Class = "NSTextFieldCell"; title = "Hilited Corner Radius"; ObjectID = "VLm-mq-dDq"; */
+"VLm-mq-dDq.title" = "选中框圆角径";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
+"Vdr-fp-XzO.title" = "隐藏其它";
+
+/* Class = "NSMenuItem"; title = "Italic"; ObjectID = "Vjx-xi-njq"; */
+"Vjx-xi-njq.title" = "斜";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
+"W48-6f-4Dl.title" = "编辑";
+
+/* Class = "NSMenuItem"; title = "Underline"; ObjectID = "WRG-CD-K1S"; */
+"WRG-CD-K1S.title" = "下线";
+
+/* Class = "NSMenuItem"; title = "Paste and Match Style"; ObjectID = "WeT-3V-zwk"; */
+"WeT-3V-zwk.title" = "附样式贴上";
+
+/* Class = "NSMenuItem"; title = "Trait"; ObjectID = "Wf3-5B-Ovt"; */
+"Wf3-5B-Ovt.title" = "属性";
+
+/* Class = "NSTextFieldCell"; title = "15"; ObjectID = "Wv4-N7-lzw"; */
+"Wv4-N7-lzw.title" = "15";
+
+/* Class = "NSTextFieldCell"; title = "Hillited Label Color"; ObjectID = "Xc8-cI-l02"; */
+"Xc8-cI-l02.title" = "选中序号字色";
+
+/* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
+"Xz5-n4-O0W.title" = "找…";
+
+/* Class = "NSButtonCell"; title = "Read from Code"; ObjectID = "YC0-U5-XIB"; */
+"YC0-U5-XIB.title" = "代码变预览";
+
+/* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
+"YEy-JH-Tfz.title" = "找并替换";
+
+/* Class = "NSMenuItem"; title = "    Default"; ObjectID = "YGs-j5-SAR"; */
+"YGs-j5-SAR.title" = "　　默认";
+
+/* Class = "NSTextFieldCell"; title = "底色"; ObjectID = "YfF-uc-0rm"; */
+"YfF-uc-0rm.title" = "底色";
+
+/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "Ynk-f8-cLZ"; */
+"Ynk-f8-cLZ.title" = "读";
+
+/* Class = "NSMenuItem"; title = "Align Left"; ObjectID = "ZM1-6Q-yy1"; */
+"ZM1-6Q-yy1.title" = "左看齐";
+
+/* Class = "NSMenuItem"; title = "Paragraph"; ObjectID = "ZvO-Gk-QUH"; */
+"ZvO-Gk-QUH.title" = "整段";
+
+/* Class = "NSTextFieldCell"; title = "Candidate List Layout"; ObjectID = "ZyV-vo-u2W"; */
+"ZyV-vo-u2W.title" = "候选排布";
+
+/* Class = "NSTextFieldCell"; title = "Highlighted"; ObjectID = "Zzo-CO-3O6"; */
+"Zzo-CO-3O6.title" = "选中者";
+
+/* Class = "NSButtonCell"; title = "Reset"; ObjectID = "aJ7-PA-AbO"; */
+"aJ7-PA-AbO.title" = "复原";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
+"aUF-d1-5bR.title" = "窗体";
+
+/* Class = "NSMenu"; title = "Font"; ObjectID = "aXa-aM-Jaq"; */
+"aXa-aM-Jaq.title" = "字体";
+
+/* Class = "NSMenuItem"; title = "Use Default"; ObjectID = "agt-UL-0e3"; */
+"agt-UL-0e3.title" = "默认";
+
+/* Class = "NSMenuItem"; title = "Trait"; ObjectID = "ahG-Mq-QK1"; */
+"ahG-Mq-QK1.title" = "属性";
+
+/* Class = "NSTextFieldCell"; title = "Baseline Offset"; ObjectID = "bND-eZ-qwf"; */
+"bND-eZ-qwf.title" = "字基高";
+
+/* Class = "NSMenuItem"; title = "Show Colors"; ObjectID = "bgn-CT-cEk"; */
+"bgn-CT-cEk.title" = "色";
+
+/* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "buJ-ug-pKt"; */
+"buJ-ug-pKt.title" = "以选中者找";
+
+/* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "2oI-Rn-ZJC"; */
+"2oI-Rn-ZJC.title" = "变换";
+
+/* Class = "NSMenuItem"; title = "Family"; ObjectID = "c98-dL-nrH"; */
+"c98-dL-nrH.title" = "字族";
+
+/* Class = "NSMenuItem"; title = "Use None"; ObjectID = "cDB-IK-hbR"; */
+"cDB-IK-hbR.title" = "无";
+
+/* Class = "NSMenuItem"; title = "Selection"; ObjectID = "cqv-fj-IhA"; */
+"cqv-fj-IhA.title" = "选中";
+
+/* Class = "NSMenuItem"; title = "Smart Links"; ObjectID = "cwL-P1-jid"; */
+"cwL-P1-jid.title" = "智能链接";
+
+/* Class = "NSMenuItem"; title = "Make Lower Case"; ObjectID = "d9M-CD-aMd"; */
+"d9M-CD-aMd.title" = "变小写";
+
+/* Class = "NSMenu"; title = "Text"; ObjectID = "d9c-me-L2H"; */
+"d9c-me-L2H.title" = "字";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
+"dRJ-4n-Yzg.title" = "回退";
+
+/* Class = "NSTextFieldCell"; title = "Line Spacing"; ObjectID = "dro-W6-Vf4"; */
+"dro-W6-Vf4.title" = "行距";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "fMK-MZ-eKW"; */
+"fMK-MZ-eKW.title" = "0";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.title" = "贴上";
+
+/* Class = "NSTextFieldCell"; title = "Labels"; ObjectID = "gfe-7T-fPc"; */
+"gfe-7T-fPc.title" = "序号";
+
+/* Class = "NSMenuItem"; title = "Smart Quotes"; ObjectID = "hQb-2v-fYv"; */
+"hQb-2v-fYv.title" = "智能引用";
+
+/* Class = "NSMenuItem"; title = "Check Document Now"; ObjectID = "hz2-CU-CR7"; */
+"hz2-CU-CR7.title" = "正全文文法";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "hz9-B4-Xy5"; */
+"hz9-B4-Xy5.title" = "服务";
+
+/* Class = "NSMenuItem"; title = "Smaller"; ObjectID = "i1d-Er-qST"; */
+"i1d-Er-qST.title" = "变小";
+
+/* Class = "NSTextFieldCell"; title = "15"; ObjectID = "i8o-OM-74e"; */
+"i8o-OM-74e.title" = "15";
+
+/* Class = "NSTextFieldCell"; title = "Label Color"; ObjectID = "ied-p3-JXF"; */
+"ied-p3-JXF.title" = "序号字色";
+
+/* Class = "NSMenu"; title = "Baseline"; ObjectID = "ijk-EB-dga"; */
+"ijk-EB-dga.title" = "字基";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "iwd-y7-CAa"; */
+"iwd-y7-CAa.title" = "0";
+
+/* Class = "NSMenuItem"; title = "Kern"; ObjectID = "jBQ-r6-VK2"; */
+"jBQ-r6-VK2.title" = "字距";
+
+/* Class = "NSMenuItem"; title = "    Right to Left"; ObjectID = "jFq-tB-4Kx"; */
+"jFq-tB-4Kx.title" = "　　右至左";
+
+/* Class = "NSTextFieldCell"; title = "Comments"; ObjectID = "jKc-IU-tnU"; */
+"jKc-IU-tnU.title" = "注";
+
+/* Class = "NSMenuItem"; title = "Format"; ObjectID = "jxT-CU-nIS"; */
+"jxT-CU-nIS.title" = "样式";
+
+/* Class = "NSTextFieldCell"; title = "Text Orientation"; ObjectID = "ldI-s7-Lw1"; */
+"ldI-s7-Lw1.title" = "行文向";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "lol-xe-1g6"; */
+"lol-xe-1g6.title" = "作罢";
+
+/* Class = "NSMenuItem"; title = "Family"; ObjectID = "m5V-6z-dhz"; */
+"m5V-6z-dhz.title" = "字族";
+
+/* Class = "NSMenuItem"; title = "Check Grammar With Spelling"; ObjectID = "mK6-2p-4JG"; */
+"mK6-2p-4JG.title" = "文法";
+
+/* Class = "NSButtonCell"; title = "Update Code"; ObjectID = "o1L-A1-6jj"; */
+"o1L-A1-6jj.title" = "预览变代码";
+
+/* Class = "NSMenuItem"; title = "Ligatures"; ObjectID = "o6e-r0-MWq"; */
+"o6e-r0-MWq.title" = "连笔";
+
+/* Class = "NSMenuItem"; title = "Loosen"; ObjectID = "ogc-rX-tC1"; */
+"ogc-rX-tC1.title" = "变松";
+
+/* Class = "NSTextFieldCell"; title = "Hilited Preedit Text Color"; ObjectID = "ozV-j4-UAy"; */
+"ozV-j4-UAy.title" = "选中字母字色";
+
+/* Class = "NSMenuItem"; title = "Trait"; ObjectID = "p5j-Ck-PPi"; */
+"p5j-Ck-PPi.title" = "属性";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
+"pa3-QI-u2k.title" = "删";
+
+/* Class = "NSTextFieldCell"; title = "Size"; ObjectID = "pjz-Mg-1UA"; */
+"pjz-Mg-1UA.title" = "字号";
+
+/* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "q09-fT-Sye"; */
+"q09-fT-Sye.title" = "继续找";
+
+/* Class = "NSMenuItem"; title = "Check Spelling While Typing"; ObjectID = "rbD-Rh-wIN"; */
+"rbD-Rh-wIN.title" = "检查文法";
+
+/* Class = "NSTextFieldCell"; title = "Preedit"; ObjectID = "rd1-Zv-Wlt"; */
+"rd1-Zv-Wlt.title" = "字母";
+
+/* Class = "NSMenuItem"; title = "Smart Dashes"; ObjectID = "rgM-f4-ycn"; */
+"rgM-f4-ycn.title" = "智能破折号";
+
+/* Class = "NSButtonCell"; title = "Show Code"; ObjectID = "sj4-SO-WsK"; */
+"sj4-SO-WsK.title" = "代码";
+
+/* Class = "NSTextFieldCell"; title = "Font"; ObjectID = "t7d-ym-22T"; */
+"t7d-ym-22T.title" = "字体";
+
+/* Class = "NSMenuItem"; title = "Data Detectors"; ObjectID = "tRr-pd-1PS"; */
+"tRr-pd-1PS.title" = "数据雷达";
+
+/* Class = "NSTextFieldCell"; title = "Corner Radius"; ObjectID = "tZh-AD-nem"; */
+"tZh-AD-nem.title" = "外框圆角径";
+
+/* Class = "NSMenu"; title = "Kern"; ObjectID = "tlD-Oa-oAM"; */
+"tlD-Oa-oAM.title" = "字距";
+
+/* Class = "NSMenu"; title = "Squirrel Designer"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "鼠须管皮肤绘制";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
+"uRl-iY-unG.title" = "剪下";
+
+/* Class = "NSMenuItem"; title = "Paste Style"; ObjectID = "vKC-jM-MkH"; */
+"vKC-jM-MkH.title" = "贴上样式";
+
+/* Class = "NSMenuItem"; title = "Show Ruler"; ObjectID = "vLm-3I-IUL"; */
+"vLm-3I-IUL.title" = "尺";
+
+/* Class = "NSMenuItem"; title = "Make Upper Case"; ObjectID = "vmV-6d-7jI"; */
+"vmV-6d-7jI.title" = "变大写";
+
+/* Class = "NSTextFieldCell"; title = "0"; ObjectID = "vns-rD-0yK"; */
+"vns-rD-0yK.title" = "0";
+
+/* Class = "NSMenu"; title = "Ligatures"; ObjectID = "w0m-vy-SC9"; */
+"w0m-vy-SC9.title" = "连笔";
+
+/* Class = "NSMenuItem"; title = "Align Right"; ObjectID = "wb2-vD-lq4"; */
+"wb2-vD-lq4.title" = "右看齐";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
+"wpr-3q-Mcd.title" = "帮助";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.title" = "摄取";
+
+/* Class = "NSMenuItem"; title = "Use All"; ObjectID = "xQD-1f-W4t"; */
+"xQD-1f-W4t.title" = "所有";
+
+/* Class = "NSMenuItem"; title = "Speech"; ObjectID = "xrE-MZ-jX0"; */
+"xrE-MZ-jX0.title" = "读出";
+
+/* Class = "NSTextFieldCell"; title = "Preedit Back Color"; ObjectID = "yb5-Zr-qfD"; */
+"yb5-Zr-qfD.title" = "字母区底色";
+
+/* Class = "NSMenuItem"; title = "Show Substitutions"; ObjectID = "z6F-FW-3nz"; */
+"z6F-FW-3nz.title" = "显示替换";
+
