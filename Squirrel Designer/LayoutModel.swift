@@ -1177,6 +1177,20 @@ class SquirrelPanel: NSWindow {
             }
         }
         
+        func insert(_ separator: String, to text: NSAttributedString) -> NSAttributedString {
+            var range = (text.string as NSString).rangeOfComposedCharacterSequence(at: 0)
+            let attributedSeparator = NSAttributedString(string: separator, attributes: text.attributes(at: 0, effectiveRange: nil))
+            let workingString: NSMutableAttributedString = text.attributedSubstring(from: range).mutableCopy() as! NSMutableAttributedString
+            var i = NSMaxRange(range)
+            while i < text.length {
+                range = (text.string as NSString).rangeOfComposedCharacterSequence(at: i)
+                workingString.append(attributedSeparator)
+                workingString.append(text.attributedSubstring(from: range))
+                i = NSMaxRange(range)
+            }
+            return workingString
+        }
+        
         let text = NSMutableAttributedString()
         _preeditRange = NSMakeRange(NSNotFound, 0)
         var highlightedPreeditRange = NSMakeRange(NSNotFound, 0)
@@ -1211,6 +1225,7 @@ class SquirrelPanel: NSWindow {
         }
         var highlightedRange = NSMakeRange(NSNotFound, 0)
         var seperatorWidth: CGFloat = 0
+        let maxTextWidth = getMaxTextWidth(layout: self.layout)
         // candidates
         for i in 0..<_candidates.count {
             let attrs = (i == _hilitedIndex) ? self.layout.highlightedAttrs : self.layout.attrs
@@ -1246,7 +1261,12 @@ class SquirrelPanel: NSWindow {
             
             let candidateStart = line.length
             let candidate = _candidates[i]
-            line.append(NSAttributedString(string: candidate.precomposedStringWithCanonicalMapping, attributes: attrs))
+            var candidateAttributedString = NSAttributedString(string: candidate.precomposedStringWithCanonicalMapping, attributes: attrs)
+            let candidateWidth = candidateAttributedString.boundingRect(with: NSZeroSize, options: .usesLineFragmentOrigin).size.width
+            if candidateWidth <= maxTextWidth * 0.2 {
+                candidateAttributedString = insert("\u{2060}", to: candidateAttributedString)
+            }
+            line.append(candidateAttributedString)
             if self.layout.vertical {
                 convertToVerticalGlyph(line, inRange: NSMakeRange(candidateStart, line.length - candidateStart))
             }
@@ -1274,9 +1294,21 @@ class SquirrelPanel: NSWindow {
             
             if i < _comments.count && !_comments[i].isEmpty {
                 let commentStart = line.length
-                line.append(NSAttributedString(string: " ", attributes: commentAttrs))
                 let comment = _comments[i]
-                line.append(NSAttributedString(string: comment.precomposedStringWithCanonicalMapping, attributes: commentAttrs))
+                var commentAttributedString = NSAttributedString(string: comment.precomposedStringWithCanonicalMapping, attributes: commentAttrs)
+                let commentWidth = commentAttributedString.boundingRect(with: NSZeroSize, options: .usesLineFragmentOrigin).size.width
+                if commentWidth <= maxTextWidth * 0.2 {
+                    commentAttributedString = insert("\u{2060}", to: commentAttributedString)
+                }
+                let candidateAndLabelWidth = line.boundingRect(with: NSZeroSize, options: .usesLineFragmentOrigin).size.width
+                let commentSeparator: String
+                if candidateAndLabelWidth + commentWidth <= maxTextWidth * 0.3 {
+                    commentSeparator = "\u{00A0}"
+                } else {
+                    commentSeparator = " "
+                }
+                line.append(NSAttributedString(string: commentSeparator, attributes: commentAttrs))
+                line.append(commentAttributedString)
                 if self.layout.vertical {
                     convertToVerticalGlyph(line, inRange: NSMakeRange(commentStart, line.length - commentStart))
                 }
