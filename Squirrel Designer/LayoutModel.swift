@@ -1088,7 +1088,7 @@ class SquirrelPanel: NSWindow {
         self.orderOut(nil)
         _maxHeight = 0
         self._visible = false
-        parentView?.showPreviewButton.title = "Show Preview"
+        parentView?.showPreviewButton.title = NSLocalizedString("Show Preview", comment: "Show Preview")
     }
     
     func setCandidateFormat(_ candidateFormat: NSString) {

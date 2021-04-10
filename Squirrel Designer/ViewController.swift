@@ -509,10 +509,10 @@ class ViewController: NSViewController {
         preview.position = view.window!.convertToScreen(view.frame)
         if preview.isVisible {
             preview.hide()
-            showPreviewButton.title = "Show Preview"
+            showPreviewButton.title = NSLocalizedString("Show Preview", comment: "Show Preview")
         } else {
             preview.updateAndShow()
-            showPreviewButton.title = "Hide Preview"
+            showPreviewButton.title = NSLocalizedString("Hide Preview", comment: "Hide Preview")
         }
     }
     @IBAction func resetPressed(_ sender: Any) {
@@ -555,12 +555,12 @@ class ViewController: NSViewController {
                 codeWindow.setFrameOrigin(childFrame.origin)
                 childWindow = codeWindowController
                 codeWindowController.showWindow(nil)
-                generateCodeButton.title = "Hide Code"
+                generateCodeButton.title = NSLocalizedString("Hide Code", comment: "Hide Code")
             }
         } else {
             childWindow!.close()
             childWindow = nil
-            generateCodeButton.title = "Show Code"
+            generateCodeButton.title = NSLocalizedString("Show Code", comment: "Show Code")
         }
     }
     
@@ -840,7 +840,7 @@ class ViewController: NSViewController {
         windowAlphaField.stringValue = "\(layout.alpha)"
     }
     func codeViewDidDispear() {
-        generateCodeButton.title = "Show Code"
+        generateCodeButton.title = NSLocalizedString("Show Code", comment: "Show Code")
     }
     func reset() {
         layout = SquirrelLayout()

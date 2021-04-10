@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  Squirrel Designer
+
+  Created by LEO Yoon-Tsaw on 4/10/21.
+  Copyright © 2021 Yuncao Liu. All rights reserved.
+*/
+
+"Hide Preview" = "收预览";
+"Show Preview" = "预览";
+
+"Hide Code" = "收代码";
+"Show Code" = "代码";

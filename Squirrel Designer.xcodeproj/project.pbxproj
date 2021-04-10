@@ -7,26 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D24509822621E8D800EB4BAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D24509842621E8D800EB4BAC /* Main.storyboard */; };
+		D24509922621F4AA00EB4BAC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D24509942621F4AA00EB4BAC /* Localizable.strings */; };
 		D2830BBB24FEC87E00BF44BE /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2830BBA24FEC87E00BF44BE /* Template.swift */; };
 		D2830BBF24FEFDD400BF44BE /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2830BBE24FEFDD400BF44BE /* CodeView.swift */; };
 		D2B5B52024FD85CA00F7304E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B5B51F24FD85CA00F7304E /* AppDelegate.swift */; };
 		D2B5B52224FD85CA00F7304E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B5B52124FD85CA00F7304E /* ViewController.swift */; };
 		D2B5B52424FD85CC00F7304E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2B5B52324FD85CC00F7304E /* Assets.xcassets */; };
-		D2B5B53224FDC85500F7304E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2B5B53124FDC85500F7304E /* Main.storyboard */; };
 		D2B5B53424FDCE2700F7304E /* LayoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B5B53324FDCE2700F7304E /* LayoutModel.swift */; };
 		D2BAA6A825009BEF007B6521 /* SquirrelLayout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D2BAA6A625009BEF007B6521 /* SquirrelLayout.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D24509832621E8D800EB4BAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D245098D2621EE2200EB4BAC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hant"; path = "zh-Hant.lproj/Main.storyboard"; sourceTree = "<group>"; };
+		D24509932621F4AA00EB4BAC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D24509952621F4AF00EB4BAC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D2830BBA24FEC87E00BF44BE /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		D2830BBE24FEFDD400BF44BE /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
+		D2AD1370262200B900929320 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Main.storyboard"; sourceTree = "<group>"; };
 		D2B5B51C24FD85CA00F7304E /* Squirrel Designer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Squirrel Designer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2B5B51F24FD85CA00F7304E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2B5B52124FD85CA00F7304E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D2B5B52324FD85CC00F7304E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2B5B52824FD85CC00F7304E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2B5B52924FD85CC00F7304E /* Squirrel_Designer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Squirrel_Designer.entitlements; sourceTree = "<group>"; };
-		D2B5B53124FDC85500F7304E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		D2B5B53324FDCE2700F7304E /* LayoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutModel.swift; sourceTree = "<group>"; };
 		D2BAA6A725009BEF007B6521 /* SquirrelLayout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SquirrelLayout.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -45,6 +50,7 @@
 		D2B5B51324FD85CA00F7304E = {
 			isa = PBXGroup;
 			children = (
+				D24509942621F4AA00EB4BAC /* Localizable.strings */,
 				D2B5B51E24FD85CA00F7304E /* Squirrel Designer */,
 				D2B5B51D24FD85CA00F7304E /* Products */,
 			);
@@ -68,7 +74,7 @@
 				D2830BBA24FEC87E00BF44BE /* Template.swift */,
 				D2B5B52324FD85CC00F7304E /* Assets.xcassets */,
 				D2B5B52824FD85CC00F7304E /* Info.plist */,
-				D2B5B53124FDC85500F7304E /* Main.storyboard */,
+				D24509842621E8D800EB4BAC /* Main.storyboard */,
 				D2B5B52924FD85CC00F7304E /* Squirrel_Designer.entitlements */,
 				D2BAA6A625009BEF007B6521 /* SquirrelLayout.xcdatamodeld */,
 			);
@@ -117,6 +123,8 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
+				"zh-Hans",
 			);
 			mainGroup = D2B5B51324FD85CA00F7304E;
 			productRefGroup = D2B5B51D24FD85CA00F7304E /* Products */;
@@ -134,7 +142,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2B5B52424FD85CC00F7304E /* Assets.xcassets in Resources */,
-				D2B5B53224FDC85500F7304E /* Main.storyboard in Resources */,
+				D24509922621F4AA00EB4BAC /* Localizable.strings in Resources */,
+				D24509822621E8D800EB4BAC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +164,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D24509842621E8D800EB4BAC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D24509832621E8D800EB4BAC /* Base */,
+				D245098D2621EE2200EB4BAC /* zh-Hant */,
+				D2AD1370262200B900929320 /* zh-Hans */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D24509942621F4AA00EB4BAC /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D24509932621F4AA00EB4BAC /* zh-Hant */,
+				D24509952621F4AF00EB4BAC /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			path = "Squirrel Designer";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D2B5B52A24FD85CC00F7304E /* Debug */ = {
@@ -283,7 +315,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = 28HU5A7B46;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Squirrel Designer/Info.plist";
@@ -292,7 +324,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "Rime.Squirrel-Designer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -307,7 +339,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = 28HU5A7B46;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Squirrel Designer/Info.plist";
@@ -316,7 +348,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "Rime.Squirrel-Designer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

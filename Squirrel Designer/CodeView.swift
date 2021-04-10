@@ -47,7 +47,7 @@ class CodeViewController: NSViewController {
     }
     override func viewDidDisappear() {
         if let parent = parentView {
-            parent.generateCodeButton.title = "Show Code"
+            parent.generateCodeButton.title = NSLocalizedString("Show Code", comment: "Show Code")
         }
     }
 }
