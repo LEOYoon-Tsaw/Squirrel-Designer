@@ -27,6 +27,7 @@ class CodeViewController: NSViewController {
     @IBOutlet weak var generateCodeButton: NSButton!
     @IBOutlet weak var readCodeButton: NSButton!
     weak var parentView: ViewController?
+    static weak var currentInstance: CodeViewController?
     
     
     @IBAction func generateCodeButtonPressed(_ sender: Any) {
@@ -44,10 +45,12 @@ class CodeViewController: NSViewController {
         codeField.string = layout.encode()
         codeField.font = NSFont.systemFont(ofSize: NSFont.systemFontSize)
         saveLayoutCode(codeField.string)
+        Self.currentInstance = self
     }
     override func viewDidDisappear() {
         if let parent = parentView {
             parent.generateCodeButton.title = NSLocalizedString("Show Code", comment: "Show Code")
         }
+        Self.currentInstance = nil
     }
 }

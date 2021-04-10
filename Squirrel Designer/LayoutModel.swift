@@ -44,8 +44,8 @@ class SquirrelLayout {
     var commentTextColor: NSColor? = .disabledControlTextColor
     var highlightedCommentTextColor: NSColor?
     
-    init() {
-        if let template = Self.template {
+    init(new: Bool) {
+        if !new, let template = Self.template {
             self.decode(from: template)
         }
     }
@@ -437,7 +437,7 @@ class SquirrelView: NSView {
         layoutManager.backgroundLayoutEnabled = true
         _text = NSTextStorage()
         _text.addLayoutManager(layoutManager)
-        _layout = SquirrelLayout()
+        _layout = SquirrelLayout(new: false)
         super.init(frame: frameRect)
         self.wantsLayer = true
         self.layer?.masksToBounds = true

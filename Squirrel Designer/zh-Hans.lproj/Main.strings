@@ -1,5 +1,28 @@
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "GiY-KN-Zbm"; */
+"GiY-KN-Zbm.title" = "文档";
 
-/* Class = "NSTextFieldCell"; title = "Candidates"; ObjectID = "0lj-VR-Ps4"; */"0lj-VR-Ps4.title" = "Candidates";
+/* Class = "NSMenu"; title = "File"; ObjectID = "zky-gd-y9y"; */
+"zky-gd-y9y.title" = "文档";
+
+/* Class = "NSMenuItem"; title = "Open"; ObjectID = "m2m-Cj-zxz"; */
+"m2m-Cj-zxz.title" = "读档";
+
+/* Class = "NSMenuItem"; title = "Save As..."; ObjectID = "xN7-nd-yt7"; */
+"xN7-nd-yt7.title" = "存为…";
+
+/* Class = "NSMenuItem"; title = "New"; ObjectID = "z4S-v0-pv2"; */
+"z4S-v0-pv2.title" = "新建";
+
+/* Class = "NSMenuItem"; title = "New Template"; ObjectID = "XEp-CR-heZ"; */
+"XEp-CR-heZ.title" = "新建模版";
+
+/* Class = "NSMenuItem"; title = "Open Template"; ObjectID = "AqV-8H-xmX"; */
+"AqV-8H-xmX.title" = "读模版档";
+
+/* Class = "NSMenuItem"; title = "Save Template As..."; ObjectID = "QhP-2p-iA8"; */
+"QhP-2p-iA8.title" = "存模版为…";
+
+/* Class = "NSTextFieldCell"; title = "Candidates"; ObjectID = "0lj-VR-Ps4"; */
 "0lj-VR-Ps4.title" = "候选";
 
 /* Class = "NSTextFieldCell"; title = "Candidate Format"; ObjectID = "13s-tM-clA"; */

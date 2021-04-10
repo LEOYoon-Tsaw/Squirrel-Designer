@@ -9,8 +9,8 @@
 import CoreData
 import Cocoa
 
-var layout = SquirrelLayout()
-var inputSource = InputSource()
+var layout = SquirrelLayout(new: false)
+var inputSource = InputSource(new: false)
 let preview = SquirrelPanel(position: NSZeroRect)
 
 class FontPopUpButton: NSPopUpButton {
@@ -102,6 +102,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var generateCodeButton: NSButton!
     
     var childWindow: NSWindowController?
+    static weak var currentInstance: ViewController?
     
     func resize(_ view: NSView?, width: CGFloat?, height: CGFloat?) {
         if var frame = view?.frame {
@@ -865,7 +866,7 @@ class ViewController: NSViewController {
         generateCodeButton.title = NSLocalizedString("Show Code", comment: "Show Code")
     }
     func reset() {
-        layout = SquirrelLayout()
+        layout = SquirrelLayout(new: false)
         populateFontFamilies(fontPicker)
         populateFontFamilies(labelFontPicker)
         populateFontFamilies(commentFontPicker)
@@ -920,10 +921,12 @@ class ViewController: NSViewController {
         preview.setup(input: inputSource)
         NSColorPanel.shared.showsAlpha = true
         NSColorPanel.shared.mode = .RGB
+        Self.currentInstance = self
     }
     override func viewDidDisappear() {
         NSColorPanel.shared.showsAlpha = false
         NSColorPanel.shared.mode = .wheel
+        Self.currentInstance = nil
     }
 
     override var representedObject: Any? {

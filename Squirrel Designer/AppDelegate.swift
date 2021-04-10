@@ -68,6 +68,141 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
+    
+    @IBAction func openFile(_ sender: Any) {
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        panel.allowedFileTypes = ["txt", "yaml"]
+        panel.title = NSLocalizedString("Select Layout File", comment: "Open File")
+        panel.message = NSLocalizedString("Warning: The current layout will be discarded!", comment: "Warning")
+        panel.begin {
+            result in
+            if result == .OK, let file = panel.url {
+                do {
+                    let content = try String(contentsOf: file)
+                    layout.decode(from: content)
+                    preview.layout = layout
+                    ViewController.currentInstance?.updateUI()
+                    CodeViewController.currentInstance?.codeField.string = content
+                    saveLayoutCode(content)
+                } catch let error {
+                    let alert = NSAlert()
+                    alert.messageText = NSLocalizedString("Load Failed", comment: "Load Failed")
+                    alert.informativeText = error.localizedDescription
+                    alert.runModal()
+                }
+            }
+        }
+    }
+    
+    @IBAction func saveFile(_ sender: Any) {
+        let panel = NSSavePanel()
+        panel.title = NSLocalizedString("Select File", comment: "Save File")
+        panel.nameFieldStringValue = layout.name + ".txt"
+        panel.begin() {
+            result in 
+            if result == .OK, let file = panel.url {
+                do {
+                    let codeString = layout.encode()
+                    saveLayoutCode(codeString)
+                    try codeString.data(using: .utf8)?.write(to: file, options: .atomicWrite)
+                } catch let error {
+                    let alert = NSAlert()
+                    alert.messageText = NSLocalizedString("Save Failed", comment: "Save Failed")
+                    alert.informativeText = error.localizedDescription
+                    alert.runModal()
+                }
+            }
+        }
+    }
+    
+    @IBAction func newLayout(_ sender: Any) {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("Reset Layout", comment: "")
+        alert.informativeText = NSLocalizedString("Unsaved Work Will Be Lost! Do you want to proceed?", comment: "")
+        alert.addButton(withTitle: NSLocalizedString("Abort", comment: "Abort"))
+        alert.addButton(withTitle: NSLocalizedString("Proceed", comment: "Proceed"))
+        var result: NSApplication.ModalResponse = .alertFirstButtonReturn
+        if let window = ViewController.currentInstance?.view.window {
+            alert.beginSheetModal(for: window) { result = $0 }
+        } else {
+            result = alert.runModal()
+        }
+        if result == .alertSecondButtonReturn {
+            layout = SquirrelLayout(new: true)
+            ViewController.currentInstance?.updateUI()
+            CodeViewController.currentInstance?.codeField.string = layout.encode()
+        }
+    }
+    
+    @IBAction func openTemplateFile(_ sender: Any) {
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        panel.allowedFileTypes = ["txt", "yaml"]
+        panel.title = NSLocalizedString("Select Template File", comment: "Open File")
+        panel.message = NSLocalizedString("Warning: The current template will be discarded!", comment: "Warning")
+        panel.begin {
+            result in
+            if result == .OK, let file = panel.url {
+                do {
+                    let content = try String(contentsOf: file)
+                    inputSource.decode(from: content)
+                    preview.setup(input: inputSource)
+                    SettingViewController.currentInstance?.reloadUI()
+                    preview.layout = layout
+                    saveInputCode(content)
+                } catch let error {
+                    let alert = NSAlert()
+                    alert.messageText = NSLocalizedString("Load Failed", comment: "Load Failed")
+                    alert.informativeText = error.localizedDescription
+                    alert.runModal()
+                }
+            }
+        }
+    }
+    
+    @IBAction func saveTemplateFile(_ sender: Any) {
+        let panel = NSSavePanel()
+        panel.title = NSLocalizedString("Select File", comment: "Save File")
+        panel.nameFieldStringValue = layout.name + "_template" + ".txt"
+        panel.begin() {
+            result in
+            if result == .OK, let file = panel.url {
+                do {
+                    SettingViewController.currentInstance?.loadData()
+                    let codeString = inputSource.encode()
+                    saveInputCode(codeString)
+                    try codeString.data(using: .utf8)?.write(to: file, options: .atomicWrite)
+                } catch let error {
+                    let alert = NSAlert()
+                    alert.messageText = "Save Failed"
+                    alert.informativeText = error.localizedDescription
+                    alert.runModal()
+                }
+            }
+        }
+    }
+    
+    @IBAction func newTemplate(_ sender: Any) {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("Reset Template", comment: "")
+        alert.informativeText = NSLocalizedString("Unsaved Work Will Be Lost! Do you want to proceed?", comment: "")
+        alert.addButton(withTitle: NSLocalizedString("Abort", comment: "Abort"))
+        alert.addButton(withTitle: NSLocalizedString("Proceed", comment: "Proceed"))
+        var result: NSApplication.ModalResponse = .alertFirstButtonReturn
+        if let window = SettingViewController.currentInstance?.view.window {
+            alert.beginSheetModal(for: window) { result = $0 }
+        } else {
+            result = alert.runModal()
+        }
+        if result == .alertSecondButtonReturn {
+            inputSource = InputSource(new: true)
+            preview.setup(input: inputSource)
+            SettingViewController.currentInstance?.reloadUI()
+        }
+    }
 
     func windowWillReturnUndoManager(window: NSWindow) -> UndoManager? {
         // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.

@@ -33,8 +33,8 @@ class InputSource {
     var index: UInt = 0
     var candidateFormat = "%c.\u{00A0}%@"
     
-    init() {
-        if let template = Self.template {
+    init(new: Bool) {
+        if !new, let template = Self.template {
             self.decode(from: template)
         }
     }
@@ -131,6 +131,7 @@ class SettingViewController: NSViewController {
     @IBOutlet weak var contentView: NSView!
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var initialSelector: NSButton!
+    static weak var currentInstance: SettingViewController?
     
     @IBAction func closeWindow(_ sender: Any) {
         self.view.window?.close()
@@ -281,8 +282,8 @@ class SettingViewController: NSViewController {
     @IBAction func candidatesGridAddRow(_ sender: Any) {
         candidatesGridAddRow()
     }
-    @IBAction func reset(_ sender: Any) {
-        inputSource = InputSource()
+    
+    func reloadUI() {
         if labelsGrid.numberOfRows > 1 {
             for _ in 1..<labelsGrid.numberOfRows {
                 deleteRow(labelsGrid.row(at: labelsGrid.numberOfRows - 1), in: labelsGrid)
@@ -299,6 +300,11 @@ class SettingViewController: NSViewController {
         resize(contentView, width: nil, height: contentView.frame.height - offset)
         shift(labelsGrid, x: nil, y: -offset)
         shift(candidatesGrid, x: nil, y: -offset)
+    }
+    
+    @IBAction func reset(_ sender: Any) {
+        inputSource = InputSource(new: false)
+        reloadUI()
     }
     @IBAction func save(_ sender: Any) {
         loadData()
@@ -396,5 +402,10 @@ class SettingViewController: NSViewController {
         shift(candidatesGrid, x: nil, y: -labelsGrid.frame.height-candidatesGrid.frame.height)
         resize(contentView, width: nil, height: contentView.frame.height - min(labelsGrid.frame.height, candidatesGrid.frame.height) + labelsGrid.rowSpacing)
         initialSelector.action = #selector(SettingViewController.highlightSelection(_:))
+        Self.currentInstance = self
+    }
+    
+    override func viewDidDisappear() {
+        Self.currentInstance = nil
     }
 }

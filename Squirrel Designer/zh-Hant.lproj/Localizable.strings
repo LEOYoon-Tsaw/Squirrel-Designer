@@ -11,3 +11,16 @@
 
 "Hide Code" = "收代碼";
 "Show Code" = "代碼";
+
+"Select Layout File" = "選皮膚檔";
+"Warning: The current layout will be discarded!" = "警告：當前皮膚將被廢棄！";
+"Load Failed" = "讀檔失敗";
+"Select File" = "選檔";
+"Save Failed" = "存檔失敗";
+"Reset Layout" = "重置皮膚";
+"Unsaved Work Will Be Lost! Do you want to proceed?" = "未存檔之內容將被廢棄！繼續嗎？";
+"Abort" = "不";
+"Proceed" = "繼續";
+"Select Template File" = "選模版檔";
+"Warning: The current template will be discarded!" = "警告：當前模版將被廢棄！";
+"Reset Template" = "重置模版";

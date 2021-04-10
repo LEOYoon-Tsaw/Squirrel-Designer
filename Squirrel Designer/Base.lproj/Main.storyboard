@@ -59,6 +59,44 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="File" id="GiY-KN-Zbm">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="File" id="zky-gd-y9y">
+                                    <items>
+                                        <menuItem title="New" keyEquivalent="n" id="z4S-v0-pv2">
+                                            <connections>
+                                                <action selector="newLayout:" target="Voe-Tx-rLC" id="RRW-6N-LPh"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Open" keyEquivalent="o" id="m2m-Cj-zxz">
+                                            <connections>
+                                                <action selector="openFile:" target="Voe-Tx-rLC" id="kK2-6j-aDl"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Save As..." keyEquivalent="s" id="xN7-nd-yt7">
+                                            <connections>
+                                                <action selector="saveFile:" target="Voe-Tx-rLC" id="n4z-f0-JlF"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="DSC-eg-YJy"/>
+                                        <menuItem title="New Template" keyEquivalent="N" id="XEp-CR-heZ">
+                                            <connections>
+                                                <action selector="newTemplate:" target="Voe-Tx-rLC" id="9VZ-dY-VSz"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Open Template" keyEquivalent="O" id="AqV-8H-xmX">
+                                            <connections>
+                                                <action selector="openTemplateFile:" target="Voe-Tx-rLC" id="JFD-6O-Eu6"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Save Template As..." keyEquivalent="S" id="QhP-2p-iA8">
+                                            <connections>
+                                                <action selector="saveTemplateFile:" target="Voe-Tx-rLC" id="mXC-dY-ldb"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Edit" id="5QF-Oa-p0T">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Edit" id="W48-6f-4Dl">
@@ -1564,7 +1602,7 @@
                                     <rect key="frame" x="-100" y="-100" width="523" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="heW-H9-Cu5">
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.30526315789473679" horizontal="NO" id="heW-H9-Cu5">
                                     <rect key="frame" x="509" y="0.0" width="16" height="310"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
