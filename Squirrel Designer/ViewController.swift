@@ -12,6 +12,7 @@ import Cocoa
 var layout = SquirrelLayout(new: false)
 var inputSource = InputSource(new: false)
 let preview = SquirrelPanel(position: NSZeroRect)
+var mainWindowFrame: NSRect?
 
 class FontPopUpButton: NSPopUpButton {
     weak var fontTraits: NSPopUpButton?
@@ -923,10 +924,12 @@ class ViewController: NSViewController {
         NSColorPanel.shared.mode = .RGB
         Self.currentInstance = self
     }
+    
     override func viewDidDisappear() {
         NSColorPanel.shared.showsAlpha = false
         NSColorPanel.shared.mode = .wheel
         Self.currentInstance = nil
+        mainWindowFrame = view.window!.convertToScreen(view.frame)
     }
 
     override var representedObject: Any? {

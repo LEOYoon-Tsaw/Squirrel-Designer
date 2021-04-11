@@ -11,14 +11,33 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        if ViewController.currentInstance == nil {
+            let storyboard = NSStoryboard(name: "Main", bundle: nil)
+            let windowController = storyboard.instantiateController(withIdentifier: "Main Window Controller") as! NSWindowController
+            if let mainWindow = windowController.window {
+                windowController.showWindow(sender)
+                if let frame = mainWindowFrame {
+                    mainWindow.setFrameOrigin(frame.origin)
+                }
+                if let codeView = CodeViewController.currentInstance {
+                    (mainWindow.contentViewController as! ViewController).childWindow = codeView.view.window?.windowController
+                    (mainWindow.contentViewController as! ViewController).generateCodeButton.title = NSLocalizedString("Hide Code", comment: "Hide Code")
+                }
+                if preview.isVisible {
+                    (mainWindow.contentViewController as! ViewController).showPreviewButton.title = NSLocalizedString("Hide Preview", comment: "Hide Preview")
+                }
+            }
+        }
+        return false
     }
 
     // MARK: - Core Data stack
