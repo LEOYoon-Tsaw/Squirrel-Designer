@@ -148,6 +148,9 @@
 /* Class = "NSTextFieldCell"; title = "Colorspace"; ObjectID = "GFQ-yL-V2f"; */
 "GFQ-yL-V2f.title" = "色空間";
 
+/* Class = "NSTextFieldCell"; title = "Translucency "; ObjectID = "pT7-cp-v6P"; */
+"pT7-cp-v6P.title" = "磨砂";
+
 /* Class = "NSMenuItem"; title = "Use Default"; ObjectID = "GUa-eO-cwY"; */
 "GUa-eO-cwY.title" = "默認";
 

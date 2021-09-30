@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -943,9 +943,18 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iyf-Q3-0yV">
-                                                    <rect key="frame" x="18" y="251" width="110" height="32"/>
+                                                    <rect key="frame" x="19" y="215" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Colorspace" id="GFQ-yL-V2f" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
+                                                        <font key="font" usesAppearanceFont="YES"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qRt-a9-n5u">
+                                                    <rect key="frame" x="19" y="252" width="110" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Translucency" id="pT7-cp-v6P" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1560,7 +1569,7 @@
                                                     </gridCells>
                                                 </gridView>
                                                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="9KM-lc-afm">
-                                                    <rect key="frame" x="131" y="253" width="100" height="26"/>
+                                                    <rect key="frame" x="132" y="217" width="100" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <popUpButtonCell key="cell" type="push" title="Display P3" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="h2z-xi-wWP" id="07L-3c-jFg">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1594,6 +1603,13 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
+                                                <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="DDY-zH-Cfe">
+                                                    <rect key="frame" x="186" y="256" width="42" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <connections>
+                                                        <action selector="translucencyToggled:" target="XfG-lQ-9wD" id="REo-lU-xRe"/>
+                                                    </connections>
+                                                </switch>
                                             </subviews>
                                         </view>
                                     </subviews>
@@ -1602,7 +1618,7 @@
                                     <rect key="frame" x="-100" y="-100" width="523" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.30526315789473679" horizontal="NO" id="heW-H9-Cu5">
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="heW-H9-Cu5">
                                     <rect key="frame" x="509" y="0.0" width="16" height="310"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -1674,6 +1690,7 @@
                         <outlet property="scrollView" destination="eG7-5q-ARK" id="pO8-EA-sL7"/>
                         <outlet property="showPreviewButton" destination="X23-Hi-l4l" id="Wsk-ma-mkU"/>
                         <outlet property="textOrientationSwitch" destination="1QS-Jy-1dl" id="eD6-x9-lrn"/>
+                        <outlet property="translucencyToggle" destination="DDY-zH-Cfe" id="bKy-IZ-8CU"/>
                         <outlet property="windowAlphaField" destination="FtX-BV-c6q" id="0sg-z6-YA0"/>
                     </connections>
                 </viewController>

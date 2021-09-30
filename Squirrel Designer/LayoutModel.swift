@@ -8,6 +8,35 @@
 
 import AppKit
 
+extension NSBezierPath {
+
+  var cgPath: CGPath {
+    let path = CGMutablePath()
+    var points = [CGPoint](repeating: .zero, count: 3)
+    for i in 0 ..< self.elementCount {
+      let type = self.element(at: i, associatedPoints: &points)
+
+      switch type {
+      case .moveTo:
+        path.move(to: points[0])
+
+      case .lineTo:
+        path.addLine(to: points[0])
+
+      case .curveTo:
+        path.addCurve(to: points[2], control1: points[0], control2: points[1])
+
+      case .closePath:
+        path.closeSubpath()
+
+      @unknown default:
+        break
+      }
+    }
+    return path
+  }
+}
+
 class SquirrelLayout {
     static var template: String?
     
@@ -31,6 +60,7 @@ class SquirrelLayout {
     var vertical = false
     var inlinePreedit = false
     var isDisplayP3 = true
+    var translucency = false
     
     var fonts: Array<NSFont> = [NSFont.userFont(ofSize: 15)!]
     var labelFonts = Array<NSFont>()
@@ -184,6 +214,7 @@ class SquirrelLayout {
         encoded += "candidate_list_layout: \(linear ? "linear" : "stacked")\n"
         encoded += "text_orientation: \(vertical ? "vertical" : "horizontal")\n"
         encoded += "inline_preedit: \(inlinePreedit ? "true" : "false")\n"
+        encoded += "translucency: \(translucency)\n"
         if cornerRadius != 0 {
             encoded += "corner_radius: \(cornerRadius)\n"
         }
@@ -343,6 +374,7 @@ class SquirrelLayout {
             vertical = getBool(values["vertical"])
         }
         let inlinePreedit = getBool(values["inline_preedit"])
+        let translucency = getBool(values["translucency"])
         let name = values["name"]
         let cornerRadius = getFloat(values["corner_radius"])
         let hilitedCornerRadius = getFloat(values["hilited_corner_radius"])
@@ -383,6 +415,7 @@ class SquirrelLayout {
         self.linear = linear ?? false
         self.vertical = vertical ?? false
         self.inlinePreedit = inlinePreedit ?? false
+        self.translucency = translucency ?? false
         self.isDisplayP3 = isDisplayP3
         self.backgroundColor = backgroundColor ?? NSColor.windowBackgroundColor
         self.candidateTextColor = candidateTextColor ?? NSColor.controlTextColor
@@ -421,6 +454,7 @@ func blendColor(foregroundColor: NSColor, backgroundColor: NSColor?) -> NSColor 
 }
 
 class SquirrelView: NSView {
+    var shape: CAShapeLayer = CAShapeLayer()
     private var _layout: SquirrelLayout
     private let _text: NSTextStorage
     private var _highlightedRange = NSMakeRange(NSNotFound, 0)
@@ -861,6 +895,7 @@ class SquirrelView: NSView {
         
         NSBezierPath.defaultLineWidth = 0
         backgroundPath = drawSmoothLines(vertex(ofRect: backgroundRect), alpha: 0.3*_layout.cornerRadius, beta: 1.4*_layout.cornerRadius)
+        shape.path = backgroundPath?.cgPath
         // Nothing should extend beyond backgroundPath
         borderPath = backgroundPath?.copy() as? NSBezierPath
         borderPath?.addClip()
@@ -928,6 +963,7 @@ class SquirrelPanel: NSWindow {
     static let kOffsetHeight: CGFloat = 5
     private var _position: NSRect
     private let _view: SquirrelView
+    private let _back: NSVisualEffectView
     private var _preeditRange = NSMakeRange(NSNotFound, 0)
     private var _screenRect = NSZeroRect
     private var _maxHeight: CGFloat = 0
@@ -946,12 +982,22 @@ class SquirrelPanel: NSWindow {
     init(position: NSRect) {
         _position = position
         _view = SquirrelView(frame: position)
+        let blurView = NSVisualEffectView()
+        blurView.blendingMode = .behindWindow
+        blurView.material = .hudWindow
+        blurView.state = .active
+        blurView.wantsLayer = true
+        blurView.layer!.mask = _view.shape
+        _back = blurView
         super.init(contentRect: position, styleMask: .borderless, backing: .buffered, defer: true)
         self.alphaValue = 1
         self.hasShadow = true
         self.isOpaque = false
         self.backgroundColor = .clear
-        self.contentView = _view
+        let contentView = NSView()
+        self.contentView = contentView
+        contentView.addSubview(_back)
+        contentView.addSubview(_view)
         self.isMovableByWindowBackground = true
     }
     
@@ -1068,16 +1114,23 @@ class SquirrelPanel: NSWindow {
         if NSMinY(windowRect) < NSMinY(_screenRect) {
             windowRect.origin.y = NSMinY(_screenRect)
         }
-        // rotate the view, the core in vertical mode!
-        if self.layout.vertical {
-            _view.boundsRotation = 90.0
-            _view.setBoundsOrigin(NSMakePoint(0, windowRect.size.width))
-        } else {
-            _view.boundsRotation = 0
-            _view.setBoundsOrigin(NSMakePoint(0, 0))
-        }
         self.alphaValue = self.layout.alpha
         self.setFrame(windowRect, display: true)
+        // rotate the view, the core in vertical mode!
+        if self.layout.vertical {
+            self.contentView?.boundsRotation = -90.0
+            self.contentView?.setBoundsOrigin(NSMakePoint(0, windowRect.size.width))
+        } else {
+            self.contentView?.boundsRotation = 0
+            self.contentView?.setBoundsOrigin(NSMakePoint(0, 0))
+        }
+        _view.frame = _view.superview!.bounds
+        if layout.translucency {
+            _back.frame = _back.superview!.bounds
+            _back.isHidden = false
+        } else {
+            _back.isHidden = true
+        }
         self.invalidateShadow()
         self.orderFront(nil)
         self._visible = true

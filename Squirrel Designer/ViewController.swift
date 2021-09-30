@@ -89,6 +89,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var hilitedLabelTextColorToggle: NSSwitch!
     @IBOutlet weak var hilitedLabelTextColorPicker: NSColorWell!
     @IBOutlet weak var colorSpacePicker: NSPopUpButton!
+    @IBOutlet weak var translucencyToggle: NSSwitch!
     
     @IBOutlet weak var borderHeightField: NSTextField!
     @IBOutlet weak var borderWidthField: NSTextField!
@@ -357,6 +358,10 @@ class ViewController: NSViewController {
             commentFontSizePicker.isEnabled = true
             updateFonts(in: commentFontPickerGrid, size: commentFontSizePicker, to: \SquirrelLayout.commentFonts)
         }
+        preview.layout = layout
+    }
+    @IBAction func translucencyToggled(_ sender: Any) {
+        layout.translucency = translucencyToggle.state == .on
         preview.layout = layout
     }
 
@@ -853,6 +858,7 @@ class ViewController: NSViewController {
             hilitedLabelTextColorPicker.color = blendColor(foregroundColor: hilitedCandidateTextColorPicker.color, backgroundColor:         hilitedCandidateBackColorPicker.color)
             layout.highlightedCandidateLabelColor = hilitedLabelTextColorPicker.color
         }
+        translucencyToggle.state = layout.translucency ? .on : .off
         
         borderHeightField.stringValue = "\(layout.borderHeight)"
         borderWidthField.stringValue = "\(layout.borderWidth)"
