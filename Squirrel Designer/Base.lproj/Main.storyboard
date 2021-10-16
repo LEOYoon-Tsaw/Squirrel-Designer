@@ -693,7 +693,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZRh-6v-JHV">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZRh-6v-JHV">
                                                     <rect key="frame" x="438" y="747" width="61" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="15" drawsBackground="YES" id="Wv4-N7-lzw">
@@ -734,7 +734,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7jq-lw-VgD">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7jq-lw-VgD">
                                                     <rect key="frame" x="438" y="711" width="61" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="15" drawsBackground="YES" id="i8o-OM-74e">
@@ -766,7 +766,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S8o-vq-Agu" userLabel="Comment Font Size Picker">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S8o-vq-Agu" userLabel="Comment Font Size Picker">
                                                     <rect key="frame" x="438" y="675" width="61" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="15" drawsBackground="YES" id="PFT-H1-wTP">
@@ -1075,7 +1075,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nfk-wG-Flj">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nfk-wG-Flj">
                                                     <rect key="frame" x="138" y="183" width="93" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0" drawsBackground="YES" id="fMK-MZ-eKW">
@@ -1091,7 +1091,7 @@
                                                         <action selector="borderHeightChanged:" target="XfG-lQ-9wD" id="s5u-kK-o1d"/>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="npL-z5-zhC">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="npL-z5-zhC">
                                                     <rect key="frame" x="138" y="147" width="93" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0" drawsBackground="YES" id="iwd-y7-CAa">
@@ -1107,7 +1107,7 @@
                                                         <action selector="cornerRadiusChanged:" target="XfG-lQ-9wD" id="83t-a0-NV4"/>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xe1-6o-GCP">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xe1-6o-GCP">
                                                     <rect key="frame" x="137" y="111" width="93" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0" drawsBackground="YES" id="HvF-lM-vgx">
@@ -1123,7 +1123,7 @@
                                                         <action selector="lineSpacingChanged:" target="XfG-lQ-9wD" id="wtE-Ot-mWy"/>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6MV-25-bBg">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6MV-25-bBg">
                                                     <rect key="frame" x="137" y="75" width="93" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0" drawsBackground="YES" id="P7l-9B-tld">
@@ -1139,7 +1139,7 @@
                                                         <action selector="baselineOffsetChanged:" target="XfG-lQ-9wD" id="wBh-hc-fKQ"/>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LsO-43-mJV">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LsO-43-mJV">
                                                     <rect key="frame" x="406" y="183" width="92" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0" drawsBackground="YES" id="QAi-4X-0Hw">
@@ -1155,7 +1155,7 @@
                                                         <action selector="borderWidthChanged:" target="XfG-lQ-9wD" id="tum-BP-daD"/>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ccq-Am-EtM">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ccq-Am-EtM">
                                                     <rect key="frame" x="406" y="147" width="92" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0" drawsBackground="YES" id="NeE-sX-TWf">
@@ -1171,7 +1171,7 @@
                                                         <action selector="hilitedCornerRadiusChanged:" target="XfG-lQ-9wD" id="bG5-Te-tby"/>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7ja-83-UGx">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7ja-83-UGx">
                                                     <rect key="frame" x="407" y="111" width="91" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0" drawsBackground="YES" id="vns-rD-0yK">
@@ -1308,7 +1308,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FtX-BV-c6q">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FtX-BV-c6q">
                                                     <rect key="frame" x="407" y="75" width="91" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="1" drawsBackground="YES" id="H4E-Om-NQW">
@@ -1344,7 +1344,7 @@
                                                     <rect key="frame" x="259" y="75" width="5" height="129"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 </box>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u5g-R1-OgT">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u5g-R1-OgT">
                                                     <rect key="frame" x="186" y="802" width="313" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="customized_color_scheme" drawsBackground="YES" id="Ms1-rF-Lj4">
@@ -1597,7 +1597,7 @@
                                     <rect key="frame" x="-100" y="-100" width="523" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="heW-H9-Cu5">
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="heW-H9-Cu5">
                                     <rect key="frame" x="509" y="28" width="16" height="311"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -1878,7 +1878,7 @@
                                                         <action selector="preeditToggled:" target="5fl-nL-oFT" id="OVw-KY-vJH"/>
                                                     </connections>
                                                 </switch>
-                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XbQ-v8-ezl">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XbQ-v8-ezl">
                                                     <rect key="frame" x="90" y="301" width="485" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="QBa-Lh-zIN">
@@ -1887,7 +1887,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DU3-Lk-3IO">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DU3-Lk-3IO">
                                                     <rect key="frame" x="90" y="195" width="485" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="U88-tT-XuB">
@@ -1896,7 +1896,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aig-rT-9k0">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aig-rT-9k0">
                                                     <rect key="frame" x="90" y="226" width="485" height="42"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="A1O-tE-y5L">
@@ -1918,7 +1918,7 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TWG-fH-YUp">
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TWG-fH-YUp">
                                                     <rect key="frame" x="168" y="143" width="408" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="iok-YO-pXo">
@@ -1956,7 +1956,7 @@
                                                     </columns>
                                                     <gridCells>
                                                         <gridCell row="IjD-z9-fFY" column="10r-bV-ZBW" id="nfa-Ba-qyA">
-                                                            <textField key="contentView" verticalHuggingPriority="750" placeholderIntrinsicWidth="170" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="2vd-k9-U8l">
+                                                            <textField key="contentView" wantsLayer="YES" verticalHuggingPriority="750" placeholderIntrinsicWidth="170" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="2vd-k9-U8l">
                                                                 <rect key="frame" x="0.0" y="0.0" width="72" height="21"/>
                                                                 <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="Cw3-eo-NAG">
                                                                     <font key="font" usesAppearanceFont="YES"/>
@@ -2001,7 +2001,7 @@
                                                             </button>
                                                         </gridCell>
                                                         <gridCell row="eQ5-0j-iMz" column="IJA-zX-cEq" id="2Ke-AD-mAp">
-                                                            <textField key="contentView" verticalHuggingPriority="750" placeholderIntrinsicWidth="170" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="Uqk-MC-xxM">
+                                                            <textField key="contentView" wantsLayer="YES" verticalHuggingPriority="750" placeholderIntrinsicWidth="170" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="Uqk-MC-xxM">
                                                                 <rect key="frame" x="36" y="0.0" width="170" height="21"/>
                                                                 <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="KCY-Zq-D8O">
                                                                     <font key="font" metaFont="system"/>
@@ -2011,7 +2011,7 @@
                                                             </textField>
                                                         </gridCell>
                                                         <gridCell row="eQ5-0j-iMz" column="DUk-YO-TEL" id="9CA-8N-sTU">
-                                                            <textField key="contentView" verticalHuggingPriority="750" placeholderIntrinsicWidth="170" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="0ks-qI-MkZ">
+                                                            <textField key="contentView" wantsLayer="YES" verticalHuggingPriority="750" placeholderIntrinsicWidth="170" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="0ks-qI-MkZ">
                                                                 <rect key="frame" x="212" y="0.0" width="170" height="21"/>
                                                                 <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="Dyz-QK-ysy">
                                                                     <font key="font" usesAppearanceFont="YES"/>
