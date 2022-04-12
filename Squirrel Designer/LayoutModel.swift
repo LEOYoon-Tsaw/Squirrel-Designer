@@ -200,16 +200,16 @@ class SquirrelLayout {
         }
         let fontNames = fonts.map { $0.fontName.trimmingCharacters(in: .whitespaces) }.joined(separator: ", ")
         encoded += "font_face: \"\(fontNames)\"\n"
-        encoded += "font_point: \(fonts[0].pointSize)\n"
+        encoded += "font_point: \(Int(fonts[0].pointSize))\n"
         if !labelFonts.isEmpty {
             let fontNames = labelFonts.map { $0.fontName.trimmingCharacters(in: .whitespaces) }.joined(separator: ", ")
             encoded += "label_font_face: \"\(fontNames)\"\n"
-            encoded += "label_font_point: \(labelFonts[0].pointSize)\n"
+            encoded += "label_font_point: \(Int(labelFonts[0].pointSize))\n"
         }
         if !commentFonts.isEmpty {
             let fontNames = commentFonts.map { $0.fontName.trimmingCharacters(in: .whitespaces) }.joined(separator: ", ")
             encoded += "comment_font_face: \"\(fontNames)\"\n"
-            encoded += "comment_font_point: \(commentFonts[0].pointSize)\n"
+            encoded += "comment_font_point: \(Int(commentFonts[0].pointSize))\n"
         }
         encoded += "candidate_list_layout: \(linear ? "linear" : "stacked")\n"
         encoded += "text_orientation: \(vertical ? "vertical" : "horizontal")\n"
