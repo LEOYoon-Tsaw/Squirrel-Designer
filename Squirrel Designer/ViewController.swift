@@ -72,6 +72,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var backgroundColorPicker: NSColorWell!
     @IBOutlet weak var candidateTextColorPicker: NSColorWell!
     @IBOutlet weak var hilitedCandidateBackColorPicker: NSColorWell!
+    @IBOutlet weak var candidateBackColorToggle: NSSwitch!
+    @IBOutlet weak var candidateBackColorPicker: NSColorWell!
     @IBOutlet weak var hilitedCandidateTextColorPicker: NSColorWell!
     @IBOutlet weak var preeditBackColorToggle: NSSwitch!
     @IBOutlet weak var preeditBackColorPicker: NSColorWell!
@@ -98,6 +100,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var lineSpacingField: NSTextField!
     @IBOutlet weak var preeditLineSpacingField: NSTextField!
     @IBOutlet weak var baselineOffsetField: NSTextField!
+    @IBOutlet weak var extraExpansionField: NSTextField!
     @IBOutlet weak var windowAlphaField: NSTextField!
     
     @IBOutlet weak var showPreviewButton: NSButton!
@@ -260,6 +263,16 @@ class ViewController: NSViewController {
     @IBAction func nameChanged(_ sender: Any) {
         layout.name = nameField.stringValue
     }
+    @IBAction func candidateBackColorToggled(_ sender: Any) {
+        if candidateBackColorToggle.state == .off {
+            candidateBackColorPicker.isEnabled = false
+            layout.stripColor = nil
+        } else {
+            candidateBackColorPicker.isEnabled = true
+            layout.stripColor = candidateBackColorPicker.color
+        }
+        preview.layout = layout
+    }
     @IBAction func preeditBackColorToggled(_ sender: Any) {
         if preeditBackColorToggle.state == .off {
             preeditBackColorPicker.isEnabled = false
@@ -398,6 +411,10 @@ class ViewController: NSViewController {
         }
         preview.layout = layout
     }
+    @IBAction func candidateBackColorChanged(_ sender: Any) {
+        layout.stripColor = candidateBackColorPicker.color
+        preview.layout = layout
+    }
     @IBAction func hilitedCandidateBackColorChanged(_ sender: Any) {
         layout.highlightedStripColor = hilitedCandidateBackColorPicker.color
         if hilitedLabelTextColorToggle.state == .off {
@@ -524,6 +541,10 @@ class ViewController: NSViewController {
     }
     @IBAction func baselineOffsetChanged(_ sender: Any) {
         layout.baseOffset = CGFloat(baselineOffsetField.doubleValue)
+        preview.layout = layout
+    }
+    @IBAction func extraExpansionChanged(_ sender: Any) {
+        layout.surroundingExtraExpansion = CGFloat(extraExpansionField.doubleValue)
         preview.layout = layout
     }
     @IBAction func windowAlphaChanged(_ sender: Any) {
@@ -798,6 +819,13 @@ class ViewController: NSViewController {
         }
         backgroundColorPicker.color = layout.backgroundColor!
         candidateTextColorPicker.color = layout.candidateTextColor!
+        if let candidateBackColor = layout.stripColor {
+            candidateBackColorToggle.state = .on
+            candidateBackColorPicker.color = candidateBackColor
+        } else {
+            candidateBackColorToggle.state = .off
+            candidateBackColorPicker.color = NSColor(white: 1, alpha: 0)
+        }
         hilitedCandidateBackColorPicker.color = layout.highlightedStripColor!
         hilitedCandidateTextColorPicker.color = layout.highlightedCandidateTextColor!
         preeditBackColorToggle.state = layout.preeditBackgroundColor == nil ? .off : .on
@@ -867,6 +895,7 @@ class ViewController: NSViewController {
         lineSpacingField.stringValue = "\(layout.linespace)"
         preeditLineSpacingField.stringValue = "\(layout.preeditLinespace)"
         baselineOffsetField.stringValue = "\(layout.baseOffset)"
+        extraExpansionField.stringValue = "\(layout.surroundingExtraExpansion)"
         windowAlphaField.stringValue = "\(layout.alpha)"
     }
     func codeViewDidDispear() {

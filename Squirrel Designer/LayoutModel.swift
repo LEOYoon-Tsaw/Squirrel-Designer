@@ -42,6 +42,7 @@ class SquirrelLayout {
     
     var name: String = "customized_color_scheme"
     var backgroundColor: NSColor? = .windowBackgroundColor
+    var stripColor: NSColor?
     var highlightedStripColor: NSColor? = .selectedTextBackgroundColor
     var highlightedPreeditColor: NSColor?
     var preeditBackgroundColor: NSColor?
@@ -49,6 +50,7 @@ class SquirrelLayout {
     
     var cornerRadius: CGFloat = 0
     var hilitedCornerRadius: CGFloat = 0
+    var surroundingExtraExpansion: CGFloat = 0
     var borderWidth: CGFloat = 0
     var borderHeight: CGFloat = 0
     var linespace: CGFloat = 0
@@ -100,14 +102,26 @@ class SquirrelLayout {
          .baselineOffset: baseOffset]
     }
     var commentAttrs: [NSAttributedString.Key : Any] {
-        [.foregroundColor: commentTextColor!,
+        let offset: CGFloat
+        if let fontsize = font?.pointSize, let commentFontSize = commentFont?.pointSize {
+            offset = (fontsize - commentFontSize) / 2
+        } else {
+            offset = 0
+        }
+        return [.foregroundColor: commentTextColor!,
          .font: commentFont ?? font!,
-         .baselineOffset: baseOffset]
+         .baselineOffset: baseOffset + offset]
     }
     var commentHighlightedAttrs: [NSAttributedString.Key : Any] {
-        [.foregroundColor: highlightedCommentTextColor ?? commentTextColor!,
+        let offset: CGFloat
+        if let fontsize = font?.pointSize, let commentFontSize = commentFont?.pointSize {
+            offset = (fontsize - commentFontSize) / 2
+        } else {
+            offset = 0
+        }
+        return [.foregroundColor: highlightedCommentTextColor ?? commentTextColor!,
          .font: commentFont ?? font!,
-         .baselineOffset: baseOffset]
+         .baselineOffset: baseOffset + offset]
     }
     var preeditAttrs: [NSAttributedString.Key : Any] {
         [.foregroundColor: textColor!,
@@ -120,14 +134,26 @@ class SquirrelLayout {
          .baselineOffset: baseOffset]
     }
     var labelAttrs: [NSAttributedString.Key : Any] {
-        [.foregroundColor: candidateLabelColor ?? blendColor(foregroundColor: self.candidateTextColor!, backgroundColor: self.backgroundColor),
+        let offset: CGFloat
+        if let fontsize = font?.pointSize, let labelFontSize = labelFont?.pointSize {
+            offset = (fontsize - labelFontSize) / 2
+        } else {
+            offset = 0
+        }
+        return [.foregroundColor: candidateLabelColor ?? blendColor(foregroundColor: self.candidateTextColor!, backgroundColor: self.backgroundColor),
          .font: labelFont ?? font!,
-         .baselineOffset: baseOffset]
+         .baselineOffset: baseOffset + offset]
     }
     var labelHighlightedAttrs: [NSAttributedString.Key : Any] {
-        [.foregroundColor: highlightedCandidateLabelColor ?? blendColor(foregroundColor: highlightedCandidateTextColor!, backgroundColor: highlightedStripColor),
+        let offset: CGFloat
+        if let fontsize = font?.pointSize, let labelFontSize = labelFont?.pointSize {
+            offset = (fontsize - labelFontSize) / 2
+        } else {
+            offset = 0
+        }
+        return [.foregroundColor: highlightedCandidateLabelColor ?? blendColor(foregroundColor: highlightedCandidateTextColor!, backgroundColor: highlightedStripColor),
          .font: labelFont ?? font!,
-         .baselineOffset: baseOffset]
+         .baselineOffset: baseOffset + offset]
     }
 
     var firstParagraphStyle: NSParagraphStyle {
@@ -150,17 +176,15 @@ class SquirrelLayout {
     
     var edgeInset: NSSize {
         if (self.vertical) {
-            return NSMakeSize(max(borderHeight, cornerRadius), max(borderWidth, cornerRadius))
+            return NSMakeSize(borderHeight + cornerRadius, borderWidth + cornerRadius)
         } else {
-            return NSMakeSize(max(borderWidth, cornerRadius), max(borderHeight, cornerRadius))
+            return NSMakeSize(borderWidth + cornerRadius, borderHeight + cornerRadius)
         }
     }
     var borderLineWidth: CGFloat {
         return min(borderHeight, borderWidth)
     }
-    var halfLinespace: CGFloat {
-        return linespace / 2
-    }
+
     func combineFonts(_ fonts: Array<NSFont>) -> NSFont? {
         if fonts.count == 0 { return nil }
         if fonts.count == 1 { return fonts[0] }
@@ -194,6 +218,23 @@ class SquirrelLayout {
         return fonts
     }
     func encode() -> String {
+        func colorToString(_ color: NSColor, inDisplayP3: Bool) -> String {
+            var colorString = "0x"
+            if color.alphaComponent < 1 {
+                colorString += String(format:"%02X", Int(round(color.alphaComponent * 255)))
+            }
+            let colorWithColorspace: NSColor
+            if inDisplayP3 {
+                colorWithColorspace = color.usingColorSpace(NSColorSpace.displayP3)!
+            } else {
+                colorWithColorspace = color.usingColorSpace(NSColorSpace.sRGB)!
+            }
+            colorString += String(format:"%02X", Int(round(colorWithColorspace.blueComponent * 255)))
+            colorString += String(format:"%02X", Int(round(colorWithColorspace.greenComponent * 255)))
+            colorString += String(format:"%02X", Int(round(colorWithColorspace.redComponent * 255)))
+            return colorString
+        }
+        
         var encoded = ""
         if !name.isEmpty {
             encoded += "name: \"\(name)\"\n"
@@ -221,6 +262,9 @@ class SquirrelLayout {
         if hilitedCornerRadius != 0 {
             encoded += "hilited_corner_radius: \(hilitedCornerRadius)\n"
         }
+        if surroundingExtraExpansion != 0 {
+            encoded += "surrounding_extra_expansion: \(surroundingExtraExpansion)\n"
+        }
         if borderHeight != 0 {
             encoded += "border_height: \(borderHeight)\n"
         }
@@ -244,25 +288,14 @@ class SquirrelLayout {
         } else {
             encoded += "color_space: srgb\n"
         }
-        func colorToString(_ color: NSColor, inDisplayP3: Bool) -> String {
-            var colorString = "0x"
-            if color.alphaComponent < 1 {
-                colorString += String(format:"%02X", Int(round(color.alphaComponent * 255)))
-            }
-            let colorWithColorspace: NSColor
-            if inDisplayP3 {
-                colorWithColorspace = color.usingColorSpace(NSColorSpace.displayP3)!
-            } else {
-                colorWithColorspace = color.usingColorSpace(NSColorSpace.sRGB)!
-            }
-            colorString += String(format:"%02X", Int(round(colorWithColorspace.blueComponent * 255)))
-            colorString += String(format:"%02X", Int(round(colorWithColorspace.greenComponent * 255)))
-            colorString += String(format:"%02X", Int(round(colorWithColorspace.redComponent * 255)))
-            return colorString
-        }
+        
+        //Colors
         encoded += "back_color: \(colorToString(backgroundColor!, inDisplayP3: isDisplayP3))\n"
         if borderColor != nil {
             encoded += "border_color: \(colorToString(borderColor!, inDisplayP3: isDisplayP3))\n"
+        }
+        if stripColor != nil {
+            encoded += "candidate_back_color: \(colorToString(stripColor!, inDisplayP3: isDisplayP3))\n"
         }
         encoded += "candidate_text_color: \(colorToString(candidateTextColor!, inDisplayP3: isDisplayP3))\n"
         encoded += "comment_text_color: \(colorToString(commentTextColor!, inDisplayP3: isDisplayP3))\n"
@@ -377,6 +410,7 @@ class SquirrelLayout {
         let translucency = getBool(values["translucency"])
         let name = values["name"]
         let cornerRadius = getFloat(values["corner_radius"])
+        let surroundingExtraExpansion = getFloat(values["surrounding_extra_expansion"])
         let hilitedCornerRadius = getFloat(values["hilited_corner_radius"])
         let borderWidth = getFloat(values["border_width"])
         let borderHeight = getFloat(values["border_height"])
@@ -432,6 +466,7 @@ class SquirrelLayout {
         self.highlightedCandidateLabelColor = highlightedCandidateLabelColor
         self.borderWidth = borderWidth ?? 0
         self.borderHeight = borderHeight ?? 0
+        self.surroundingExtraExpansion = surroundingExtraExpansion ?? 0
         self.cornerRadius = cornerRadius ?? 0
         self.hilitedCornerRadius = hilitedCornerRadius ?? 0
         self.linespace = linespace ?? 0
@@ -457,9 +492,10 @@ class SquirrelView: NSView {
     var shape: CAShapeLayer = CAShapeLayer()
     private var _layout: SquirrelLayout
     private let _text: NSTextStorage
-    private var _highlightedRange = NSMakeRange(NSNotFound, 0)
-    private var _preeditRange = NSMakeRange(NSNotFound, 0)
-    private var _highlightedPreeditRange = NSMakeRange(NSNotFound, 0)
+    private var _candidateRanges: Array<NSRange> = []
+    private var _highlightedIndex: Int = 0
+    private var _preeditRange: NSRange = NSMakeRange(NSNotFound, 0)
+    private var _highlightedPreeditRange: NSRange = NSMakeRange(NSNotFound, 0)
     private var _seperatorWidth: CGFloat = 0
     
     override init(frame frameRect: NSRect) {
@@ -491,7 +527,7 @@ class SquirrelView: NSView {
     var contentRect: NSRect {
         let glyphRange = _text.layoutManagers[0].glyphRange(for: _text.layoutManagers[0].textContainers[0])
         var rect = _text.layoutManagers[0].boundingRect(forGlyphRange: glyphRange, in: _text.layoutManagers[0].textContainers[0])
-        var actualWidth: CGFloat = 0;
+        var actualWidth: CGFloat = 0
         _text.layoutManagers[0].enumerateLineFragments(forGlyphRange: glyphRange) {
             rect, usedRect, container, usedRange, stop in
             if actualWidth < usedRect.size.width {
@@ -505,7 +541,7 @@ class SquirrelView: NSView {
     func contentRect(forRange range: NSRange) -> NSRect {
         let glyphRange = _text.layoutManagers[0].glyphRange(forCharacterRange: range, actualCharacterRange: nil)
         var rect = _text.layoutManagers[0].boundingRect(forGlyphRange: glyphRange, in: _text.layoutManagers[0].textContainers[0])
-        var actualWidth: CGFloat = 0;
+        var actualWidth: CGFloat = 0
         _text.layoutManagers[0].enumerateLineFragments(forGlyphRange: glyphRange) {
             rect, usedRect, container, usedRange, stop in
             if actualWidth < usedRect.size.width {
@@ -538,8 +574,9 @@ class SquirrelView: NSView {
         }
     }
     // Will triger - (void)drawRect:(NSRect)dirtyRect
-    func drawView(withHilitedRange hilitedRange: NSRange, preeditRange: NSRange, hilitedPreeditRange: NSRange, seperatorWidth: CGFloat) {
-        _highlightedRange = hilitedRange
+    func drawView(withCandidateRanges candidateRanges: Array<NSRange>, hilitedIndex: Int, preeditRange: NSRange, hilitedPreeditRange: NSRange, seperatorWidth: CGFloat) {
+        _candidateRanges = candidateRanges
+        _highlightedIndex = hilitedIndex
         _preeditRange = preeditRange
         _highlightedPreeditRange = hilitedPreeditRange
         _seperatorWidth = seperatorWidth
@@ -568,7 +605,7 @@ class SquirrelView: NSView {
             }
         }
         // Bezier cubic curve, which has continuous roundness
-        func drawSmoothLines(_ vertex: Array<NSPoint>, alpha: CGFloat, beta: CGFloat) -> NSBezierPath? {
+        func drawSmoothLines(_ vertex: Array<NSPoint>, straightCorner: Set<Int>, alpha: CGFloat, beta: CGFloat) -> NSBezierPath? {
             guard vertex.count >= 4 else {
                 return nil
             }
@@ -580,10 +617,12 @@ class SquirrelView: NSView {
             var control2: NSPoint
             var target = previousPoint
             var diff = NSMakePoint(point.x - previousPoint.x, point.y - previousPoint.y)
-            if abs(diff.x) >= abs(diff.y) {
-                target.x += sign(diff.x/beta)*beta
-            } else {
-                target.y += sign(diff.y/beta)*beta
+            if straightCorner.isEmpty || !straightCorner.contains(vertex.count-1) {
+                if abs(diff.x) >= abs(diff.y) {
+                    target.x += sign(diff.x/beta)*beta
+                } else {
+                    target.y += sign(diff.y/beta)*beta
+                }
             }
             path.move(to: target)
             for i in 0..<vertex.count {
@@ -591,27 +630,31 @@ class SquirrelView: NSView {
                 point = vertex[i]
                 nextPoint = vertex[(i+1)%vertex.count]
                 target = point
-                control1 = point
-                diff = NSMakePoint(point.x - previousPoint.x, point.y - previousPoint.y)
-                if (abs(diff.x) >= abs(diff.y)) {
-                    target.x -= sign(diff.x/beta)*beta
-                    control1.x -= sign(diff.x/beta)*alpha
+                if straightCorner.contains(i) {
+                    path.line(to: target)
                 } else {
-                    target.y -= sign(diff.y/beta)*beta
-                    control1.y -= sign(diff.y/beta)*alpha
+                    control1 = point
+                    diff = NSMakePoint(point.x - previousPoint.x, point.y - previousPoint.y)
+                    if (abs(diff.x) >= abs(diff.y)) {
+                        target.x -= sign(diff.x/beta)*beta
+                        control1.x -= sign(diff.x/beta)*alpha
+                    } else {
+                        target.y -= sign(diff.y/beta)*beta
+                        control1.y -= sign(diff.y/beta)*alpha
+                    }
+                    path.line(to: target)
+                    target = point
+                    control2 = point
+                    diff = NSMakePoint(nextPoint.x - point.x, nextPoint.y - point.y)
+                    if (abs(diff.x) > abs(diff.y)) {
+                        control2.x += sign(diff.x/beta)*alpha
+                        target.x += sign(diff.x/beta)*beta
+                    } else {
+                        control2.y += sign(diff.y/beta)*alpha
+                        target.y += sign(diff.y/beta)*beta
+                    }
+                    path.curve(to: target, controlPoint1: control1, controlPoint2: control2)
                 }
-                path.line(to: target)
-                target = point
-                control2 = point
-                diff = NSMakePoint(nextPoint.x - point.x, nextPoint.y - point.y)
-                if (abs(diff.x) > abs(diff.y)) {
-                    control2.x += sign(diff.x/beta)*alpha
-                    target.x += sign(diff.x/beta)*beta
-                } else {
-                    control2.y += sign(diff.y/beta)*alpha
-                    target.y += sign(diff.y/beta)*beta
-                }
-                path.curve(to: target, controlPoint1: control1, controlPoint2: control2)
             }
             path.close()
             return path
@@ -705,20 +748,20 @@ class SquirrelView: NSView {
             } else if nearEmpty(trailingRect) && !nearEmpty(bodyRect) {
                 let leadingVertex = vertex(ofRect: leadingRect)
                 let bodyVertex = vertex(ofRect: bodyRect)
-                return [bodyVertex[0], leadingVertex[1], leadingVertex[0], leadingVertex[3], bodyVertex[2], bodyVertex[1]]
+                return [bodyVertex[0], bodyVertex[1], bodyVertex[2], leadingVertex[3], leadingVertex[0], leadingVertex[1]]
             } else if nearEmpty(leadingRect) && !nearEmpty(bodyRect) {
                 let trailingVertex = vertex(ofRect: trailingRect)
                 let bodyVertex = vertex(ofRect: bodyRect)
-                return [bodyVertex[0], bodyVertex[3], bodyVertex[2], trailingVertex[3], trailingVertex[2], trailingVertex[1]]
+                return [trailingVertex[1], trailingVertex[2], trailingVertex[3], bodyVertex[2], bodyVertex[3], bodyVertex[0]]
             } else if !nearEmpty(leadingRect) && !nearEmpty(trailingRect) && nearEmpty(bodyRect) && (NSMaxX(leadingRect)>NSMinX(trailingRect)) {
                 let leadingVertex = vertex(ofRect: leadingRect)
                 let trailingVertex = vertex(ofRect: trailingRect)
-                return [trailingVertex[0], leadingVertex[1], leadingVertex[0], leadingVertex[3], leadingVertex[2], trailingVertex[3], trailingVertex[2], trailingVertex[1]]
+                return [trailingVertex[0], trailingVertex[1], trailingVertex[2], trailingVertex[3], leadingVertex[2], leadingVertex[3], leadingVertex[0], leadingVertex[1]]
             } else if !nearEmpty(leadingRect) && !nearEmpty(trailingRect) && !nearEmpty(bodyRect) {
                 let leadingVertex = vertex(ofRect: leadingRect)
                 let bodyVertex = vertex(ofRect: bodyRect)
                 let trailingVertex = vertex(ofRect: trailingRect)
-                return [bodyVertex[0], leadingVertex[1], leadingVertex[0], leadingVertex[3], bodyVertex[2], trailingVertex[3], trailingVertex[2], trailingVertex[1]]
+                return [trailingVertex[1], trailingVertex[2], trailingVertex[3], bodyVertex[2], leadingVertex[3], leadingVertex[0], leadingVertex[1], bodyVertex[0]]
             } else {
                 return Array<NSPoint>()
             }
@@ -742,15 +785,55 @@ class SquirrelView: NSView {
             }
             return newVertex
         }
+        func direction(diff: CGPoint) -> CGPoint {
+          if diff.y == 0 && diff.x > 0 {
+            return NSMakePoint(0, 1)
+          } else if diff.y == 0 && diff.x < 0 {
+            return NSMakePoint(0, -1)
+          } else if diff.x == 0 && diff.y > 0 {
+            return NSMakePoint(-1, 0)
+          } else if diff.x == 0 && diff.y < 0 {
+            return NSMakePoint(1, 0)
+          } else {
+            return NSMakePoint(0, 0)
+          }
+        }
+        // Assumes clockwise iteration
+        func enlarge(vertex: Array<NSPoint>, by: Double) -> Array<NSPoint> {
+            if by != 0 {
+                var previousPoint: NSPoint
+                var point: NSPoint
+                var nextPoint: NSPoint
+                var results = vertex
+                var newPoint: NSPoint
+                var displacement: NSPoint
+                for i in 0..<vertex.count {
+                    previousPoint = vertex[(vertex.count+i-1) % vertex.count]
+                    point = vertex[i]
+                    nextPoint = vertex[(i+1) % vertex.count]
+                    newPoint = point
+                    displacement = direction(diff: NSMakePoint(point.x - previousPoint.x, point.y - previousPoint.y))
+                    newPoint.x += by * displacement.x
+                    newPoint.y += by * displacement.y
+                    displacement = direction(diff: NSMakePoint(nextPoint.x - point.x, nextPoint.y - point.y))
+                    newPoint.x += by * displacement.x
+                    newPoint.y += by * displacement.y
+                    results[i] = newPoint
+                }
+                return results
+            } else {
+                return vertex
+            }
+        }
         // Add gap between horizontal candidates
-        func addGapBetweenHorizontalCandidates(_ rect: NSRect) -> NSRect {
+        func addGapBetweenHorizontalCandidates(_ rect: NSRect, range: NSRange) -> NSRect {
             var newRect = rect
-            if _highlightedRange.location+_highlightedRange.length == _text.length {
+            if NSMaxRange(range) == _text.length {
                 if !nearEmpty(rect) {
                     newRect.size.width += _seperatorWidth / 2
                     newRect.origin.x -= _seperatorWidth / 2
                 }
-            } else if _highlightedRange.location - ((_preeditRange.location == NSNotFound ? 0 : _preeditRange.location)+_preeditRange.length) <= 1 {
+            } else if range.location - ((_preeditRange.location == NSNotFound ? 0 : _preeditRange.location) + _preeditRange.length) <= 1 {
                 if !nearEmpty(rect) {
                     newRect.size.width += _seperatorWidth / 2
                 }
@@ -763,138 +846,223 @@ class SquirrelView: NSView {
             return newRect
         }
         
+        func removeCorner(highlightedPoints: Array<CGPoint>, rightCorners: Set<Int>, containingRect: NSRect) -> Set<Int> {
+            if !highlightedPoints.isEmpty && !rightCorners.isEmpty {
+                var result = rightCorners
+                for cornerIndex in rightCorners {
+                    let corner = highlightedPoints[cornerIndex]
+                    let dist = min(NSMaxY(containingRect) - corner.y, corner.y - NSMinY(containingRect))
+                    if dist < 1e-2 {
+                        result.remove(cornerIndex)
+                    }
+                }
+                return result
+            } else {
+                return rightCorners
+            }
+        }
+        
+        func linearMultilineFor(body: NSRect, leading: NSRect, trailing: NSRect) -> (Array<NSPoint>, Array<NSPoint>, Set<Int>, Set<Int>) {
+            let highlightedPoints, highlightedPoints2: Array<NSPoint>
+            let rightCorners, rightCorners2: Set<Int>
+            // Handles the special case where containing boxes are separated
+            if (nearEmpty(body) && !nearEmpty(leading) && !nearEmpty(trailing) && NSMaxX(trailing) < NSMinX(leading)) {
+                highlightedPoints = vertex(ofRect: leading)
+                highlightedPoints2 = vertex(ofRect: trailing)
+                rightCorners = [2, 3]
+                if highlightedPoints2.count > 0 {
+                    rightCorners2 = [0, 1]
+                } else {
+                    rightCorners2 = []
+                }
+            } else {
+                highlightedPoints = multilineVertex(ofLeadingRect: leading, bodyRect: body, trailingRect: trailing)
+                highlightedPoints2 = []
+                if (nearEmpty(body) && !nearEmpty(leading) && !nearEmpty(trailing)) {
+                    if (NSMaxX(trailing) < NSMaxX(leading) && NSMinX(trailing) < NSMinX(leading)) {
+                        rightCorners = [0, 1, 4, 5]
+                    } else if (NSMaxX(trailing) >= NSMaxX(leading) && NSMinX(trailing) < NSMinX(leading)) {
+                        rightCorners = [0, 1]
+                    } else {
+                        rightCorners = []
+                    }
+                } else {
+                    rightCorners = []
+                }
+                rightCorners2 = []
+            }
+            return (highlightedPoints, highlightedPoints2, rightCorners, rightCorners2)
+        }
+        
+        func drawPath(theme: SquirrelLayout, highlightedRange: NSRange, backgroundRect: NSRect, preeditRect: NSRect, containingRect: NSRect, extraExpansion: Double) -> NSBezierPath? {
+            let resultingPath: NSBezierPath?
+            
+            var currentContainingRect = containingRect
+            currentContainingRect.size.width += extraExpansion * 2
+            currentContainingRect.size.height += extraExpansion * 2
+            currentContainingRect.origin.x -= extraExpansion
+            currentContainingRect.origin.y -= extraExpansion
+            
+            let halfLinespace = theme.linespace / 2
+            var innerBox = backgroundRect
+            innerBox.size.width -= (theme.edgeInset.width + 1) * 2 - 2 * extraExpansion
+            innerBox.origin.x += theme.edgeInset.width + 1 - extraExpansion
+            innerBox.size.height += 2 * extraExpansion
+            innerBox.origin.y -= extraExpansion
+            if _preeditRange.length == 0 {
+                innerBox.origin.y += theme.edgeInset.height + 1
+                innerBox.size.height -= (theme.edgeInset.height + 1) * 2
+            } else {
+                innerBox.origin.y += preeditRect.size.height + theme.preeditLinespace / 2 + theme.hilitedCornerRadius / 2 + 1
+                innerBox.size.height -= theme.edgeInset.height + preeditRect.size.height + theme.preeditLinespace / 2 + theme.hilitedCornerRadius / 2 + 2
+            }
+            innerBox.size.height -= halfLinespace
+            
+            var outerBox = backgroundRect
+            outerBox.size.height -= theme.hilitedCornerRadius + preeditRect.size.height + theme.borderWidth - 2 * extraExpansion
+            outerBox.size.width -= theme.hilitedCornerRadius + theme.borderWidth  - 2 * extraExpansion
+            outerBox.origin.x += theme.hilitedCornerRadius / 2 + theme.borderWidth / 2 - extraExpansion
+            outerBox.origin.y += theme.hilitedCornerRadius / 2 + preeditRect.size.height + theme.borderWidth / 2 - extraExpansion
+            
+            let effectiveRadius = max(0, theme.hilitedCornerRadius + 2 * extraExpansion / theme.hilitedCornerRadius * max(0, theme.cornerRadius - theme.hilitedCornerRadius))
+            
+            if theme.linear {
+                var (leadingRect, bodyRect, trailingRect) = multilineRects(forRange: highlightedRange)
+                leadingRect = addGapBetweenHorizontalCandidates(leadingRect, range: highlightedRange)
+                bodyRect = addGapBetweenHorizontalCandidates(bodyRect, range: highlightedRange)
+                trailingRect = addGapBetweenHorizontalCandidates(trailingRect, range: highlightedRange)
+                
+                var (highlightedPoints, highlightedPoints2, rightCorners, rightCorners2) = linearMultilineFor(body: bodyRect, leading: leadingRect, trailing: trailingRect)
+                
+                highlightedPoints = xyTranslate(points: highlightedPoints, direction: NSMakePoint(0, -halfLinespace))
+                highlightedPoints2 = xyTranslate(points: highlightedPoints2, direction: NSMakePoint(0, -halfLinespace))
+                // Expand the boxes to reach proper border
+                highlightedPoints = enlarge(vertex: highlightedPoints, by: extraExpansion)
+                highlightedPoints = expand(vertex: highlightedPoints, innerBorder: innerBox, outerBorder: outerBox)
+                rightCorners = removeCorner(highlightedPoints: highlightedPoints, rightCorners: rightCorners, containingRect: currentContainingRect)
+                resultingPath = drawSmoothLines(highlightedPoints, straightCorner: rightCorners, alpha: 0.3*effectiveRadius, beta: 1.4*effectiveRadius)
+                
+                if (highlightedPoints2.count > 0) {
+                    highlightedPoints2 = enlarge(vertex: highlightedPoints2, by: extraExpansion)
+                    highlightedPoints2 = expand(vertex: highlightedPoints2, innerBorder: innerBox, outerBorder: outerBox)
+                    rightCorners2 = removeCorner(highlightedPoints: highlightedPoints2, rightCorners: rightCorners2, containingRect: currentContainingRect)
+                    let highlightedPath2 = drawSmoothLines(highlightedPoints2, straightCorner: rightCorners2, alpha: 0.3*effectiveRadius, beta: 1.4*effectiveRadius)
+                    if let highlightedPath2 = highlightedPath2 {
+                        resultingPath?.append(highlightedPath2)
+                    }
+                }
+            } else {
+                var highlightedRect = self.contentRect(forRange: highlightedRange)
+                highlightedRect.size.width = backgroundRect.size.width
+                highlightedRect.size.height += theme.linespace
+                highlightedRect.origin = NSMakePoint(backgroundRect.origin.x, highlightedRect.origin.y + theme.edgeInset.height - halfLinespace)
+                if NSMaxRange(highlightedRange) == _text.length {
+                    highlightedRect.size.height += theme.edgeInset.height - halfLinespace
+                }
+                if highlightedRange.location - ((_preeditRange.location == NSNotFound ? 0 : _preeditRange.location) + _preeditRange.length) <= 1 {
+                    if _preeditRange.length == 0 {
+                        highlightedRect.size.height += theme.edgeInset.height - halfLinespace
+                        highlightedRect.origin.y -= theme.edgeInset.height - halfLinespace
+                    } else {
+                        highlightedRect.size.height += theme.hilitedCornerRadius / 2
+                        highlightedRect.origin.y -= theme.hilitedCornerRadius / 2
+                    }
+                }
+                
+                var highlightedPoints = vertex(ofRect: highlightedRect)
+                highlightedPoints = enlarge(vertex: highlightedPoints, by: extraExpansion)
+                highlightedPoints = expand(vertex: highlightedPoints, innerBorder: innerBox, outerBorder: outerBox)
+                resultingPath = drawSmoothLines(highlightedPoints, straightCorner: Set(), alpha: effectiveRadius*0.3, beta: effectiveRadius*1.4)
+            }
+            return resultingPath
+        }
+        
         var backgroundPath: NSBezierPath?
         var borderPath: NSBezierPath?
         var preeditPath: NSBezierPath?
+        var candidatePaths: NSBezierPath?
         var highlightedPath: NSBezierPath?
-        var highlightedPath2: NSBezierPath?
         var highlightedPreeditPath: NSBezierPath?
-        var highlightedPreeditPath2: NSBezierPath?
         
-        var textField = dirtyRect
-        textField.origin.y += _layout.edgeInset.height
-        textField.origin.x += _layout.edgeInset.width
+        var textFieldOrigin = dirtyRect.origin
+        textFieldOrigin.y += _layout.edgeInset.height
+        textFieldOrigin.x += _layout.edgeInset.width
         
         let backgroundRect = dirtyRect
+        var containingRect = dirtyRect
+        containingRect.size.height -= _layout.hilitedCornerRadius + _layout.borderWidth
+        containingRect.size.width -= _layout.hilitedCornerRadius + _layout.borderWidth
+        containingRect.origin.x += _layout.hilitedCornerRadius / 2 + _layout.borderWidth / 2
+        containingRect.origin.y += _layout.hilitedCornerRadius / 2 + _layout.borderWidth / 2
+        
         // Draw preedit Rect
         var preeditRect = NSZeroRect
         if (_preeditRange.length > 0) {
             preeditRect = self.contentRect(forRange: _preeditRange)
-            preeditRect.size.width = textField.size.width
+            preeditRect.size.width = backgroundRect.size.width
             preeditRect.size.height += _layout.edgeInset.height + _layout.preeditLinespace / 2 + _layout.hilitedCornerRadius / 2
-            preeditRect.origin = NSMakePoint(textField.origin.x - _layout.edgeInset.width, textField.origin.y - _layout.edgeInset.height)
-            if _highlightedRange.length == 0 {
+            preeditRect.origin = backgroundRect.origin
+            if _candidateRanges.count == 0 {
                 preeditRect.size.height += _layout.edgeInset.height - _layout.preeditLinespace / 2 - _layout.hilitedCornerRadius / 2
             }
             if _layout.preeditBackgroundColor != nil {
-                preeditPath = drawSmoothLines(vertex(ofRect: preeditRect), alpha: 0, beta: 0)
+                preeditPath = drawSmoothLines(vertex(ofRect: preeditRect), straightCorner: Set(), alpha: 0, beta: 0)
             }
         }
         // Draw highlighted Rect
-        if (_highlightedRange.length > 0) && (_layout.highlightedStripColor != nil) {
-            var innerBox = backgroundRect
-            innerBox.size.width -= (_layout.edgeInset.width + 1) * 2
-            innerBox.origin.x += _layout.edgeInset.width + 1
-            if _preeditRange.length == 0 {
-                innerBox.origin.y += _layout.edgeInset.height + 1
-                innerBox.size.height -= (_layout.edgeInset.height + 1) * 2
-            } else {
-                innerBox.origin.y += preeditRect.size.height + _layout.preeditLinespace / 2 + _layout.hilitedCornerRadius / 2 + 1
-                innerBox.size.height -= _layout.edgeInset.height + preeditRect.size.height + _layout.preeditLinespace / 2 + _layout.hilitedCornerRadius / 2 + 2
-            }
-            var outerBox = backgroundRect
-            outerBox.size.height -= _layout.hilitedCornerRadius + preeditRect.size.height
-            outerBox.size.width -= _layout.hilitedCornerRadius
-            outerBox.origin.x += _layout.hilitedCornerRadius / 2
-            outerBox.origin.y += _layout.hilitedCornerRadius / 2 + preeditRect.size.height
-            
-            if _layout.linear {
-                var (leadingRect, bodyRect, trailingRect) = multilineRects(forRange: _highlightedRange)
-                leadingRect = addGapBetweenHorizontalCandidates(leadingRect)
-                bodyRect = addGapBetweenHorizontalCandidates(bodyRect)
-                trailingRect = addGapBetweenHorizontalCandidates(trailingRect)
-                
-                var highlightedPoints, highlightedPoints2: Array<NSPoint>
-                // Handles the special case where containing boxes are separated
-                if nearEmpty(bodyRect) && !nearEmpty(leadingRect) && !nearEmpty(trailingRect) && (NSMaxX(trailingRect) < NSMinX(leadingRect)) {
-                    highlightedPoints = vertex(ofRect: leadingRect)
-                    highlightedPoints2 = vertex(ofRect: trailingRect)
-                } else {
-                    highlightedPoints = multilineVertex(ofLeadingRect: leadingRect, bodyRect: bodyRect, trailingRect: trailingRect)
-                    highlightedPoints2 = Array<NSPoint>()
-                }
-                highlightedPoints = xyTranslate(points: highlightedPoints, direction: NSMakePoint(0, -_layout.linespace / 2))
-                highlightedPoints2 = xyTranslate(points: highlightedPoints2, direction: NSMakePoint(0, -_layout.linespace / 2))
-                innerBox.size.height -= _layout.linespace / 2
-                // Expand the boxes to reach proper border
-                highlightedPoints = expand(vertex: highlightedPoints, innerBorder: innerBox, outerBorder: outerBox)
-                highlightedPoints2 = expand(vertex: highlightedPoints2, innerBorder: innerBox, outerBorder: outerBox)
-                highlightedPath = drawSmoothLines(highlightedPoints, alpha: 0.3*_layout.hilitedCornerRadius, beta: 1.4*_layout.hilitedCornerRadius)
-                if (highlightedPoints2.count > 0) {
-                    highlightedPath2 = drawSmoothLines(highlightedPoints2, alpha: 0.3*_layout.hilitedCornerRadius, beta: 1.4*_layout.hilitedCornerRadius)
+        for i in 0..<_candidateRanges.count {
+            let candidateRange = _candidateRanges[i]
+            if i == _highlightedIndex {
+                if (candidateRange.length > 0 && _layout.highlightedStripColor != nil) {
+                    highlightedPath = drawPath(theme: _layout, highlightedRange: candidateRange, backgroundRect: backgroundRect, preeditRect: preeditRect, containingRect: containingRect, extraExpansion: 0)
                 }
             } else {
-                var highlightedRect = self.contentRect(forRange: _highlightedRange)
-                highlightedRect.size.width = textField.size.width
-                highlightedRect.size.height += _layout.halfLinespace * 2
-                highlightedRect.origin = NSMakePoint(textField.origin.x - _layout.edgeInset.width,
-                                                     highlightedRect.origin.y + _layout.edgeInset.height - _layout.halfLinespace)
-                if _highlightedRange.location+_highlightedRange.length == _text.length {
-                    highlightedRect.size.height += _layout.edgeInset.height - _layout.halfLinespace
-                }
-                if _highlightedRange.location - ((_preeditRange.location == NSNotFound ? 0 : _preeditRange.location)+_preeditRange.length) <= 1 {
-                    if _preeditRange.length == 0 {
-                        highlightedRect.size.height += _layout.edgeInset.height - _layout.halfLinespace
-                        highlightedRect.origin.y -= _layout.edgeInset.height - _layout.halfLinespace
-                    } else {
-                        highlightedRect.size.height += _layout.hilitedCornerRadius / 2
-                        highlightedRect.origin.y -= _layout.hilitedCornerRadius / 2
+                if (candidateRange.length > 0 && _layout.stripColor != nil) {
+                    let candidatePath = drawPath(theme: _layout, highlightedRange: candidateRange, backgroundRect: backgroundRect, preeditRect: preeditRect, containingRect: containingRect, extraExpansion:_layout.surroundingExtraExpansion)
+                    if candidatePaths == nil {
+                        candidatePaths = NSBezierPath()
+                    }
+                    if let candidatePath = candidatePath {
+                        candidatePaths?.append(candidatePath)
                     }
                 }
-                
-                let highlightedPoints = expand(vertex: vertex(ofRect: highlightedRect), innerBorder: innerBox, outerBorder: outerBox)
-                highlightedPath = drawSmoothLines(highlightedPoints, alpha: _layout.hilitedCornerRadius*0.3, beta: _layout.hilitedCornerRadius*1.4)
             }
         }
         // Draw highlighted part of preedit text
         if (_highlightedPreeditRange.length > 0) && (_layout.highlightedPreeditColor != nil) {
-            let (leadingRect, bodyRect, trailingRect) = multilineRects(forRange: _highlightedPreeditRange)
-
             var innerBox = preeditRect
             innerBox.size.width -= (_layout.edgeInset.width + 1) * 2
             innerBox.origin.x += _layout.edgeInset.width + 1
             innerBox.origin.y += _layout.edgeInset.height + 1
-            if _highlightedRange.length == 0 {
+            if _candidateRanges.count == 0 {
                 innerBox.size.height -= (_layout.edgeInset.height + 1) * 2
             } else {
-                innerBox.size.height -= _layout.edgeInset.height + _layout.preeditLinespace + _layout.hilitedCornerRadius / 2 + 2
+                innerBox.size.height -= _layout.edgeInset.height + _layout.preeditLinespace / 2 + _layout.hilitedCornerRadius / 2 + 2
             }
             var outerBox = preeditRect
-            outerBox.size.height -= _layout.hilitedCornerRadius
-            outerBox.size.width -= _layout.hilitedCornerRadius
-            outerBox.origin.x += _layout.hilitedCornerRadius / 2
-            outerBox.origin.y += _layout.hilitedCornerRadius / 2
+            outerBox.size.height -= _layout.hilitedCornerRadius + _layout.borderHeight
+            outerBox.size.width -= _layout.hilitedCornerRadius + _layout.borderWidth
+            outerBox.origin.x += (_layout.hilitedCornerRadius + _layout.borderWidth) / 2
+            outerBox.origin.y += (_layout.hilitedCornerRadius + _layout.borderHeight) / 2
             
-            var highlightedPreeditPoints, highlightedPreeditPoints2: Array<NSPoint>
-            // Handles the special case where containing boxes are separated
-            if nearEmpty(bodyRect) && !nearEmpty(leadingRect) && !nearEmpty(trailingRect) && (NSMaxX(trailingRect) < NSMinX(leadingRect)) {
-                highlightedPreeditPoints = vertex(ofRect: leadingRect)
-                highlightedPreeditPoints2 = vertex(ofRect: trailingRect)
-            } else {
-                highlightedPreeditPoints = multilineVertex(ofLeadingRect: leadingRect, bodyRect: bodyRect, trailingRect: trailingRect)
-                highlightedPreeditPoints2 = Array<NSPoint>()
-            }
-            // Expand the boxes to reach proper border
-            highlightedPreeditPoints = expand(vertex: highlightedPreeditPoints, innerBorder: innerBox, outerBorder: outerBox)
-            highlightedPreeditPoints2 = expand(vertex: highlightedPreeditPoints2, innerBorder: innerBox, outerBorder: outerBox)
-            highlightedPreeditPath = drawSmoothLines(highlightedPreeditPoints, alpha: 0.3*_layout.hilitedCornerRadius, beta: 1.4*_layout.hilitedCornerRadius)
-            if (highlightedPreeditPoints2.count > 0) {
-                highlightedPreeditPath2 = drawSmoothLines(highlightedPreeditPoints2, alpha: 0.3*_layout.hilitedCornerRadius, beta: 1.4*_layout.hilitedCornerRadius)
+            let (leadingRect, bodyRect, trailingRect) = multilineRects(forRange: _highlightedPreeditRange)
+            var (highlightedPoints, highlightedPoints2, rightCorners, rightCorners2) = linearMultilineFor(body: bodyRect, leading: leadingRect, trailing: trailingRect)
+            
+            highlightedPoints = expand(vertex: highlightedPoints, innerBorder: innerBox, outerBorder: outerBox)
+            rightCorners = removeCorner(highlightedPoints: highlightedPoints, rightCorners: rightCorners, containingRect: containingRect)
+            highlightedPreeditPath = drawSmoothLines(highlightedPoints, straightCorner: rightCorners, alpha: 0.3*_layout.hilitedCornerRadius, beta: 1.4*_layout.hilitedCornerRadius)
+            if (highlightedPoints2.count > 0) {
+                highlightedPoints2 = expand(vertex: highlightedPoints2, innerBorder: innerBox, outerBorder: outerBox)
+                rightCorners2 = removeCorner(highlightedPoints: highlightedPoints2, rightCorners: rightCorners2, containingRect: containingRect)
+                let highlightedPreeditPath2 = drawSmoothLines(highlightedPoints2, straightCorner: rightCorners2, alpha: 0.3*_layout.hilitedCornerRadius, beta: 1.4*_layout.hilitedCornerRadius)
+                if let highlightedPreeditPath2 = highlightedPreeditPath2 {
+                    highlightedPreeditPath?.append(highlightedPreeditPath2)
+                }
             }
         }
         
         NSBezierPath.defaultLineWidth = 0
-        backgroundPath = drawSmoothLines(vertex(ofRect: backgroundRect), alpha: 0.3*_layout.cornerRadius, beta: 1.4*_layout.cornerRadius)
+        backgroundPath = drawSmoothLines(vertex(ofRect: backgroundRect), straightCorner: Set(), alpha: 0.3*_layout.cornerRadius, beta: 1.4*_layout.cornerRadius)
         shape.path = backgroundPath?.cgPath
         // Nothing should extend beyond backgroundPath
         borderPath = backgroundPath?.copy() as? NSBezierPath
@@ -933,21 +1101,24 @@ class SquirrelView: NSView {
             backgroundPath?.windingRule = .evenOdd
             preeditPath?.windingRule = .evenOdd
         #endif
+        
         _layout.backgroundColor?.setFill()
         backgroundPath?.fill()
         if _layout.preeditBackgroundColor != nil {
             _layout.preeditBackgroundColor!.setFill()
             preeditPath?.fill()
         }
+        if _layout.stripColor != nil {
+            _layout.stripColor!.setFill()
+            candidatePaths?.fill()
+        }
         if _layout.highlightedStripColor != nil {
             _layout.highlightedStripColor!.setFill()
             highlightedPath?.fill()
-            highlightedPath2?.fill()
         }
         if _layout.highlightedPreeditColor != nil {
             _layout.highlightedPreeditColor!.setFill()
             highlightedPreeditPath?.fill()
-            highlightedPreeditPath2?.fill()
         }
 
         if _layout.borderColor != nil && _layout.borderLineWidth > 0 {
@@ -955,7 +1126,7 @@ class SquirrelView: NSView {
             borderPath?.stroke()
         }
         let glyphRange = _text.layoutManagers[0].glyphRange(for: _text.layoutManagers[0].textContainers[0])
-        _text.layoutManagers[0].drawGlyphs(forGlyphRange: glyphRange, at: textField.origin)
+        _text.layoutManagers[0].drawGlyphs(forGlyphRange: glyphRange, at: textFieldOrigin)
     }
 }
 
@@ -1068,7 +1239,7 @@ class SquirrelPanel: NSWindow {
         var windowRect = NSZeroRect
         // in vertical mode, the width and height are interchanged
         var contentRect = _view.contentRect
-        if (self.layout.vertical && NSMidY(_position) / NSHeight(_screenRect) < 0.5) ||
+        if false && (self.layout.vertical && NSMidY(_position) / NSHeight(_screenRect) < 0.5) ||
                 (!self.layout.vertical && NSMinX(_position)+max(contentRect.size.width, _maxHeight)+self.layout.edgeInset.width*2 > NSMaxX(_screenRect)) {
             if contentRect.size.width >= _maxHeight {
                 _maxHeight = contentRect.size.width
@@ -1208,7 +1379,7 @@ class SquirrelPanel: NSWindow {
                     originalText.addAttribute(.verticalGlyphForm, value: 1, range: range)
                     let uprightCharRect = originalText.attributedSubstring(from: range).boundingRect(with: NSZeroSize)
                     let widthDiff = charRect.size.width-cjkChar.size().width
-                    let offset = (cjkRect.size.height - uprightCharRect.size.height)/2 + (cjkRect.origin.y-uprightCharRect.origin.y) - (widthDiff>0 ? widthDiff/1.2 : widthDiff/2) + baseOffset
+                    let offset = (cjkRect.size.height - uprightCharRect.size.height)/2 + (cjkRect.origin.y-uprightCharRect.origin.y) - (widthDiff>0 ? widthDiff/3 : widthDiff/2) + baseOffset
                     originalText.addAttribute(.baselineOffset, value: offset, range: range)
                 } else {
                     originalText.addAttribute(.baselineOffset, value: baseOffset, range: range)
@@ -1276,7 +1447,7 @@ class SquirrelPanel: NSWindow {
                 text.append(NSAttributedString(string: "\n", attributes: self.layout.preeditAttrs))
             }
         }
-        var highlightedRange = NSMakeRange(NSNotFound, 0)
+        var candidateRanges = Array<NSRange>()
         var seperatorWidth: CGFloat = 0
         let maxTextWidth = getMaxTextWidth(layout: self.layout)
         // candidates
@@ -1376,13 +1547,12 @@ class SquirrelPanel: NSWindow {
             }
             func modifiedStyle(baseStyle: NSParagraphStyle) -> NSParagraphStyle {
                 let paragraphStyleCandidate = baseStyle.mutableCopy() as! NSMutableParagraphStyle
-                if (self.layout.vertical) {
-                    convertToVerticalGlyph(line, inRange: NSMakeRange(candidateStart, line.length-candidateStart))
-                    paragraphStyleCandidate.minimumLineHeight = minimumHeight(attribute: attrs)
-                }
                 if self.layout.linear {
                     paragraphStyleCandidate.lineSpacing = self.layout.linespace
                     
+                }
+                if self.layout.vertical {
+                    paragraphStyleCandidate.minimumLineHeight = minimumHeight(attribute: attrs)
                 }
                 paragraphStyleCandidate.headIndent = labelWidth
                 return paragraphStyleCandidate as NSParagraphStyle
@@ -1393,9 +1563,7 @@ class SquirrelPanel: NSWindow {
                 line.addAttribute(.paragraphStyle, value: modifiedStyle(baseStyle: self.layout.paragraphStyle), range: NSMakeRange(0, line.length))
             }
             
-            if i == _hilitedIndex {
-                highlightedRange = NSMakeRange(text.length, line.length)
-            }
+            candidateRanges.append(NSMakeRange(text.length, line.length))
             text.append(line)
         }
         
@@ -1403,7 +1571,7 @@ class SquirrelPanel: NSWindow {
         fixDefaultFont(text: text)
         
         _view.text = text
-        _view.drawView(withHilitedRange: highlightedRange, preeditRange: _preeditRange, hilitedPreeditRange: highlightedPreeditRange, seperatorWidth: seperatorWidth)
+        _view.drawView(withCandidateRanges: candidateRanges, hilitedIndex: Int(_hilitedIndex), preeditRange: _preeditRange, hilitedPreeditRange: highlightedPreeditRange, seperatorWidth: seperatorWidth)
         self.show()
     }
 }
