@@ -583,3 +583,8 @@
 /* Class = "NSMenuItem"; title = "Show Substitutions"; ObjectID = "z6F-FW-3nz"; */
 "z6F-FW-3nz.title" = "显示替换";
 
+/* Class = "NSTextField"; title = "Candidate Back Expansion"; ObjectID = "zA4-fo-ZJY"; */
+"zA4-fo-ZJY.title" = "候选项背景区相对大小";
+
+/* Class = "NSTextField"; title = "Candidate Back Color"; ObjectID = "rbR-8R-3gE"; */
+"rbR-8R-3gE.title" = "候选项底色";
