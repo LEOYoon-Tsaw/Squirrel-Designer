@@ -419,6 +419,7 @@ class SquirrelLayout {
         let baseOffset = getFloat(values["base_offset"])
         let alpha = getFloat(values["alpha"])
         let backgroundColor = getColor(values["back_color"], inDisplayP3: isDisplayP3)
+        let candidateBackColor = getColor(values["candidate_back_color"], inDisplayP3: isDisplayP3)
         let highlightedStripColor = getColor(values["hilited_candidate_back_color"], inDisplayP3: isDisplayP3)
         let highlightedPreeditColor = getColor(values["hilited_back_color"], inDisplayP3: isDisplayP3)
         let preeditBackgroundColor = getColor(values["preedit_back_color"], inDisplayP3: isDisplayP3)
@@ -452,6 +453,7 @@ class SquirrelLayout {
         self.translucency = translucency ?? false
         self.isDisplayP3 = isDisplayP3
         self.backgroundColor = backgroundColor ?? NSColor.windowBackgroundColor
+        self.stripColor = candidateBackColor
         self.candidateTextColor = candidateTextColor ?? NSColor.controlTextColor
         self.highlightedStripColor = highlightedStripColor ?? NSColor.selectedTextBackgroundColor
         self.highlightedCandidateTextColor = highlightedCandidateTextColor ?? NSColor.selectedControlTextColor
@@ -713,7 +715,7 @@ class SquirrelView: NSView {
                 }
             }
             var lastLineRect = nearEmpty(trailingRect) ? bodyRect : trailingRect
-            lastLineRect.size.width = textContainer.containerSize.width - lastLineRect.origin.x
+//            lastLineRect.size.width = textContainer.containerSize.width - lastLineRect.origin.x
             var lastLineRange = layoutManager.glyphRange(forBoundingRect: lastLineRect, in: textContainer)
             var glyphProperty = layoutManager.propertyForGlyph(at: lastLineRange.location+lastLineRange.length-1)
             while (lastLineRange.length>0) && ((glyphProperty == .elastic) || (glyphProperty == .controlCharacter)) {
