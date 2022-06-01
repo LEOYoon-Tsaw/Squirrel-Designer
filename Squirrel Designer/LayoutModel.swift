@@ -554,17 +554,7 @@ class SquirrelView: NSView {
     }
     // Get the rectangle containing entire contents, expensive to calculate
     var contentRect: NSRect {
-        let glyphRange = _text.layoutManagers[0].glyphRange(for: _text.layoutManagers[0].textContainers[0])
-        var rect = _text.layoutManagers[0].boundingRect(forGlyphRange: glyphRange, in: _text.layoutManagers[0].textContainers[0])
-        var actualWidth: CGFloat = 0
-        _text.layoutManagers[0].enumerateLineFragments(forGlyphRange: glyphRange) {
-            rect, usedRect, container, usedRange, stop in
-            if actualWidth < usedRect.size.width {
-                actualWidth = usedRect.size.width
-            }
-        }
-        rect.size.width = actualWidth
-        return rect
+        self.contentRect(forRange: NSMakeRange(0, _text.length))
     }
     // Get the rectangle containing the range of text, will first convert to glyph range, expensive to calculate
     func contentRect(forRange range: NSRange) -> NSRect {
@@ -573,8 +563,14 @@ class SquirrelView: NSView {
         var actualWidth: CGFloat = 0
         _text.layoutManagers[0].enumerateLineFragments(forGlyphRange: glyphRange) {
             rect, usedRect, container, usedRange, stop in
-            if actualWidth < usedRect.size.width {
-                actualWidth = usedRect.size.width
+            let str = self._text.attributedSubstring(from: usedRange).string as NSString
+            let nonWhiteCharLocation = str.rangeOfCharacter(from: .whitespaces.inverted, options: .backwards)
+            if nonWhiteCharLocation.location != NSNotFound {
+                let newRange = NSMakeRange(usedRange.location, nonWhiteCharLocation.location+1)
+                let lineWidth = self._text.attributedSubstring(from: newRange).size().width
+                if actualWidth < lineWidth {
+                    actualWidth = lineWidth
+                }
             }
         }
         rect.size.width = actualWidth
