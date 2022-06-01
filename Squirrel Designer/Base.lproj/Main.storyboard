@@ -672,11 +672,11 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view id="NQK-P0-OAi">
-                                            <rect key="frame" x="15" y="60" width="510" height="897"/>
+                                            <rect key="frame" x="15" y="60" width="510" height="969"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <subviews>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cmQ-rp-LNW">
-                                                    <rect key="frame" x="22" y="779" width="110" height="16"/>
+                                                    <rect key="frame" x="23" y="860" width="110" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Font" id="t7d-ym-22T" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -685,7 +685,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nyq-1j-QZJ">
-                                                    <rect key="frame" x="402" y="780" width="30" height="16"/>
+                                                    <rect key="frame" x="403" y="861" width="30" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Size" id="Dc0-ND-2ef" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" metaFont="system"/>
@@ -694,7 +694,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZRh-6v-JHV">
-                                                    <rect key="frame" x="438" y="777" width="61" height="21"/>
+                                                    <rect key="frame" x="439" y="858" width="61" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="15" drawsBackground="YES" id="Wv4-N7-lzw">
                                                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="X72-1w-WVj"/>
@@ -710,14 +710,14 @@
                                                     </connections>
                                                 </textField>
                                                 <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="xxD-nP-14U">
-                                                    <rect key="frame" x="136" y="739" width="42" height="24"/>
+                                                    <rect key="frame" x="137" y="820" width="42" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <connections>
                                                         <action selector="labelFontToggled:" target="XfG-lQ-9wD" id="hpD-bP-RhG"/>
                                                     </connections>
                                                 </switch>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dXu-Tc-1xD">
-                                                    <rect key="frame" x="22" y="743" width="110" height="16"/>
+                                                    <rect key="frame" x="23" y="824" width="110" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Label Font" id="N8b-oU-G1z" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -726,7 +726,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7TU-uU-fEE">
-                                                    <rect key="frame" x="402" y="744" width="30" height="16"/>
+                                                    <rect key="frame" x="403" y="825" width="30" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Size" id="pjz-Mg-1UA" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" metaFont="system"/>
@@ -735,7 +735,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7jq-lw-VgD">
-                                                    <rect key="frame" x="438" y="741" width="61" height="21"/>
+                                                    <rect key="frame" x="439" y="822" width="61" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="15" drawsBackground="YES" id="i8o-OM-74e">
                                                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="SH4-RD-kqV"/>
@@ -751,14 +751,14 @@
                                                     </connections>
                                                 </textField>
                                                 <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="C5n-Q1-kCJ" userLabel="Comment Font Toggle">
-                                                    <rect key="frame" x="136" y="703" width="42" height="24"/>
+                                                    <rect key="frame" x="137" y="784" width="42" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <connections>
                                                         <action selector="commentFontToggled:" target="XfG-lQ-9wD" id="Chf-0y-Dxe"/>
                                                     </connections>
                                                 </switch>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c4l-Ga-AAT" userLabel="Comment Font Size">
-                                                    <rect key="frame" x="402" y="708" width="30" height="16"/>
+                                                    <rect key="frame" x="403" y="789" width="30" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Size" id="Qv6-z0-SYQ" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" metaFont="system"/>
@@ -767,7 +767,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S8o-vq-Agu" userLabel="Comment Font Size Picker">
-                                                    <rect key="frame" x="438" y="705" width="61" height="21"/>
+                                                    <rect key="frame" x="439" y="786" width="61" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="15" drawsBackground="YES" id="PFT-H1-wTP">
                                                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="onA-sE-YGF"/>
@@ -953,7 +953,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qRt-a9-n5u">
-                                                    <rect key="frame" x="22" y="300" width="110" height="32"/>
+                                                    <rect key="frame" x="23" y="618" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Translucency" id="pT7-cp-v6P" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -1064,7 +1064,7 @@
                                                     </connections>
                                                 </colorWell>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flJ-hB-qa4">
-                                                    <rect key="frame" x="23" y="835" width="128" height="16"/>
+                                                    <rect key="frame" x="24" y="916" width="128" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Color Scheme Name" id="IXO-54-Ddy" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -1073,7 +1073,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MMw-YM-OoH">
-                                                    <rect key="frame" x="22" y="645" width="110" height="32"/>
+                                                    <rect key="frame" x="23" y="726" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Candidate List Layout" id="ZyV-vo-u2W" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -1082,7 +1082,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="op2-kl-0Ud">
-                                                    <rect key="frame" x="22" y="610" width="110" height="32"/>
+                                                    <rect key="frame" x="23" y="690" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Text Orientation" id="ldI-s7-Lw1" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -1091,7 +1091,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m2E-Fs-a0z">
-                                                    <rect key="frame" x="22" y="573" width="110" height="32"/>
+                                                    <rect key="frame" x="23" y="654" width="110" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Preedit Text Position" id="Coz-ZO-avN" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -1132,7 +1132,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xe1-6o-GCP">
-                                                    <rect key="frame" x="137" y="141" width="93" height="21"/>
+                                                    <rect key="frame" x="138" y="141" width="93" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0" drawsBackground="YES" id="HvF-lM-vgx">
                                                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="BGn-i7-Ps2"/>
@@ -1148,7 +1148,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6MV-25-bBg">
-                                                    <rect key="frame" x="137" y="104" width="93" height="21"/>
+                                                    <rect key="frame" x="138" y="105" width="93" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0" drawsBackground="YES" id="P7l-9B-tld">
                                                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="pul-Ag-Wwu"/>
@@ -1196,7 +1196,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7ja-83-UGx">
-                                                    <rect key="frame" x="407" y="141" width="91" height="21"/>
+                                                    <rect key="frame" x="406" y="141" width="91" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0" drawsBackground="YES" id="vns-rD-0yK">
                                                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Guu-tI-LsK"/>
@@ -1212,7 +1212,7 @@
                                                     </connections>
                                                 </textField>
                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="1o7-9a-2Dq">
-                                                    <rect key="frame" x="24" y="685" width="475" height="5"/>
+                                                    <rect key="frame" x="25" y="766" width="475" height="5"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                 </box>
                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ZSF-eZ-vQq">
@@ -1224,7 +1224,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 </box>
                                                 <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4lU-6o-ENw">
-                                                    <rect key="frame" x="185" y="649" width="171" height="24"/>
+                                                    <rect key="frame" x="186" y="730" width="171" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="T6v-tc-yvb">
                                                         <font key="font" metaFont="system"/>
@@ -1238,7 +1238,7 @@
                                                     </connections>
                                                 </segmentedControl>
                                                 <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1QS-Jy-1dl">
-                                                    <rect key="frame" x="185" y="613" width="171" height="24"/>
+                                                    <rect key="frame" x="186" y="694" width="171" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="Gd0-v1-z21">
                                                         <font key="font" metaFont="system"/>
@@ -1252,7 +1252,7 @@
                                                     </connections>
                                                 </segmentedControl>
                                                 <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hmt-Hb-RXk">
-                                                    <rect key="frame" x="185" y="577" width="171" height="24"/>
+                                                    <rect key="frame" x="186" y="658" width="171" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="1ln-Mi-0Oj">
                                                         <font key="font" metaFont="system"/>
@@ -1263,6 +1263,34 @@
                                                     </segmentedCell>
                                                     <connections>
                                                         <action selector="preeditPositionToggled:" target="XfG-lQ-9wD" id="Z4P-XD-jK9"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                                <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sni-kg-TYI">
+                                                    <rect key="frame" x="186" y="622" width="173" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="eNd-Vb-Mkz">
+                                                        <font key="font" metaFont="system"/>
+                                                        <segments>
+                                                            <segment label="False" width="82" selected="YES"/>
+                                                            <segment label="True" width="82" tag="1"/>
+                                                        </segments>
+                                                    </segmentedCell>
+                                                    <connections>
+                                                        <action selector="translucencyToggled:" target="XfG-lQ-9wD" id="cWn-Nr-pbf"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                                <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yQi-2T-UMP">
+                                                    <rect key="frame" x="186" y="586" width="173" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="WBP-Gf-h2n">
+                                                        <font key="font" metaFont="system"/>
+                                                        <segments>
+                                                            <segment label="False" width="82" selected="YES"/>
+                                                            <segment label="True" width="82" tag="1"/>
+                                                        </segments>
+                                                    </segmentedCell>
+                                                    <connections>
+                                                        <action selector="mutualExclusiveToggled:" target="XfG-lQ-9wD" id="TIx-4S-2Jx"/>
                                                     </connections>
                                                 </segmentedControl>
                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="BwI-86-vcG">
@@ -1333,7 +1361,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FtX-BV-c6q">
-                                                    <rect key="frame" x="139" y="69" width="91" height="21"/>
+                                                    <rect key="frame" x="138" y="69" width="91" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="1" drawsBackground="YES" id="H4E-Om-NQW">
                                                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="R0z-X8-xev"/>
@@ -1369,7 +1397,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 </box>
                                                 <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u5g-R1-OgT">
-                                                    <rect key="frame" x="186" y="832" width="313" height="21"/>
+                                                    <rect key="frame" x="187" y="913" width="313" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="customized_color_scheme" drawsBackground="YES" id="Ms1-rF-Lj4">
                                                         <font key="font" metaFont="system"/>
@@ -1381,11 +1409,11 @@
                                                     </connections>
                                                 </textField>
                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4Yn-R4-iyx">
-                                                    <rect key="frame" x="24" y="812" width="475" height="5"/>
+                                                    <rect key="frame" x="25" y="893" width="475" height="5"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                 </box>
                                                 <gridView fixedFrame="YES" xPlacement="leading" yPlacement="center" rowAlignment="none" rowSpacing="15" columnSpacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="zIF-ni-WKZ">
-                                                    <rect key="frame" x="186" y="776" width="205" height="21"/>
+                                                    <rect key="frame" x="187" y="857" width="205" height="21"/>
                                                     <rows>
                                                         <gridRow height="21" id="2qu-gD-wvZ"/>
                                                     </rows>
@@ -1444,7 +1472,7 @@
                                                     </gridCells>
                                                 </gridView>
                                                 <gridView fixedFrame="YES" xPlacement="leading" yPlacement="center" rowAlignment="none" rowSpacing="15" columnSpacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Tvb-nv-kgO">
-                                                    <rect key="frame" x="186" y="740" width="205" height="21"/>
+                                                    <rect key="frame" x="187" y="821" width="205" height="21"/>
                                                     <rows>
                                                         <gridRow height="21" id="I4X-pr-MQa"/>
                                                     </rows>
@@ -1503,7 +1531,7 @@
                                                     </gridCells>
                                                 </gridView>
                                                 <gridView fixedFrame="YES" xPlacement="leading" yPlacement="center" rowAlignment="none" rowSpacing="15" columnSpacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="zAM-xS-pF4" userLabel="Comment Font Picker Grid">
-                                                    <rect key="frame" x="186" y="704" width="205" height="21"/>
+                                                    <rect key="frame" x="187" y="785" width="205" height="21"/>
                                                     <rows>
                                                         <gridRow height="21" id="0e5-5b-jug"/>
                                                     </rows>
@@ -1579,7 +1607,7 @@
                                                     </connections>
                                                 </popUpButton>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Dr-mV-Hp5">
-                                                    <rect key="frame" x="22" y="707" width="110" height="16"/>
+                                                    <rect key="frame" x="23" y="788" width="110" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Comment Font" id="TzM-Kb-ocX" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -1596,13 +1624,6 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="DDY-zH-Cfe">
-                                                    <rect key="frame" x="191" y="305" width="42" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <connections>
-                                                        <action selector="translucencyToggled:" target="XfG-lQ-9wD" id="REo-lU-xRe"/>
-                                                    </connections>
-                                                </switch>
                                                 <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48F-Nd-T0T">
                                                     <rect key="frame" x="187" y="341" width="44" height="23"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1612,7 +1633,7 @@
                                                     </connections>
                                                 </colorWell>
                                                 <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IaN-nZ-fd6">
-                                                    <rect key="frame" x="407" y="105" width="91" height="21"/>
+                                                    <rect key="frame" x="406" y="105" width="91" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0" drawsBackground="YES" id="oKW-6j-muK">
                                                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="PCD-zS-blu"/>
@@ -1636,6 +1657,40 @@
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GzU-b0-uJO">
+                                                    <rect key="frame" x="23" y="582" width="110" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Mutual Exclusive Filling" id="rqX-wT-e7r" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
+                                                        <font key="font" usesAppearanceFont="YES"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsg-xB-HDI">
+                                                    <rect key="frame" x="406" y="69" width="91" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0" drawsBackground="YES" id="6IQ-Yp-yiO">
+                                                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="C60-Dv-hZa"/>
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        <allowedInputSourceLocales>
+                                                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                        </allowedInputSourceLocales>
+                                                    </textFieldCell>
+                                                    <connections>
+                                                        <action selector="shadowSizeChanged:" target="XfG-lQ-9wD" id="aQv-Wu-bk4"/>
+                                                    </connections>
+                                                </textField>
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bwd-Tb-edc">
+                                                    <rect key="frame" x="294" y="63" width="110" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                    <textFieldCell key="cell" enabled="NO" allowsUndo="NO" title="Shadow Size" id="abA-Qs-yLU" customClass="VerticallyCenteredTextFieldCell" customModule="Squirrel_Designer" customModuleProvider="target">
+                                                        <font key="font" usesAppearanceFont="YES"/>
+                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
                                             </subviews>
                                         </view>
                                     </subviews>
@@ -1646,7 +1701,7 @@
                                     <rect key="frame" x="-100" y="-100" width="523" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="heW-H9-Cu5">
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.37630662020905925" horizontal="NO" id="heW-H9-Cu5">
                                     <rect key="frame" x="509" y="28" width="16" height="311"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -1701,6 +1756,7 @@
                         </subviews>
                     </visualEffectView>
                     <connections>
+                        <outlet property="MutualExclusiveSwitch" destination="yQi-2T-UMP" id="pfq-H0-Eqp"/>
                         <outlet property="backgroundColorPicker" destination="fA1-nC-3MQ" id="hSS-xF-KOf"/>
                         <outlet property="baselineOffsetField" destination="6MV-25-bBg" id="AOn-cU-5ee"/>
                         <outlet property="borderColorPicker" destination="48F-Nd-T0T" id="udc-md-byT"/>
@@ -1755,9 +1811,10 @@
                         <outlet property="preeditPositionSwitch" destination="hmt-Hb-RXk" id="RWb-9f-qIv"/>
                         <outlet property="preeditTextColorPicker" destination="WZD-Sy-WGi" id="RV8-tA-edS"/>
                         <outlet property="scrollView" destination="eG7-5q-ARK" id="pO8-EA-sL7"/>
+                        <outlet property="shadowSizeField" destination="dsg-xB-HDI" id="0cd-WG-ISr"/>
                         <outlet property="showPreviewButton" destination="X23-Hi-l4l" id="Wsk-ma-mkU"/>
                         <outlet property="textOrientationSwitch" destination="1QS-Jy-1dl" id="eD6-x9-lrn"/>
-                        <outlet property="translucencyToggle" destination="DDY-zH-Cfe" id="bKy-IZ-8CU"/>
+                        <outlet property="translucencySwitch" destination="sni-kg-TYI" id="gpu-0y-s8Y"/>
                         <outlet property="windowAlphaField" destination="FtX-BV-c6q" id="0sg-z6-YA0"/>
                     </connections>
                 </viewController>

@@ -68,6 +68,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var candidateListLayoutSwitch: NSSegmentedControl!
     @IBOutlet weak var textOrientationSwitch: NSSegmentedControl!
     @IBOutlet weak var preeditPositionSwitch: NSSegmentedControl!
+    @IBOutlet weak var translucencySwitch: NSSegmentedControl!
+    @IBOutlet weak var MutualExclusiveSwitch: NSSegmentedControl!
     
     @IBOutlet weak var backgroundColorPicker: NSColorWell!
     @IBOutlet weak var candidateTextColorPicker: NSColorWell!
@@ -91,7 +93,6 @@ class ViewController: NSViewController {
     @IBOutlet weak var hilitedLabelTextColorToggle: NSSwitch!
     @IBOutlet weak var hilitedLabelTextColorPicker: NSColorWell!
     @IBOutlet weak var colorSpacePicker: NSPopUpButton!
-    @IBOutlet weak var translucencyToggle: NSSwitch!
     
     @IBOutlet weak var borderHeightField: NSTextField!
     @IBOutlet weak var borderWidthField: NSTextField!
@@ -102,6 +103,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var baselineOffsetField: NSTextField!
     @IBOutlet weak var extraExpansionField: NSTextField!
     @IBOutlet weak var windowAlphaField: NSTextField!
+    @IBOutlet weak var shadowSizeField: NSTextField!
     
     @IBOutlet weak var showPreviewButton: NSButton!
     @IBOutlet weak var generateCodeButton: NSButton!
@@ -373,10 +375,6 @@ class ViewController: NSViewController {
         }
         preview.layout = layout
     }
-    @IBAction func translucencyToggled(_ sender: Any) {
-        layout.translucency = translucencyToggle.state == .on
-        preview.layout = layout
-    }
 
     @IBAction func candidateListLayoutToggled(_ sender: Any) {
         layout.linear = candidateListLayoutSwitch.selectedSegment == 1
@@ -388,6 +386,14 @@ class ViewController: NSViewController {
     }
     @IBAction func preeditPositionToggled(_ sender: Any) {
         layout.inlinePreedit = preeditPositionSwitch.selectedSegment == 1
+        preview.layout = layout
+    }
+    @IBAction func translucencyToggled(_ sender: Any) {
+        layout.translucency = translucencySwitch.selectedSegment == 1
+        preview.layout = layout
+    }
+    @IBAction func mutualExclusiveToggled(_ sender: Any) {
+        layout.mutualExclusive = MutualExclusiveSwitch.selectedSegment == 1
         preview.layout = layout
     }
     @IBAction func colorSpaceChanged(_ sender: Any) {
@@ -549,6 +555,10 @@ class ViewController: NSViewController {
     }
     @IBAction func windowAlphaChanged(_ sender: Any) {
         layout.alpha = CGFloat(windowAlphaField.doubleValue)
+        preview.layout = layout
+    }
+    @IBAction func shadowSizeChanged(_ sender: Any) {
+        layout.shadowSize = CGFloat(shadowSizeField.doubleValue)
         preview.layout = layout
     }
     @IBAction func showPreview(_ sender: Any) {
@@ -812,6 +822,8 @@ class ViewController: NSViewController {
         candidateListLayoutSwitch.selectSegment(withTag: layout.linear ? 1 : 0)
         textOrientationSwitch.selectSegment(withTag: layout.vertical ? 1 : 0)
         preeditPositionSwitch.selectSegment(withTag: layout.inlinePreedit ? 1 : 0)
+        translucencySwitch.selectSegment(withTag: layout.translucency ? 1 : 0)
+        MutualExclusiveSwitch.selectSegment(withTag: layout.mutualExclusive ? 1 : 0)
         if layout.isDisplayP3 {
             colorSpacePicker.selectItem(at: 1)
         } else {
@@ -886,7 +898,6 @@ class ViewController: NSViewController {
             hilitedLabelTextColorPicker.color = blendColor(foregroundColor: hilitedCandidateTextColorPicker.color, backgroundColor:         hilitedCandidateBackColorPicker.color)
             layout.highlightedCandidateLabelColor = hilitedLabelTextColorPicker.color
         }
-        translucencyToggle.state = layout.translucency ? .on : .off
         
         borderHeightField.stringValue = "\(layout.borderHeight)"
         borderWidthField.stringValue = "\(layout.borderWidth)"
@@ -897,6 +908,7 @@ class ViewController: NSViewController {
         baselineOffsetField.stringValue = "\(layout.baseOffset)"
         extraExpansionField.stringValue = "\(layout.surroundingExtraExpansion)"
         windowAlphaField.stringValue = "\(layout.alpha)"
+        shadowSizeField.stringValue = "\(layout.shadowSize)"
     }
     func codeViewDidDispear() {
         generateCodeButton.title = NSLocalizedString("Show Code", comment: "Show Code")

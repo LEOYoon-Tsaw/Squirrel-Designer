@@ -588,3 +588,21 @@
 
 /* Class = "NSTextField"; title = "Candidate Back Color"; ObjectID = "rbR-8R-3gE"; */
 "rbR-8R-3gE.title" = "候选项底色";
+
+/* Class = "NSTextField"; title = "Mutual Exclusive Filling"; ObjectID = "rqX-wT-e7r"; */
+"rqX-wT-e7r.title" = "色不叠加";
+
+/* Class = "NSTextField"; title = "Shadow Size"; ObjectID = "abA-Qs-yLU"; */
+"abA-Qs-yLU.title" = "影尺寸";
+
+/* Class = "NSSegmentedCell"; eNd-Vb-Mkz.ibShadowedLabels[0] = "Linear"; ObjectID = "eNd-Vb-Mkz"; */
+"eNd-Vb-Mkz.ibShadowedLabels[0]" = "否";
+
+/* Class = "NSSegmentedCell"; eNd-Vb-Mkz.ibShadowedLabels[1] = "Linear"; ObjectID = "eNd-Vb-Mkz"; */
+"eNd-Vb-Mkz.ibShadowedLabels[1]" = "是";
+
+/* Class = "NSSegmentedCell"; WBP-Gf-h2n.ibShadowedLabels[0] = "Linear"; ObjectID = "WBP-Gf-h2n"; */
+"WBP-Gf-h2n.ibShadowedLabels[0]" = "否";
+
+/* Class = "NSSegmentedCell"; WBP-Gf-h2n.ibShadowedLabels[1] = "Linear"; ObjectID = "WBP-Gf-h2n"; */
+"WBP-Gf-h2n.ibShadowedLabels[1]" = "是";
