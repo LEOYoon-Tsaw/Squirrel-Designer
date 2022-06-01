@@ -831,11 +831,12 @@ class ViewController: NSViewController {
         }
         backgroundColorPicker.color = layout.backgroundColor!
         candidateTextColorPicker.color = layout.candidateTextColor!
+        candidateBackColorToggle.state = layout.stripColor == nil ? .off : .on
         if let candidateBackColor = layout.stripColor {
-            candidateBackColorToggle.state = .on
+            candidateBackColorPicker.isEnabled = true
             candidateBackColorPicker.color = candidateBackColor
         } else {
-            candidateBackColorToggle.state = .off
+            candidateBackColorPicker.isEnabled = false
             candidateBackColorPicker.color = NSColor(white: 1, alpha: 0)
         }
         hilitedCandidateBackColorPicker.color = layout.highlightedStripColor!

@@ -476,10 +476,50 @@ func blendColor(foregroundColor: NSColor, backgroundColor: NSColor?) -> NSColor 
                    alpha: blend(foregroundColor.alphaComponent, backgroundColor.alphaComponent))
 }
 
+class TextView: NSView {
+    private let _text: NSTextStorage
+    private var _origin: NSPoint
+    
+    override init(frame frameRect: NSRect) {
+        let textContainer = NSTextContainer(containerSize: NSZeroSize)
+        textContainer.lineFragmentPadding = 0.0
+        let layoutManager = NSLayoutManager()
+        layoutManager.addTextContainer(textContainer)
+        _text = NSTextStorage()
+        _text.addLayoutManager(layoutManager)
+        _origin = NSZeroPoint
+        super.init(frame: frameRect)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    override var isFlipped: Bool {
+        true
+    }
+    var textContainerWidth: CGFloat {
+        get {
+            _text.layoutManagers[0].textContainers[0].containerSize.width
+        } set {
+            _text.layoutManagers[0].textContainers[0].containerSize.width = newValue
+        }
+    }
+    func drawText(text: NSAttributedString, at origin: NSPoint, width: CGFloat) {
+        _text.setAttributedString(text)
+        self.textContainerWidth = width
+        _origin = origin
+        self.needsDisplay = true
+    }
+    override func draw(_ dirtyRect: NSRect) {
+        let glyphRange = _text.layoutManagers[0].glyphRange(for: _text.layoutManagers[0].textContainers[0])
+        _text.layoutManagers[0].drawGlyphs(forGlyphRange: glyphRange, at: _origin)
+    }
+}
+
 class SquirrelView: NSView {
     var shape: CAShapeLayer = CAShapeLayer()
     private var _layout: SquirrelLayout
     private let _text: NSTextStorage
+    let _textView: TextView
     private var _candidateRanges: Array<NSRange> = []
     private var _highlightedIndex: Int = 0
     private var _preeditRange: NSRange = NSMakeRange(NSNotFound, 0)
@@ -495,6 +535,7 @@ class SquirrelView: NSView {
         layoutManager.backgroundLayoutEnabled = true
         _text = NSTextStorage()
         _text.addLayoutManager(layoutManager)
+        _textView = TextView(frame: frameRect)
         _layout = SquirrelLayout(new: false)
         super.init(frame: frameRect)
         self.wantsLayer = true
@@ -907,10 +948,10 @@ class SquirrelView: NSView {
             innerBox.size.height -= halfLinespace
             
             var outerBox = backgroundRect
-            outerBox.size.height -= theme.hilitedCornerRadius + preeditRect.size.height + theme.borderLineWidth - 2 * extraExpansion
-            outerBox.size.width -= theme.hilitedCornerRadius + theme.borderLineWidth  - 2 * extraExpansion
-            outerBox.origin.x += theme.hilitedCornerRadius / 2 + theme.borderLineWidth / 2 - extraExpansion
-            outerBox.origin.y += theme.hilitedCornerRadius / 2 + preeditRect.size.height + theme.borderLineWidth / 2 - extraExpansion
+            outerBox.size.height -= theme.hilitedCornerRadius + preeditRect.size.height + max(0,theme.borderLineWidth) - 2 * extraExpansion
+            outerBox.size.width -= theme.hilitedCornerRadius + max(0,theme.borderLineWidth)  - 2 * extraExpansion
+            outerBox.origin.x += theme.hilitedCornerRadius / 2 + max(0,theme.borderLineWidth) / 2 - extraExpansion
+            outerBox.origin.y += theme.hilitedCornerRadius / 2 + preeditRect.size.height + max(0,theme.borderLineWidth) / 2 - extraExpansion
             
             let effectiveRadius = max(0, theme.hilitedCornerRadius + 2 * extraExpansion / theme.hilitedCornerRadius * max(0, theme.cornerRadius - theme.hilitedCornerRadius))
             
@@ -978,16 +1019,16 @@ class SquirrelView: NSView {
         var highlightedPath: CGMutablePath?
         var highlightedPreeditPath: CGMutablePath?
         
-        var textFieldOrigin = dirtyRect.origin
-        textFieldOrigin.y += _layout.edgeInset.height
-        textFieldOrigin.x += _layout.edgeInset.width
+        var textOrigin = dirtyRect.origin
+        textOrigin.x += _layout.edgeInset.width
+        textOrigin.y += _layout.edgeInset.height
         
         let backgroundRect = dirtyRect
         var containingRect = dirtyRect
-        containingRect.size.height -= _layout.hilitedCornerRadius + _layout.borderLineWidth
-        containingRect.size.width -= _layout.hilitedCornerRadius + _layout.borderLineWidth
-        containingRect.origin.x += _layout.hilitedCornerRadius / 2 + _layout.borderLineWidth / 2
-        containingRect.origin.y += _layout.hilitedCornerRadius / 2 + _layout.borderLineWidth / 2
+        containingRect.size.height -= (_layout.hilitedCornerRadius + _layout.borderLineWidth) * 2
+        containingRect.size.width -= (_layout.hilitedCornerRadius + _layout.borderLineWidth) * 2
+        containingRect.origin.x += _layout.hilitedCornerRadius + _layout.borderLineWidth
+        containingRect.origin.y += _layout.hilitedCornerRadius + _layout.borderLineWidth
         
         // Draw preedit Rect
         var preeditRect = NSZeroRect
@@ -1034,10 +1075,10 @@ class SquirrelView: NSView {
                 innerBox.size.height -= _layout.edgeInset.height + _layout.preeditLinespace / 2 + _layout.hilitedCornerRadius / 2 + 2
             }
             var outerBox = preeditRect
-            outerBox.size.height -= _layout.hilitedCornerRadius + _layout.borderLineWidth
-            outerBox.size.width -= _layout.hilitedCornerRadius + _layout.borderLineWidth
-            outerBox.origin.x += (_layout.hilitedCornerRadius + _layout.borderLineWidth) / 2
-            outerBox.origin.y += (_layout.hilitedCornerRadius + _layout.borderLineWidth) / 2
+            outerBox.size.height -= _layout.hilitedCornerRadius + max(0,_layout.borderLineWidth)
+            outerBox.size.width -= _layout.hilitedCornerRadius + max(0,_layout.borderLineWidth)
+            outerBox.origin.x += (_layout.hilitedCornerRadius + max(0,_layout.borderLineWidth)) / 2
+            outerBox.origin.y += (_layout.hilitedCornerRadius + max(0,_layout.borderLineWidth)) / 2
             
             let (leadingRect, bodyRect, trailingRect) = multilineRects(forRange: _highlightedPreeditRange)
             var (highlightedPoints, highlightedPoints2, rightCorners, rightCorners2) = linearMultilineFor(body: bodyRect, leading: leadingRect, trailing: trailingRect)
@@ -1108,7 +1149,7 @@ class SquirrelView: NSView {
                 shadowLayer.shadowOffset = NSMakeSize(_layout.shadowSize/2, (_layout.vertical ? -1 : 1) * _layout.shadowSize/2)
                 shadowLayer.shadowPath = highlightedPath
                 shadowLayer.shadowRadius = _layout.shadowSize
-                shadowLayer.shadowOpacity = Float(color.alphaComponent)
+                shadowLayer.shadowOpacity = 0.25
                 let outerPath = backgroundPath?.mutableCopy()
                 outerPath?.addPath(path)
                 let shadowLayerMask = shapeFromPath(path: outerPath)
@@ -1117,9 +1158,7 @@ class SquirrelView: NSView {
             }
             panelLayer.addSublayer(layer)
         }
-
-        let glyphRange = _text.layoutManagers[0].glyphRange(for: _text.layoutManagers[0].textContainers[0])
-        _text.layoutManagers[0].drawGlyphs(forGlyphRange: glyphRange, at: textFieldOrigin)
+        _textView.drawText(text: _text, at: textOrigin, width: self.textContainerWidth)
     }
 }
 
@@ -1162,6 +1201,7 @@ class SquirrelPanel: NSWindow {
         self.contentView = contentView
         contentView.addSubview(_back)
         contentView.addSubview(_view)
+        contentView.addSubview(_view._textView)
         self.isMovableByWindowBackground = true
     }
     
@@ -1289,6 +1329,7 @@ class SquirrelPanel: NSWindow {
             self.contentView?.setBoundsOrigin(NSMakePoint(0, 0))
         }
         _view.frame = _view.superview!.bounds
+        _view._textView.frame = _view.superview!.bounds
         if layout.translucency {
             _back.frame = _back.superview!.bounds
             _back.isHidden = false
