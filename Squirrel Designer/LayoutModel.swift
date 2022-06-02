@@ -566,7 +566,7 @@ class SquirrelView: NSView {
             let str = self._text.attributedSubstring(from: usedRange).string as NSString
             let nonWhiteCharLocation = str.rangeOfCharacter(from: .whitespaces.inverted, options: .backwards)
             if nonWhiteCharLocation.location != NSNotFound {
-                let newRange = NSMakeRange(usedRange.location, nonWhiteCharLocation.location+1)
+                let newRange = NSMakeRange(usedRange.location, NSMaxRange(nonWhiteCharLocation))
                 let lineWidth = self._text.attributedSubstring(from: newRange).size().width
                 if actualWidth < lineWidth {
                     actualWidth = lineWidth
@@ -944,10 +944,10 @@ class SquirrelView: NSView {
             innerBox.size.height -= halfLinespace
             
             var outerBox = backgroundRect
-            outerBox.size.height -= theme.hilitedCornerRadius + preeditRect.size.height + max(0,theme.borderLineWidth) - 2 * extraExpansion
-            outerBox.size.width -= theme.hilitedCornerRadius + max(0,theme.borderLineWidth)  - 2 * extraExpansion
-            outerBox.origin.x += theme.hilitedCornerRadius / 2 + max(0,theme.borderLineWidth) / 2 - extraExpansion
-            outerBox.origin.y += theme.hilitedCornerRadius / 2 + preeditRect.size.height + max(0,theme.borderLineWidth) / 2 - extraExpansion
+            outerBox.size.height -= preeditRect.size.height + max(0, theme.hilitedCornerRadius + theme.borderLineWidth) - 2 * extraExpansion
+            outerBox.size.width -= max(0, theme.hilitedCornerRadius + theme.borderLineWidth)  - 2 * extraExpansion
+            outerBox.origin.x += max(0, (theme.hilitedCornerRadius + theme.borderLineWidth) / 2) - extraExpansion
+            outerBox.origin.y += preeditRect.size.height + max(0, theme.hilitedCornerRadius + theme.borderLineWidth) / 2 - extraExpansion
             
             let effectiveRadius = max(0, theme.hilitedCornerRadius + 2 * extraExpansion / theme.hilitedCornerRadius * max(0, theme.cornerRadius - theme.hilitedCornerRadius))
             
@@ -1071,10 +1071,10 @@ class SquirrelView: NSView {
                 innerBox.size.height -= _layout.edgeInset.height + _layout.preeditLinespace / 2 + _layout.hilitedCornerRadius / 2 + 2
             }
             var outerBox = preeditRect
-            outerBox.size.height -= _layout.hilitedCornerRadius + max(0,_layout.borderLineWidth)
-            outerBox.size.width -= _layout.hilitedCornerRadius + max(0,_layout.borderLineWidth)
-            outerBox.origin.x += (_layout.hilitedCornerRadius + max(0,_layout.borderLineWidth)) / 2
-            outerBox.origin.y += (_layout.hilitedCornerRadius + max(0,_layout.borderLineWidth)) / 2
+            outerBox.size.height -= max(0, _layout.hilitedCornerRadius + _layout.borderLineWidth)
+            outerBox.size.width -= max(0, _layout.hilitedCornerRadius + _layout.borderLineWidth)
+            outerBox.origin.x += max(0, _layout.hilitedCornerRadius + _layout.borderLineWidth) / 2
+            outerBox.origin.y += max(0, _layout.hilitedCornerRadius + _layout.borderLineWidth) / 2
             
             let (leadingRect, bodyRect, trailingRect) = multilineRects(forRange: _highlightedPreeditRange)
             var (highlightedPoints, highlightedPoints2, rightCorners, rightCorners2) = linearMultilineFor(body: bodyRect, leading: leadingRect, trailing: trailingRect)
@@ -1092,7 +1092,6 @@ class SquirrelView: NSView {
             }
         }
         
-        NSBezierPath.defaultLineWidth = 0
         backgroundPath = drawSmoothLines(vertex(ofRect: backgroundRect), straightCorner: Set(), alpha: 0.3*_layout.cornerRadius, beta: 1.4*_layout.cornerRadius)
         shape.path = backgroundPath
         
@@ -1145,7 +1144,7 @@ class SquirrelView: NSView {
                 shadowLayer.shadowOffset = NSMakeSize(_layout.shadowSize/2, (_layout.vertical ? -1 : 1) * _layout.shadowSize/2)
                 shadowLayer.shadowPath = highlightedPath
                 shadowLayer.shadowRadius = _layout.shadowSize
-                shadowLayer.shadowOpacity = 0.25
+                shadowLayer.shadowOpacity = 0.2
                 let outerPath = backgroundPath?.mutableCopy()
                 outerPath?.addPath(path)
                 let shadowLayerMask = shapeFromPath(path: outerPath)
@@ -1384,7 +1383,8 @@ class SquirrelPanel: NSWindow {
     func updateAndShow() {
         
         func minimumHeight(attribute: Dictionary<NSAttributedString.Key, Any>) -> CGFloat {
-            let spaceChar = NSAttributedString.init(string: " ", attributes: attribute)
+            let spaceChar = NSMutableAttributedString.init(string: "字 ", attributes: attribute)
+            convertToVerticalGlyph(spaceChar, inRange: NSMakeRange(0, spaceChar.length))
             let minimumHeight = spaceChar.boundingRect(with: NSZeroSize).size.height
             return minimumHeight
         }
