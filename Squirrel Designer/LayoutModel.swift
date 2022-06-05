@@ -1108,8 +1108,6 @@ class SquirrelView: NSView {
         }
         let panelLayer = shapeFromPath(path: backPath)
         panelLayer.fillColor = _layout.backgroundColor?.cgColor
-        panelLayer.lineWidth = _layout.borderLineWidth
-        panelLayer.strokeColor = _layout.borderColor?.cgColor
         let panelLayerMask = shapeFromPath(path: backgroundPath)
         panelLayer.mask = panelLayerMask
         self.layer?.addSublayer(panelLayer)
@@ -1124,6 +1122,13 @@ class SquirrelView: NSView {
             let mask = shapeFromPath(path: maskPath)
             layer.mask = mask
             panelLayer.addSublayer(layer)
+        }
+        if _layout.borderLineWidth > 0, let color = _layout.borderColor {
+            let borderLayer = shapeFromPath(path: backgroundPath)
+            borderLayer.lineWidth = _layout.borderLineWidth * 2
+            borderLayer.strokeColor = color.cgColor
+            borderLayer.fillColor = nil
+            panelLayer.addSublayer(borderLayer)
         }
         if let color = _layout.highlightedPreeditColor, let path = highlightedPreeditPath {
             let layer = shapeFromPath(path: path)
