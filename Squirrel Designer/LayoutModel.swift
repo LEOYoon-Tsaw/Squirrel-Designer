@@ -75,26 +75,14 @@ class SquirrelLayout {
          .baselineOffset: baseOffset]
     }
     var commentAttrs: [NSAttributedString.Key : Any] {
-        let offset: CGFloat
-        if let fontsize = font?.pointSize, let commentFontSize = commentFont?.pointSize {
-            offset = (fontsize - commentFontSize) / 2
-        } else {
-            offset = 0
-        }
         return [.foregroundColor: commentTextColor!,
          .font: commentFont ?? font!,
-         .baselineOffset: baseOffset + offset]
+         .baselineOffset: baseOffset]
     }
     var commentHighlightedAttrs: [NSAttributedString.Key : Any] {
-        let offset: CGFloat
-        if let fontsize = font?.pointSize, let commentFontSize = commentFont?.pointSize {
-            offset = (fontsize - commentFontSize) / 2
-        } else {
-            offset = 0
-        }
         return [.foregroundColor: highlightedCommentTextColor ?? commentTextColor!,
          .font: commentFont ?? font!,
-         .baselineOffset: baseOffset + offset]
+         .baselineOffset: baseOffset]
     }
     var preeditAttrs: [NSAttributedString.Key : Any] {
         [.foregroundColor: textColor!,
@@ -107,26 +95,14 @@ class SquirrelLayout {
          .baselineOffset: baseOffset]
     }
     var labelAttrs: [NSAttributedString.Key : Any] {
-        let offset: CGFloat
-        if let fontsize = font?.pointSize, let labelFontSize = labelFont?.pointSize {
-            offset = (fontsize - labelFontSize) / 2
-        } else {
-            offset = 0
-        }
         return [.foregroundColor: candidateLabelColor ?? blendColor(foregroundColor: self.candidateTextColor!, backgroundColor: self.backgroundColor),
          .font: labelFont ?? font!,
-         .baselineOffset: baseOffset + offset]
+         .baselineOffset: baseOffset]
     }
     var labelHighlightedAttrs: [NSAttributedString.Key : Any] {
-        let offset: CGFloat
-        if let fontsize = font?.pointSize, let labelFontSize = labelFont?.pointSize {
-            offset = (fontsize - labelFontSize) / 2
-        } else {
-            offset = 0
-        }
         return [.foregroundColor: highlightedCandidateLabelColor ?? blendColor(foregroundColor: highlightedCandidateTextColor!, backgroundColor: highlightedStripColor),
          .font: labelFont ?? font!,
-         .baselineOffset: baseOffset + offset]
+         .baselineOffset: baseOffset]
     }
 
     var firstParagraphStyle: NSParagraphStyle {
@@ -476,66 +452,26 @@ func blendColor(foregroundColor: NSColor, backgroundColor: NSColor?) -> NSColor 
                    alpha: blend(foregroundColor.alphaComponent, backgroundColor.alphaComponent))
 }
 
-class TextView: NSView {
-    private let _text: NSTextStorage
-    private var _origin: NSPoint
-    
-    override init(frame frameRect: NSRect) {
-        let textContainer = NSTextContainer(containerSize: NSZeroSize)
-        textContainer.lineFragmentPadding = 0.0
-        let layoutManager = NSLayoutManager()
-        layoutManager.addTextContainer(textContainer)
-        _text = NSTextStorage()
-        _text.addLayoutManager(layoutManager)
-        _origin = NSZeroPoint
-        super.init(frame: frameRect)
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    override var isFlipped: Bool {
-        true
-    }
-    var textContainerWidth: CGFloat {
-        get {
-            _text.layoutManagers[0].textContainers[0].containerSize.width
-        } set {
-            _text.layoutManagers[0].textContainers[0].containerSize.width = newValue
-        }
-    }
-    func drawText(text: NSAttributedString, at origin: NSPoint, width: CGFloat) {
-        _text.setAttributedString(text)
-        self.textContainerWidth = width
-        _origin = origin
-        self.needsDisplay = true
-    }
-    override func draw(_ dirtyRect: NSRect) {
-        let glyphRange = _text.layoutManagers[0].glyphRange(for: _text.layoutManagers[0].textContainers[0])
-        _text.layoutManagers[0].drawGlyphs(forGlyphRange: glyphRange, at: _origin)
-    }
-}
-
 class SquirrelView: NSView {
     var shape: CAShapeLayer = CAShapeLayer()
     private var _layout: SquirrelLayout
-    private let _text: NSTextStorage
-    let _textView: TextView
+    let _textView: NSTextView
     private var _candidateRanges: Array<NSRange> = []
     private var _highlightedIndex: Int = 0
     private var _preeditRange: NSRange = NSMakeRange(NSNotFound, 0)
     private var _highlightedPreeditRange: NSRange = NSMakeRange(NSNotFound, 0)
-    private var _seperatorWidth: CGFloat = 0
+    private var _separatorWidth: CGFloat = 0
     
     override init(frame frameRect: NSRect) {
         // Use textStorage to store text and manage all text layout and draws
         let textContainer = NSTextContainer(containerSize: NSZeroSize)
         textContainer.lineFragmentPadding = 0.0
-        let layoutManager = NSLayoutManager()
-        layoutManager.addTextContainer(textContainer)
-        layoutManager.backgroundLayoutEnabled = true
-        _text = NSTextStorage()
-        _text.addLayoutManager(layoutManager)
-        _textView = TextView(frame: frameRect)
+        _textView = NSTextView(frame: frameRect)
+        _textView.drawsBackground = false
+        _textView.isEditable = false
+        _textView.isSelectable = false
+        _textView.replaceTextContainer(textContainer)
+        _textView.layoutManager?.backgroundLayoutEnabled = true
         _layout = SquirrelLayout(new: false)
         super.init(frame: frameRect)
         self.wantsLayer = true
@@ -554,20 +490,21 @@ class SquirrelView: NSView {
     }
     // Get the rectangle containing entire contents, expensive to calculate
     var contentRect: NSRect {
-        self.contentRect(forRange: NSMakeRange(0, _text.length))
+        self.contentRect(forRange: NSMakeRange(0, _textView.textStorage!.length))
     }
     // Get the rectangle containing the range of text, will first convert to glyph range, expensive to calculate
     func contentRect(forRange range: NSRange) -> NSRect {
-        let glyphRange = _text.layoutManagers[0].glyphRange(forCharacterRange: range, actualCharacterRange: nil)
-        var rect = _text.layoutManagers[0].boundingRect(forGlyphRange: glyphRange, in: _text.layoutManagers[0].textContainers[0])
+        let glyphRange = _textView.layoutManager!.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
+        var rect = _textView.layoutManager!.boundingRect(forGlyphRange: glyphRange, in: _textView.textContainer!)
         var actualWidth: CGFloat = 0
-        _text.layoutManagers[0].enumerateLineFragments(forGlyphRange: glyphRange) {
+        _textView.layoutManager!.enumerateLineFragments(forGlyphRange: glyphRange) {
             rect, usedRect, container, usedRange, stop in
-            let str = self._text.attributedSubstring(from: usedRange).string as NSString
-            let nonWhiteCharLocation = str.rangeOfCharacter(from: .whitespaces.inverted, options: .backwards)
+            let str = self._textView.textStorage!.attributedSubstring(from: usedRange).string as NSString
+            let nonWhiteCharLocation = str.rangeOfCharacter(from: .whitespacesAndNewlines.inverted, options: .backwards)
             if nonWhiteCharLocation.location != NSNotFound {
                 let newRange = NSMakeRange(usedRange.location, NSMaxRange(nonWhiteCharLocation))
-                let lineWidth = self._text.attributedSubstring(from: newRange).size().width
+                let newGlyphRange = self._textView.layoutManager!.glyphRange(forCharacterRange: newRange, actualCharacterRange: nil)
+                let lineWidth = self._textView.layoutManager!.boundingRect(forGlyphRange: newGlyphRange, in: self._textView.textContainer!).width
                 if actualWidth < lineWidth {
                     actualWidth = lineWidth
                 }
@@ -575,21 +512,6 @@ class SquirrelView: NSView {
         }
         rect.size.width = actualWidth
         return rect
-    }
-    var textContainerWidth: CGFloat {
-        get {
-            _text.layoutManagers[0].textContainers[0].containerSize.width
-        } set {
-            _text.layoutManagers[0].textContainers[0].containerSize.width = newValue
-        }
-    }
-    var text: NSAttributedString {
-        get {
-            _text.attributedSubstring(from: NSMakeRange(0, _text.length))
-        }
-        set {
-            _text.setAttributedString(newValue)
-        }
     }
     var layout: SquirrelLayout {
         get {
@@ -599,12 +521,12 @@ class SquirrelView: NSView {
         }
     }
     // Will triger - (void)drawRect:(NSRect)dirtyRect
-    func drawView(withCandidateRanges candidateRanges: Array<NSRange>, hilitedIndex: Int, preeditRange: NSRange, hilitedPreeditRange: NSRange, seperatorWidth: CGFloat) {
+    func drawView(withCandidateRanges candidateRanges: Array<NSRange>, hilitedIndex: Int, preeditRange: NSRange, hilitedPreeditRange: NSRange, separatorWidth: CGFloat) {
         _candidateRanges = candidateRanges
         _highlightedIndex = hilitedIndex
         _preeditRange = preeditRange
         _highlightedPreeditRange = hilitedPreeditRange
-        _seperatorWidth = seperatorWidth
+        _separatorWidth = separatorWidth
         self.needsDisplay = true
     }
     
@@ -698,8 +620,8 @@ class SquirrelView: NSView {
         // Calculate 3 boxes containing the text in range. leadingRect and trailingRect are incomplete line rectangle
         // bodyRect is complete lines in the middle
         func multilineRects(forRange charRange: NSRange) -> (NSRect, NSRect, NSRect) {
-            let layoutManager = _text.layoutManagers[0]
-            let textContainer = layoutManager.textContainers[0]
+            let layoutManager = _textView.layoutManager!
+            let textContainer = _textView.textContainer!
             let glyphRange = layoutManager.glyphRange(forCharacterRange: charRange, actualCharacterRange: nil)
             let boundingRect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
             let fullRangeInBoundingRect = layoutManager.glyphRange(forBoundingRect: boundingRect, in: textContainer)
@@ -853,19 +775,19 @@ class SquirrelView: NSView {
         // Add gap between horizontal candidates
         func addGapBetweenHorizontalCandidates(_ rect: NSRect, range: NSRange) -> NSRect {
             var newRect = rect
-            if NSMaxRange(range) == _text.length {
+            if NSMaxRange(range) == _textView.textStorage!.length {
                 if !nearEmpty(rect) {
-                    newRect.size.width += _seperatorWidth
-                    newRect.origin.x -= _seperatorWidth / 2
+                    newRect.size.width += _separatorWidth
+                    newRect.origin.x -= _separatorWidth / 2
                 }
             } else if range.location - ((_preeditRange.location == NSNotFound ? 0 : _preeditRange.location) + _preeditRange.length) <= 1 {
                 if !nearEmpty(rect) {
-                    newRect.size.width += _seperatorWidth / 2
+                    newRect.size.width += _separatorWidth / 2
                 }
             } else {
                 if !nearEmpty(rect) {
-                    newRect.size.width += _seperatorWidth
-                    newRect.origin.x -= _seperatorWidth / 2
+                    newRect.size.width += _separatorWidth
+                    newRect.origin.x -= _separatorWidth / 2
                 }
             }
             return newRect
@@ -981,7 +903,7 @@ class SquirrelView: NSView {
                 highlightedRect.size.width = backgroundRect.size.width
                 highlightedRect.size.height += theme.linespace
                 highlightedRect.origin = NSMakePoint(backgroundRect.origin.x, highlightedRect.origin.y + theme.edgeInset.height - halfLinespace)
-                if NSMaxRange(highlightedRange) == _text.length {
+                if NSMaxRange(highlightedRange) == _textView.textStorage!.length {
                     highlightedRect.size.height += theme.edgeInset.height - halfLinespace
                 }
                 if highlightedRange.location - ((_preeditRange.location == NSNotFound ? 0 : _preeditRange.location) + _preeditRange.length) <= 1 {
@@ -1158,7 +1080,7 @@ class SquirrelView: NSView {
             }
             panelLayer.addSublayer(layer)
         }
-        _textView.drawText(text: _text, at: textOrigin, width: self.textContainerWidth)
+        _textView.textContainerInset = NSMakeSize(textOrigin.x, textOrigin.y)
     }
 }
 
@@ -1263,12 +1185,9 @@ class SquirrelPanel: NSWindow {
     
     func show() {
         self.getCurrentScreen()
-        var textWidth = _view.text.size().width
-        let maxTextWidth = getMaxTextWidth(layout: self.layout)
-        if textWidth > maxTextWidth {
-            textWidth = maxTextWidth
-        }
-        _view.textContainerWidth = textWidth
+        let textWidth = getMaxTextWidth(layout: self.layout)
+        let maxTextHeight = layout.vertical ? _screenRect.size.width - layout.edgeInset.width * 2 : _screenRect.size.height - layout.edgeInset.height * 2
+        _view._textView.textContainer!.containerSize = NSMakeSize(textWidth, maxTextHeight)
         var windowRect = NSZeroRect
         // in vertical mode, the width and height are interchanged
         var contentRect = _view.contentRect
@@ -1278,7 +1197,7 @@ class SquirrelPanel: NSWindow {
                 _maxHeight = contentRect.size.width
             } else {
                 contentRect.size.width = _maxHeight
-                _view.textContainerWidth = _maxHeight
+                _view._textView.textContainer!.containerSize = NSMakeSize(_maxHeight, maxTextHeight)
             }
         }
         if self.layout.vertical {
@@ -1322,10 +1241,12 @@ class SquirrelPanel: NSWindow {
         self.setFrame(windowRect, display: true)
         // rotate the view, the core in vertical mode!
         if self.layout.vertical {
-            self.contentView?.boundsRotation = -90.0
+            self.contentView!.boundsRotation = -90
+            _view._textView.boundsRotation = 0
             self.contentView?.setBoundsOrigin(NSMakePoint(0, windowRect.size.width))
         } else {
             self.contentView?.boundsRotation = 0
+            _view._textView.boundsRotation = 0
             self.contentView?.setBoundsOrigin(NSMakePoint(0, 0))
         }
         _view.frame = _view.superview!.bounds
@@ -1387,41 +1308,6 @@ class SquirrelPanel: NSWindow {
     
     func updateAndShow() {
         
-        func minimumHeight(attribute: Dictionary<NSAttributedString.Key, Any>) -> CGFloat {
-            let spaceChar = NSMutableAttributedString.init(string: "字 ", attributes: attribute)
-            convertToVerticalGlyph(spaceChar, inRange: NSMakeRange(0, spaceChar.length))
-            let minimumHeight = spaceChar.boundingRect(with: NSZeroSize).size.height
-            return minimumHeight
-        }
-        
-        func convertToVerticalGlyph(_ originalText: NSMutableAttributedString, inRange stringRange: NSRange) {
-            let attribute = originalText.attributes(at: stringRange.location, effectiveRange: nil)
-            let baseOffset = attribute[.baselineOffset] as! CGFloat
-            // Use the width of the character to determin if they should be upright in vertical writing mode.
-            // Adjust font base line for better alignment.
-            let cjkChar = NSAttributedString(string: "字", attributes: attribute)
-            let cjkRect = cjkChar.boundingRect(with: NSZeroSize)
-            let hangulChar = NSAttributedString(string: "글", attributes: attribute)
-            let hangulSize = hangulChar.boundingRect(with: NSZeroSize)
-            let stringRange = (originalText.string as NSString).rangeOfComposedCharacterSequences(for: stringRange)
-            var i = stringRange.location
-            while i < NSMaxRange(stringRange) {
-                let range = (originalText.string as NSString).rangeOfComposedCharacterSequence(at: i)
-                i = NSMaxRange(range)
-                let charRect = originalText.attributedSubstring(from: range).boundingRect(with: NSZeroSize)
-                // Also adjust the baseline so upright and lying charcters are properly aligned
-                if (charRect.size.width >= cjkRect.size.width) || (charRect.size.width >= hangulSize.width) {
-                    originalText.addAttribute(.verticalGlyphForm, value: 1, range: range)
-                    let uprightCharRect = originalText.attributedSubstring(from: range).boundingRect(with: NSZeroSize)
-                    let widthDiff = charRect.size.width-cjkChar.size().width
-                    let offset = (cjkRect.size.height - uprightCharRect.size.height)/2 + (cjkRect.origin.y-uprightCharRect.origin.y) - (widthDiff>0 ? widthDiff/3 : widthDiff/2) + baseOffset
-                    originalText.addAttribute(.baselineOffset, value: offset, range: range)
-                } else {
-                    originalText.addAttribute(.baselineOffset, value: baseOffset, range: range)
-                }
-            }
-        }
-        
         func fixDefaultFont(text: NSMutableAttributedString) {
             text.fixAttributes(in: NSMakeRange(0, text.length))
             var currentFontRange = NSMakeRange(NSNotFound, 0)
@@ -1470,12 +1356,7 @@ class SquirrelPanel: NSWindow {
                 attributes: self.layout.preeditAttrs))
             }
             text.append(line)
-            let paragraphStylePreedit = layout.preeditParagraphStyle.mutableCopy() as! NSMutableParagraphStyle
-            if self.layout.vertical {
-                convertToVerticalGlyph(text, inRange: NSMakeRange(0, line.length))
-                paragraphStylePreedit.minimumLineHeight = minimumHeight(attribute: self.layout.preeditAttrs)
-            }
-            text.addAttribute(.paragraphStyle, value: paragraphStylePreedit, range: NSMakeRange(0, text.length))
+            text.addAttribute(.paragraphStyle, value: layout.preeditParagraphStyle, range: NSMakeRange(0, text.length))
             _preeditRange = NSMakeRange(0, text.length)
             
             if _candidates.count > 0 {
@@ -1483,7 +1364,8 @@ class SquirrelPanel: NSWindow {
             }
         }
         var candidateRanges = Array<NSRange>()
-        var seperatorWidth: CGFloat = 0
+        var separatorWidth: CGFloat = 0
+        self.getCurrentScreen()
         let maxTextWidth = getMaxTextWidth(layout: self.layout)
         // candidates
         for i in 0..<_candidates.count {
@@ -1510,15 +1392,15 @@ class SquirrelPanel: NSWindow {
                 
                 line.append(NSAttributedString(string: labelString, attributes: labelAttrs))
                 // get the label size for indent
-                if self.layout.vertical {
-                    convertToVerticalGlyph(line, inRange: NSMakeRange(0, line.length))
-                }
                 if !self.layout.linear {
-                    labelWidth = line.boundingRect(with: NSZeroSize, options: .usesLineFragmentOrigin).size.width
+                    let str = line.mutableCopy() as! NSMutableAttributedString
+                    if (layout.vertical) {
+                        str.addAttribute(.verticalGlyphForm, value: 1, range: NSMakeRange(0, str.length))
+                    }
+                    labelWidth = str.boundingRect(with: NSZeroSize, options: .usesLineFragmentOrigin).size.width
                 }
             }
             
-            let candidateStart = line.length
             let candidate = _candidates[i]
             var candidateAttributedString = NSAttributedString(string: candidate.precomposedStringWithCanonicalMapping, attributes: attrs)
             let candidateWidth = candidateAttributedString.boundingRect(with: NSZeroSize, options: .usesLineFragmentOrigin).size.width
@@ -1526,12 +1408,8 @@ class SquirrelPanel: NSWindow {
                 candidateAttributedString = insert("\u{2060}", to: candidateAttributedString)
             }
             line.append(candidateAttributedString)
-            if self.layout.vertical {
-                convertToVerticalGlyph(line, inRange: NSMakeRange(candidateStart, line.length - candidateStart))
-            }
             
             if _suffixLabelFormat != nil {
-                let suffixLabelStart = line.length
                 let labelString: String
                 if _labels.count > 1 && i < _labels.count {
                     let format = _suffixLabelFormat!.replacingOccurrences(of: "%c", with: "%@")
@@ -1546,13 +1424,9 @@ class SquirrelPanel: NSWindow {
                     labelString = String(format: format, i+1)
                 }
                 line.append(NSAttributedString(string: labelString.precomposedStringWithCanonicalMapping, attributes: labelAttrs))
-                if self.layout.vertical {
-                    convertToVerticalGlyph(line, inRange: NSMakeRange(suffixLabelStart, line.length - suffixLabelStart))
-                }
             }
             
             if i < _comments.count && !_comments[i].isEmpty {
-                let commentStart = line.length
                 let comment = _comments[i]
                 var commentAttributedString = NSAttributedString(string: comment.precomposedStringWithCanonicalMapping, attributes: commentAttrs)
                 let commentWidth = commentAttributedString.boundingRect(with: NSZeroSize, options: .usesLineFragmentOrigin).size.width
@@ -1568,26 +1442,24 @@ class SquirrelPanel: NSWindow {
                 }
                 line.append(NSAttributedString(string: commentSeparator, attributes: commentAttrs))
                 line.append(commentAttributedString)
-                if self.layout.vertical {
-                    convertToVerticalGlyph(line, inRange: NSMakeRange(commentStart, line.length - commentStart))
-                }
             }
             
-            let seperator = NSAttributedString(string: self.layout.linear ? "  " : "\n", attributes: attrs)
-            if self.layout.linear {
-                seperatorWidth = seperator.boundingRect(with: NSZeroSize).size.width
+            let separator = NSAttributedString(string: self.layout.linear ? "  " : "\n", attributes: attrs)
+            if layout.linear {
+                let str = separator.mutableCopy() as! NSMutableAttributedString
+                if layout.vertical {
+                    str.addAttribute(.verticalGlyphForm, value: 1, range: NSMakeRange(0, str.length))
+                }
+                separatorWidth = str.boundingRect(with: NSZeroSize).size.width
             }
             if i > 0 {
-                text.append(seperator)
+                text.append(separator)
             }
             func modifiedStyle(baseStyle: NSParagraphStyle) -> NSParagraphStyle {
                 let paragraphStyleCandidate = baseStyle.mutableCopy() as! NSMutableParagraphStyle
                 if self.layout.linear {
                     paragraphStyleCandidate.lineSpacing = self.layout.linespace
                     
-                }
-                if self.layout.vertical {
-                    paragraphStyleCandidate.minimumLineHeight = minimumHeight(attribute: attrs)
                 }
                 paragraphStyleCandidate.headIndent = labelWidth
                 return paragraphStyleCandidate as NSParagraphStyle
@@ -1605,8 +1477,13 @@ class SquirrelPanel: NSWindow {
         // Fix font rendering
         fixDefaultFont(text: text)
         
-        _view.text = text
-        _view.drawView(withCandidateRanges: candidateRanges, hilitedIndex: Int(_hilitedIndex), preeditRange: _preeditRange, hilitedPreeditRange: highlightedPreeditRange, seperatorWidth: seperatorWidth)
+        _view._textView.textStorage!.setAttributedString(text)
+        if self.layout.vertical {
+            _view._textView.setLayoutOrientation(.vertical)
+        } else {
+            _view._textView.setLayoutOrientation(.horizontal)
+        }
+        _view.drawView(withCandidateRanges: candidateRanges, hilitedIndex: Int(_hilitedIndex), preeditRange: _preeditRange, hilitedPreeditRange: highlightedPreeditRange, separatorWidth: separatorWidth)
         self.show()
     }
 }

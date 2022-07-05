@@ -44,6 +44,7 @@ class CodeViewController: NSViewController {
         super.viewDidLoad()
         codeField.string = layout.encode()
         codeField.font = NSFont.systemFont(ofSize: NSFont.systemFontSize)
+        codeField.drawsBackground = false
         saveLayoutCode(codeField.string)
         Self.currentInstance = self
     }
