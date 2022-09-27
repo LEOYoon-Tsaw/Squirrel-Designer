@@ -499,10 +499,11 @@ class SquirrelView: NSView {
         var actualWidth: CGFloat = 0
         _textView.layoutManager!.enumerateLineFragments(forGlyphRange: glyphRange) {
             rect, usedRect, container, usedRange, stop in
-            let str = self._textView.textStorage!.attributedSubstring(from: usedRange).string as NSString
+            let strRange = self._textView.layoutManager!.characterRange(forGlyphRange: usedRange, actualGlyphRange: nil)
+            let str = self._textView.textStorage!.attributedSubstring(from: strRange).string as NSString
             let nonWhiteCharLocation = str.rangeOfCharacter(from: .whitespacesAndNewlines.inverted, options: .backwards)
             if nonWhiteCharLocation.location != NSNotFound {
-                let newRange = NSMakeRange(usedRange.location, NSMaxRange(nonWhiteCharLocation))
+                let newRange = NSMakeRange(strRange.location, NSMaxRange(nonWhiteCharLocation))
                 let newGlyphRange = self._textView.layoutManager!.glyphRange(forCharacterRange: newRange, actualCharacterRange: nil)
                 let lineWidth = self._textView.layoutManager!.boundingRect(forGlyphRange: newGlyphRange, in: self._textView.textContainer!).width
                 if actualWidth < lineWidth {
