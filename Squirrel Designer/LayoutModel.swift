@@ -553,10 +553,11 @@ class SquirrelView: NSView {
             }
         }
         // Bezier cubic curve, which has continuous roundness
-        func drawSmoothLines(_ vertex: Array<NSPoint>, straightCorner: Set<Int>, alpha: CGFloat, beta: CGFloat) -> CGPath? {
+        func drawSmoothLines(_ vertex: Array<NSPoint>, straightCorner: Set<Int>, alpha: CGFloat, beta rawBeta: CGFloat) -> CGPath? {
             guard vertex.count >= 4 else {
                 return nil
             }
+            let beta = max(0.0001, rawBeta)
             let path = CGMutablePath()
             var previousPoint = vertex[vertex.count-1]
             var point = vertex[0]
@@ -566,11 +567,8 @@ class SquirrelView: NSView {
             var target = previousPoint
             var diff = NSMakePoint(point.x - previousPoint.x, point.y - previousPoint.y)
             if straightCorner.isEmpty || !straightCorner.contains(vertex.count-1) {
-                if abs(diff.x) >= abs(diff.y) {
-                    target.x += sign(diff.x/beta)*beta
-                } else {
-                    target.y += sign(diff.y/beta)*beta
-                }
+                target.x += sign(diff.x/beta)*beta
+                target.y += sign(diff.y/beta)*beta
             }
             path.move(to: target)
             for i in 0..<vertex.count {
@@ -583,24 +581,22 @@ class SquirrelView: NSView {
                 } else {
                     control1 = point
                     diff = NSMakePoint(point.x - previousPoint.x, point.y - previousPoint.y)
-                    if (abs(diff.x) >= abs(diff.y)) {
-                        target.x -= sign(diff.x/beta)*beta
-                        control1.x -= sign(diff.x/beta)*alpha
-                    } else {
-                        target.y -= sign(diff.y/beta)*beta
-                        control1.y -= sign(diff.y/beta)*alpha
-                    }
+                    
+                    target.x -= sign(diff.x/beta)*beta
+                    control1.x -= sign(diff.x/beta)*alpha
+                    target.y -= sign(diff.y/beta)*beta
+                    control1.y -= sign(diff.y/beta)*alpha
+                    
                     path.addLine(to: target)
                     target = point
                     control2 = point
                     diff = NSMakePoint(nextPoint.x - point.x, nextPoint.y - point.y)
-                    if (abs(diff.x) > abs(diff.y)) {
-                        control2.x += sign(diff.x/beta)*alpha
-                        target.x += sign(diff.x/beta)*beta
-                    } else {
-                        control2.y += sign(diff.y/beta)*alpha
-                        target.y += sign(diff.y/beta)*beta
-                    }
+                    
+                    control2.x += sign(diff.x/beta)*alpha
+                    target.x += sign(diff.x/beta)*beta
+                    control2.y += sign(diff.y/beta)*alpha
+                    target.y += sign(diff.y/beta)*beta
+                    
                     path.addCurve(to: target, control1: control1, control2: control2)
                 }
             }
@@ -625,13 +621,17 @@ class SquirrelView: NSView {
             let textContainer = _textView.textContainer!
             let glyphRange = layoutManager.glyphRange(forCharacterRange: charRange, actualCharacterRange: nil)
             let boundingRect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
-            let fullRangeInBoundingRect = layoutManager.glyphRange(forBoundingRect: boundingRect, in: textContainer)
+            var firstLineRange = NSMakeRange(NSNotFound, 0)
+            let firstLineRect = layoutManager.lineFragmentUsedRect(forGlyphAt: glyphRange.location, effectiveRange: &firstLineRange)
+            var lastLineRange = NSMakeRange(NSNotFound, 0)
+            let lastLineRect = layoutManager.lineFragmentUsedRect(forGlyphAt: NSMaxRange(glyphRange)-1, effectiveRange: &lastLineRange)
+            
             var leadingRect = NSZeroRect
             var bodyRect = boundingRect
             var trailingRect = NSZeroRect
-            if (boundingRect.origin.x <= 1) && (fullRangeInBoundingRect.location < glyphRange.location) {
+            if (boundingRect.origin.x <= 1) && (firstLineRange.location < glyphRange.location) {
                 leadingRect = layoutManager.boundingRect(
-                    forGlyphRange: NSMakeRange(fullRangeInBoundingRect.location, glyphRange.location-fullRangeInBoundingRect.location),
+                    forGlyphRange: NSMakeRange(firstLineRange.location, glyphRange.location-firstLineRange.location),
                     in: textContainer)
                 if !nearEmpty(leadingRect) {
                     bodyRect.size.height -= leadingRect.size.height
@@ -641,40 +641,20 @@ class SquirrelView: NSView {
                 leadingRect.origin.x = rightEdge
                 leadingRect.size.width = bodyRect.origin.x + bodyRect.size.width - rightEdge
             }
-            if fullRangeInBoundingRect.location+fullRangeInBoundingRect.length > glyphRange.location+glyphRange.length {
+            if NSMaxRange(lastLineRange) > NSMaxRange(glyphRange) {
                 trailingRect = layoutManager.boundingRect(
-                    forGlyphRange: NSMakeRange(glyphRange.location+glyphRange.length,
-                                               fullRangeInBoundingRect.location+fullRangeInBoundingRect.length-glyphRange.location-glyphRange.length),
-                    in: textContainer)
+                    forGlyphRange: NSMakeRange(NSMaxRange(glyphRange), NSMaxRange(lastLineRange)-NSMaxRange(glyphRange)), in: textContainer)
                 if !nearEmpty(trailingRect) {
                     bodyRect.size.height -= trailingRect.size.height
                 }
                 let leftEdge = NSMinX(trailingRect)
                 trailingRect.origin.x = bodyRect.origin.x
                 trailingRect.size.width = leftEdge - bodyRect.origin.x
-            } else if fullRangeInBoundingRect.location+fullRangeInBoundingRect.length == glyphRange.location+glyphRange.length {
-                trailingRect = layoutManager.lineFragmentUsedRect(forGlyphAt: glyphRange.location+glyphRange.length-1, effectiveRange: nil)
-                if NSMaxX(trailingRect) >= NSMaxX(boundingRect) - 1 {
-                    trailingRect = NSZeroRect
-                } else if !nearEmpty(trailingRect) {
-                    bodyRect.size.height -= trailingRect.size.height
-                }
             }
-            let lastLineRect = nearEmpty(trailingRect) ? bodyRect : trailingRect
-//            lastLineRect.size.width = textContainer.containerSize.width - lastLineRect.origin.x
-            var lastLineRange = layoutManager.glyphRange(forBoundingRect: lastLineRect, in: textContainer)
-            var glyphProperty = layoutManager.propertyForGlyph(at: lastLineRange.location+lastLineRange.length-1)
-            while (lastLineRange.length>0) && ((glyphProperty == .elastic) || (glyphProperty == .controlCharacter)) {
-                lastLineRange.length -= 1
-                glyphProperty = layoutManager.propertyForGlyph(at: lastLineRange.location+lastLineRange.length-1)
+            if (!nearEmpty(leadingRect) && bodyRect.height < leadingRect.height/2) || (!nearEmpty(trailingRect) && bodyRect.height < trailingRect.height/2) {
+                bodyRect = NSZeroRect
             }
-            if lastLineRange.location+lastLineRange.length == glyphRange.location+glyphRange.length {
-                if !nearEmpty(trailingRect) {
-                    trailingRect = lastLineRect
-                } else {
-                    bodyRect = lastLineRect
-                }
-            }
+            
             let edgeInset = _layout.edgeInset
             leadingRect.origin.x += edgeInset.width
             leadingRect.origin.y += edgeInset.height
