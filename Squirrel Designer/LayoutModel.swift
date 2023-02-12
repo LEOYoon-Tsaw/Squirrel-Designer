@@ -622,9 +622,9 @@ class SquirrelView: NSView {
             let glyphRange = layoutManager.glyphRange(forCharacterRange: charRange, actualCharacterRange: nil)
             let boundingRect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
             var firstLineRange = NSMakeRange(NSNotFound, 0)
-            let firstLineRect = layoutManager.lineFragmentUsedRect(forGlyphAt: glyphRange.location, effectiveRange: &firstLineRange)
+            let _ = layoutManager.lineFragmentUsedRect(forGlyphAt: glyphRange.location, effectiveRange: &firstLineRange)
             var lastLineRange = NSMakeRange(NSNotFound, 0)
-            let lastLineRect = layoutManager.lineFragmentUsedRect(forGlyphAt: NSMaxRange(glyphRange)-1, effectiveRange: &lastLineRange)
+            let _ = layoutManager.lineFragmentUsedRect(forGlyphAt: NSMaxRange(glyphRange)-1, effectiveRange: &lastLineRange)
             
             var leadingRect = NSZeroRect
             var bodyRect = boundingRect
@@ -1057,6 +1057,8 @@ class SquirrelView: NSView {
                 outerPath?.addPath(path)
                 let shadowLayerMask = shapeFromPath(path: outerPath)
                 shadowLayer.mask = shadowLayerMask
+                layer.strokeColor = NSColor.black.withAlphaComponent(0.2).cgColor
+                layer.lineWidth = 0.5
                 layer.addSublayer(shadowLayer)
             }
             panelLayer.addSublayer(layer)
