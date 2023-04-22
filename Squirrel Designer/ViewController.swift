@@ -206,6 +206,9 @@ class ViewController: NSViewController {
                 }
             }
         }
+        if fonts.count == 0 {
+            fonts = [NSFont.systemFont(ofSize: NSFont.systemFontSize)]
+        }
         layout[keyPath: to] = fonts
     }
     @IBAction func fontPickerGridAddRow(_ sender: Any) {

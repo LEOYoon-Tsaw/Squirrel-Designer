@@ -120,6 +120,7 @@ class SquirrelLayout {
     var preeditParagraphStyle: NSParagraphStyle {
         let style = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         style.paragraphSpacing = preeditLinespace / 2 + hilitedCornerRadius / 2
+        style.lineSpacing = linespace
         return style as NSParagraphStyle
     }
     
@@ -456,7 +457,9 @@ class SquirrelView: NSView {
     var shape: CAShapeLayer = CAShapeLayer()
     private var _layout: SquirrelLayout
     let _textView: NSTextView
-    private var _candidateRanges: Array<NSRange> = []
+    let _layoutManager: NSTextLayoutManager
+    let _textStorage: NSTextContentStorage
+    private var _candidates: Array<NSRange> = []
     private var _highlightedIndex: Int = 0
     private var _preeditRange: NSRange = NSMakeRange(NSNotFound, 0)
     private var _highlightedPreeditRange: NSRange = NSMakeRange(NSNotFound, 0)
@@ -464,14 +467,13 @@ class SquirrelView: NSView {
     
     override init(frame frameRect: NSRect) {
         // Use textStorage to store text and manage all text layout and draws
-        let textContainer = NSTextContainer(containerSize: NSZeroSize)
-        textContainer.lineFragmentPadding = 0.0
         _textView = NSTextView(frame: frameRect)
+        _layoutManager = _textView.textLayoutManager!
+        _layoutManager.textContainer!.lineFragmentPadding = 0.0
+        _textStorage = _textView.textContentStorage!
         _textView.drawsBackground = false
         _textView.isEditable = false
         _textView.isSelectable = false
-        _textView.replaceTextContainer(textContainer)
-        _textView.layoutManager?.backgroundLayoutEnabled = true
         _layout = SquirrelLayout(new: false)
         super.init(frame: frameRect)
         self.wantsLayer = true
@@ -488,31 +490,39 @@ class SquirrelView: NSView {
     var isDark: Bool {
         self.effectiveAppearance.bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
     }
+    
+    func convert(range: NSRange) -> NSTextRange {
+        let startLoc = _layoutManager.location(_layoutManager.documentRange.location, offsetBy: range.location)!
+        let endLoc = _layoutManager.location(startLoc, offsetBy: range.length)!
+        return NSTextRange(location: startLoc, end: endLoc)!
+    }
     // Get the rectangle containing entire contents, expensive to calculate
     var contentRect: NSRect {
-        self.contentRect(forRange: NSMakeRange(0, _textView.textStorage!.length))
+        var ranges = _candidates
+        if _preeditRange.length > 0 {
+            ranges.append(_preeditRange)
+        }
+        var x0 = CGFloat.infinity, x1 = -CGFloat.infinity, y0 = CGFloat.infinity, y1 = -CGFloat.infinity
+        for _range in ranges {
+            let rect = self.contentRect(forRange: convert(range: _range))
+            x0 = min(NSMinX(rect), x0)
+            x1 = max(NSMaxX(rect), x1)
+            y0 = min(NSMinY(rect), y0)
+            y1 = max(NSMaxY(rect), y1)
+        }
+        return NSMakeRect(x0, y0, x1-x0, y1-y0)
     }
     // Get the rectangle containing the range of text, will first convert to glyph range, expensive to calculate
-    func contentRect(forRange range: NSRange) -> NSRect {
-        let glyphRange = _textView.layoutManager!.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
-        var rect = _textView.layoutManager!.boundingRect(forGlyphRange: glyphRange, in: _textView.textContainer!)
-        var actualWidth: CGFloat = 0
-        _textView.layoutManager!.enumerateLineFragments(forGlyphRange: glyphRange) {
-            rect, usedRect, container, usedRange, stop in
-            let strRange = self._textView.layoutManager!.characterRange(forGlyphRange: usedRange, actualGlyphRange: nil)
-            let str = self._textView.textStorage!.attributedSubstring(from: strRange).string as NSString
-            let nonWhiteCharLocation = str.rangeOfCharacter(from: .whitespacesAndNewlines.inverted, options: .backwards)
-            if nonWhiteCharLocation.location != NSNotFound {
-                let newRange = NSMakeRange(strRange.location, NSMaxRange(nonWhiteCharLocation))
-                let newGlyphRange = self._textView.layoutManager!.glyphRange(forCharacterRange: newRange, actualCharacterRange: nil)
-                let lineWidth = self._textView.layoutManager!.boundingRect(forGlyphRange: newGlyphRange, in: self._textView.textContainer!).width
-                if actualWidth < lineWidth {
-                    actualWidth = lineWidth
-                }
-            }
+    func contentRect(forRange range: NSTextRange) -> NSRect {
+        var x0 = CGFloat.infinity, x1 = -CGFloat.infinity, y0 = CGFloat.infinity, y1 = -CGFloat.infinity
+        _layoutManager.enumerateTextSegments(in: range, type: .standard, options: .rangeNotRequired) { _, rect, _, _ in
+            x0 = min(NSMinX(rect), x0)
+            x1 = max(NSMaxX(rect), x1)
+            y0 = min(NSMinY(rect), y0)
+            y1 = max(NSMaxY(rect), y1)
+            return true
         }
-        rect.size.width = actualWidth
-        return rect
+        return NSMakeRect(x0, y0, x1-x0, y1-y0)
     }
     var layout: SquirrelLayout {
         get {
@@ -521,9 +531,10 @@ class SquirrelView: NSView {
             _layout = newValue
         }
     }
+
     // Will triger - (void)drawRect:(NSRect)dirtyRect
-    func drawView(withCandidateRanges candidateRanges: Array<NSRange>, hilitedIndex: Int, preeditRange: NSRange, hilitedPreeditRange: NSRange, separatorWidth: CGFloat) {
-        _candidateRanges = candidateRanges
+    func drawView(withCandidateRanges candidates: Array<NSRange>, hilitedIndex: Int, preeditRange: NSRange, hilitedPreeditRange: NSRange, separatorWidth: CGFloat) {
+        _candidates = candidates
         _highlightedIndex = hilitedIndex
         _preeditRange = preeditRange
         _highlightedPreeditRange = hilitedPreeditRange
@@ -557,7 +568,7 @@ class SquirrelView: NSView {
             guard vertex.count >= 4 else {
                 return nil
             }
-            let beta = max(0.0001, rawBeta)
+            let beta = max(0.00001, rawBeta)
             let path = CGMutablePath()
             var previousPoint = vertex[vertex.count-1]
             var point = vertex[0]
@@ -616,52 +627,70 @@ class SquirrelView: NSView {
         }
         // Calculate 3 boxes containing the text in range. leadingRect and trailingRect are incomplete line rectangle
         // bodyRect is complete lines in the middle
-        func multilineRects(forRange charRange: NSRange) -> (NSRect, NSRect, NSRect) {
-            let layoutManager = _textView.layoutManager!
-            let textContainer = _textView.textContainer!
-            let glyphRange = layoutManager.glyphRange(forCharacterRange: charRange, actualCharacterRange: nil)
-            let boundingRect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
-            var firstLineRange = NSMakeRange(NSNotFound, 0)
-            let _ = layoutManager.lineFragmentUsedRect(forGlyphAt: glyphRange.location, effectiveRange: &firstLineRange)
-            var lastLineRange = NSMakeRange(NSNotFound, 0)
-            let _ = layoutManager.lineFragmentUsedRect(forGlyphAt: NSMaxRange(glyphRange)-1, effectiveRange: &lastLineRange)
-            
-            var leadingRect = NSZeroRect
-            var bodyRect = boundingRect
-            var trailingRect = NSZeroRect
-            if (boundingRect.origin.x <= 1) && (firstLineRange.location < glyphRange.location) {
-                leadingRect = layoutManager.boundingRect(
-                    forGlyphRange: NSMakeRange(firstLineRange.location, glyphRange.location-firstLineRange.location),
-                    in: textContainer)
-                if !nearEmpty(leadingRect) {
-                    bodyRect.size.height -= leadingRect.size.height
-                    bodyRect.origin.y += leadingRect.size.height
-                }
-                let rightEdge = NSMaxX(leadingRect)
-                leadingRect.origin.x = rightEdge
-                leadingRect.size.width = bodyRect.origin.x + bodyRect.size.width - rightEdge
-            }
-            if NSMaxRange(lastLineRange) > NSMaxRange(glyphRange) {
-                trailingRect = layoutManager.boundingRect(
-                    forGlyphRange: NSMakeRange(NSMaxRange(glyphRange), NSMaxRange(lastLineRange)-NSMaxRange(glyphRange)), in: textContainer)
-                if !nearEmpty(trailingRect) {
-                    bodyRect.size.height -= trailingRect.size.height
-                }
-                let leftEdge = NSMinX(trailingRect)
-                trailingRect.origin.x = bodyRect.origin.x
-                trailingRect.size.width = leftEdge - bodyRect.origin.x
-            }
-            if (!nearEmpty(leadingRect) && bodyRect.height < leadingRect.height/2) || (!nearEmpty(trailingRect) && bodyRect.height < trailingRect.height/2) {
-                bodyRect = NSZeroRect
-            }
-            
+        func multilineRects(forRange range: NSTextRange, extraSurounding: Double, bounds: NSRect) -> (NSRect, NSRect, NSRect) {
             let edgeInset = _layout.edgeInset
-            leadingRect.origin.x += edgeInset.width
-            leadingRect.origin.y += edgeInset.height
-            bodyRect.origin.x += edgeInset.width
-            bodyRect.origin.y += edgeInset.height
-            trailingRect.origin.x += edgeInset.width
-            trailingRect.origin.y += edgeInset.height
+            var lineRects = [NSRect]()
+            _layoutManager.enumerateTextSegments(in: range, type: .standard, options: [.rangeNotRequired]) { _, rect, _, _ in
+                var newRect = rect
+                newRect.origin.x += edgeInset.width
+                newRect.origin.y += edgeInset.height
+                newRect.size.height += _layout.linespace
+                newRect.origin.y -= _layout.linespace / 2
+                lineRects.append(newRect)
+                return true
+            }
+
+            var leadingRect = NSZeroRect
+            var bodyRect = NSZeroRect
+            var trailingRect = NSZeroRect
+            if lineRects.count == 1 {
+                bodyRect = lineRects[0]
+            } else if lineRects.count == 2 {
+                leadingRect = lineRects[0]
+                trailingRect = lineRects[1]
+            } else if lineRects.count > 2 {
+                leadingRect = lineRects[0]
+                trailingRect = lineRects[lineRects.count-1]
+                var x0 = CGFloat.infinity, x1 = -CGFloat.infinity, y0 = CGFloat.infinity, y1 = -CGFloat.infinity
+                for i in 1..<(lineRects.count-1) {
+                    let rect = lineRects[i]
+                    x0 = min(NSMinX(rect), x0)
+                    x1 = max(NSMaxX(rect), x1)
+                    y0 = min(NSMinY(rect), y0)
+                    y1 = max(NSMaxY(rect), y1)
+                }
+                y0 = min(NSMaxY(leadingRect), y0)
+                y1 = max(NSMinY(trailingRect), y1)
+                bodyRect = NSMakeRect(x0, y0, x1-x0, y1-y0)
+            }
+            
+            if (extraSurounding > 0) {
+              if nearEmpty(leadingRect) && nearEmpty(trailingRect) {
+                  bodyRect = expandHighlightWidth(rect: bodyRect, extraSurrounding: extraSurounding)
+              } else {
+                if !(nearEmpty(leadingRect)) {
+                    leadingRect = expandHighlightWidth(rect: leadingRect, extraSurrounding: extraSurounding)
+                }
+                if !(nearEmpty(trailingRect)) {
+                    trailingRect = expandHighlightWidth(rect: trailingRect, extraSurrounding: extraSurounding)
+                }
+              }
+            }
+            
+            if !nearEmpty(leadingRect) && !nearEmpty(trailingRect) {
+                leadingRect.size.width = NSMaxX(bounds) - leadingRect.origin.x
+                trailingRect.size.width = NSMaxX(trailingRect) - NSMinX(bounds)
+                trailingRect.origin.x = NSMinX(bounds)
+                if !nearEmpty(bodyRect) {
+                    bodyRect.size.width = bounds.size.width
+                    bodyRect.origin.x = bounds.origin.x
+                } else {
+                    let diff = NSMinY(trailingRect) - NSMaxY(leadingRect)
+                    leadingRect.size.height += diff / 2
+                    trailingRect.size.height += diff / 2
+                    trailingRect.origin.y -= diff / 2
+                }
+            }
             
             return (leadingRect, bodyRect, trailingRect)
         }
@@ -726,6 +755,14 @@ class SquirrelView: NSView {
             return NSMakePoint(0, 0)
           }
         }
+
+        func shapeFromPath(path: CGPath?) -> CAShapeLayer {
+            let layer = CAShapeLayer()
+            layer.path = path
+            layer.fillRule = .evenOdd
+            return layer
+        }
+
         // Assumes clockwise iteration
         func enlarge(vertex: Array<NSPoint>, by: Double) -> Array<NSPoint> {
             if by != 0 {
@@ -754,22 +791,11 @@ class SquirrelView: NSView {
             }
         }
         // Add gap between horizontal candidates
-        func addGapBetweenHorizontalCandidates(_ rect: NSRect, range: NSRange) -> NSRect {
+        func expandHighlightWidth(rect: NSRect, extraSurrounding: CGFloat) -> NSRect {
             var newRect = rect
-            if NSMaxRange(range) == _textView.textStorage!.length {
-                if !nearEmpty(rect) {
-                    newRect.size.width += _separatorWidth
-                    newRect.origin.x -= _separatorWidth / 2
-                }
-            } else if range.location - ((_preeditRange.location == NSNotFound ? 0 : _preeditRange.location) + _preeditRange.length) <= 1 {
-                if !nearEmpty(rect) {
-                    newRect.size.width += _separatorWidth / 2
-                }
-            } else {
-                if !nearEmpty(rect) {
-                    newRect.size.width += _separatorWidth
-                    newRect.origin.x -= _separatorWidth / 2
-                }
+            if !nearEmpty(newRect) {
+                newRect.size.width += extraSurrounding
+                newRect.origin.x -= extraSurrounding / 2
             }
             return newRect
         }
@@ -798,25 +824,11 @@ class SquirrelView: NSView {
                 highlightedPoints = vertex(ofRect: leading)
                 highlightedPoints2 = vertex(ofRect: trailing)
                 rightCorners = [2, 3]
-                if highlightedPoints2.count > 0 {
-                    rightCorners2 = [0, 1]
-                } else {
-                    rightCorners2 = []
-                }
+                rightCorners2 = [0, 1]
             } else {
                 highlightedPoints = multilineVertex(ofLeadingRect: leading, bodyRect: body, trailingRect: trailing)
                 highlightedPoints2 = []
-                if (nearEmpty(body) && !nearEmpty(leading) && !nearEmpty(trailing)) {
-                    if (NSMaxX(trailing) < NSMaxX(leading) && NSMinX(trailing) < NSMinX(leading)) {
-                        rightCorners = [0, 1, 4, 5]
-                    } else if (NSMaxX(trailing) >= NSMaxX(leading) && NSMinX(trailing) < NSMinX(leading)) {
-                        rightCorners = [0, 1]
-                    } else {
-                        rightCorners = []
-                    }
-                } else {
-                    rightCorners = []
-                }
+                rightCorners = []
                 rightCorners2 = []
             }
             return (highlightedPoints, highlightedPoints2, rightCorners, rightCorners2)
@@ -844,26 +856,22 @@ class SquirrelView: NSView {
                 innerBox.origin.y += preeditRect.size.height + theme.preeditLinespace / 2 + theme.hilitedCornerRadius / 2 + 1
                 innerBox.size.height -= theme.edgeInset.height + preeditRect.size.height + theme.preeditLinespace / 2 + theme.hilitedCornerRadius / 2 + 2
             }
-            innerBox.size.height -= halfLinespace
+            innerBox.size.height -= theme.linespace
+            innerBox.origin.y += halfLinespace
             
             var outerBox = backgroundRect
             outerBox.size.height -= preeditRect.size.height + max(0, theme.hilitedCornerRadius + theme.borderLineWidth) - 2 * extraExpansion
             outerBox.size.width -= max(0, theme.hilitedCornerRadius + theme.borderLineWidth)  - 2 * extraExpansion
-            outerBox.origin.x += max(0, (theme.hilitedCornerRadius + theme.borderLineWidth) / 2) - extraExpansion
+            outerBox.origin.x += max(0.0, theme.hilitedCornerRadius + theme.borderLineWidth) / 2.0 - extraExpansion
             outerBox.origin.y += preeditRect.size.height + max(0, theme.hilitedCornerRadius + theme.borderLineWidth) / 2 - extraExpansion
             
             let effectiveRadius = max(0, theme.hilitedCornerRadius + 2 * extraExpansion / theme.hilitedCornerRadius * max(0, theme.cornerRadius - theme.hilitedCornerRadius))
             
             if theme.linear {
-                var (leadingRect, bodyRect, trailingRect) = multilineRects(forRange: highlightedRange)
-                leadingRect = addGapBetweenHorizontalCandidates(leadingRect, range: highlightedRange)
-                bodyRect = addGapBetweenHorizontalCandidates(bodyRect, range: highlightedRange)
-                trailingRect = addGapBetweenHorizontalCandidates(trailingRect, range: highlightedRange)
+                let (leadingRect, bodyRect, trailingRect) = multilineRects(forRange: convert(range: highlightedRange), extraSurounding: _separatorWidth, bounds: outerBox)
                 
                 var (highlightedPoints, highlightedPoints2, rightCorners, rightCorners2) = linearMultilineFor(body: bodyRect, leading: leadingRect, trailing: trailingRect)
                 
-                highlightedPoints = xyTranslate(points: highlightedPoints, direction: NSMakePoint(0, -halfLinespace))
-                highlightedPoints2 = xyTranslate(points: highlightedPoints2, direction: NSMakePoint(0, -halfLinespace))
                 // Expand the boxes to reach proper border
                 highlightedPoints = enlarge(vertex: highlightedPoints, by: extraExpansion)
                 highlightedPoints = expand(vertex: highlightedPoints, innerBorder: innerBox, outerBorder: outerBox)
@@ -880,36 +888,42 @@ class SquirrelView: NSView {
                     }
                 }
             } else {
-                var highlightedRect = self.contentRect(forRange: highlightedRange)
-                highlightedRect.size.width = backgroundRect.size.width
-                highlightedRect.size.height += theme.linespace
-                highlightedRect.origin = NSMakePoint(backgroundRect.origin.x, highlightedRect.origin.y + theme.edgeInset.height - halfLinespace)
-                if NSMaxRange(highlightedRange) == _textView.textStorage!.length {
-                    highlightedRect.size.height += theme.edgeInset.height - halfLinespace
-                }
-                if highlightedRange.location - ((_preeditRange.location == NSNotFound ? 0 : _preeditRange.location) + _preeditRange.length) <= 1 {
-                    if _preeditRange.length == 0 {
+                var highlightedRect = self.contentRect(forRange: convert(range: highlightedRange))
+                if !nearEmpty(highlightedRect) {
+                    highlightedRect.size.width = backgroundRect.size.width
+                    highlightedRect.size.height += theme.linespace
+                    highlightedRect.origin = NSMakePoint(backgroundRect.origin.x, highlightedRect.origin.y + theme.edgeInset.height - halfLinespace)
+                    if NSMaxRange(highlightedRange) == (_textView.string as NSString).length {
                         highlightedRect.size.height += theme.edgeInset.height - halfLinespace
-                        highlightedRect.origin.y -= theme.edgeInset.height - halfLinespace
-                    } else {
-                        highlightedRect.size.height += theme.hilitedCornerRadius / 2
-                        highlightedRect.origin.y -= theme.hilitedCornerRadius / 2
                     }
+                    if highlightedRange.location - ((_preeditRange.location == NSNotFound ? 0 : _preeditRange.location) + _preeditRange.length) <= 1 {
+                        if _preeditRange.length == 0 {
+                            highlightedRect.size.height += theme.edgeInset.height - halfLinespace
+                            highlightedRect.origin.y -= theme.edgeInset.height - halfLinespace
+                        } else {
+                            highlightedRect.size.height += theme.hilitedCornerRadius / 2
+                            highlightedRect.origin.y -= theme.hilitedCornerRadius / 2
+                        }
+                    }
+                    
+                    var highlightedPoints = vertex(ofRect: highlightedRect)
+                    highlightedPoints = enlarge(vertex: highlightedPoints, by: extraExpansion)
+                    highlightedPoints = expand(vertex: highlightedPoints, innerBorder: innerBox, outerBorder: outerBox)
+                    resultingPath = drawSmoothLines(highlightedPoints, straightCorner: Set(), alpha: effectiveRadius*0.3, beta: effectiveRadius*1.4)?.mutableCopy()
+                } else {
+                    resultingPath = nil
                 }
-                
-                var highlightedPoints = vertex(ofRect: highlightedRect)
-                highlightedPoints = enlarge(vertex: highlightedPoints, by: extraExpansion)
-                highlightedPoints = expand(vertex: highlightedPoints, innerBorder: innerBox, outerBorder: outerBox)
-                resultingPath = drawSmoothLines(highlightedPoints, straightCorner: Set(), alpha: effectiveRadius*0.3, beta: effectiveRadius*1.4)?.mutableCopy()
             }
             return resultingPath
         }
         
-        func shapeFromPath(path: CGPath?) -> CAShapeLayer {
-            let layer = CAShapeLayer()
-            layer.path = path
-            layer.fillRule = .evenOdd
-            return layer
+        func carveInset(rect: NSRect, theme: SquirrelLayout) -> NSRect {
+            var newRect = rect
+            newRect.size.height -= (theme.hilitedCornerRadius + theme.borderWidth) * 2
+            newRect.size.width -= (theme.hilitedCornerRadius + theme.borderWidth) * 2
+            newRect.origin.x += theme.hilitedCornerRadius + theme.borderWidth
+            newRect.origin.y += theme.hilitedCornerRadius + theme.borderWidth
+            return newRect
         }
         
         var backgroundPath: CGPath?
@@ -918,41 +932,37 @@ class SquirrelView: NSView {
         var highlightedPath: CGMutablePath?
         var highlightedPreeditPath: CGMutablePath?
         
-        var textOrigin = dirtyRect.origin
-        textOrigin.x += _layout.edgeInset.width
-        textOrigin.y += _layout.edgeInset.height
-        
         let backgroundRect = dirtyRect
         var containingRect = dirtyRect
-        containingRect.size.height -= (_layout.hilitedCornerRadius + _layout.borderLineWidth) * 2
-        containingRect.size.width -= (_layout.hilitedCornerRadius + _layout.borderLineWidth) * 2
-        containingRect.origin.x += _layout.hilitedCornerRadius + _layout.borderLineWidth
-        containingRect.origin.y += _layout.hilitedCornerRadius + _layout.borderLineWidth
         
         // Draw preedit Rect
         var preeditRect = NSZeroRect
         if (_preeditRange.length > 0) {
-            preeditRect = self.contentRect(forRange: _preeditRange)
+            preeditRect = contentRect(forRange: convert(range: _preeditRange))
             preeditRect.size.width = backgroundRect.size.width
             preeditRect.size.height += _layout.edgeInset.height + _layout.preeditLinespace / 2 + _layout.hilitedCornerRadius / 2
             preeditRect.origin = backgroundRect.origin
-            if _candidateRanges.count == 0 {
+            if _candidates.count == 0 {
                 preeditRect.size.height += _layout.edgeInset.height - _layout.preeditLinespace / 2 - _layout.hilitedCornerRadius / 2
             }
+            containingRect.size.height -= preeditRect.size.height
+            containingRect.origin.y += preeditRect.size.height
             if _layout.preeditBackgroundColor != nil {
                 preeditPath = drawSmoothLines(vertex(ofRect: preeditRect), straightCorner: Set(), alpha: 0, beta: 0)
             }
         }
+        
+        containingRect = carveInset(rect: containingRect, theme: _layout)
         // Draw highlighted Rect
-        for i in 0..<_candidateRanges.count {
-            let candidateRange = _candidateRanges[i]
+        for i in 0..<_candidates.count {
+            let candidate = _candidates[i]
             if i == _highlightedIndex {
-                if (candidateRange.length > 0 && _layout.highlightedStripColor != nil) {
-                    highlightedPath = drawPath(theme: _layout, highlightedRange: candidateRange, backgroundRect: backgroundRect, preeditRect: preeditRect, containingRect: containingRect, extraExpansion: 0)?.mutableCopy()
+                if (candidate.length > 0 && _layout.highlightedStripColor != nil) {
+                    highlightedPath = drawPath(theme: _layout, highlightedRange: candidate, backgroundRect: backgroundRect, preeditRect: preeditRect, containingRect: containingRect, extraExpansion: 0)?.mutableCopy()
                 }
             } else {
-                if (candidateRange.length > 0 && _layout.stripColor != nil) {
-                    let candidatePath = drawPath(theme: _layout, highlightedRange: candidateRange, backgroundRect: backgroundRect, preeditRect: preeditRect, containingRect: containingRect, extraExpansion:_layout.surroundingExtraExpansion)
+                if (candidate.length > 0 && _layout.stripColor != nil) {
+                    let candidatePath = drawPath(theme: _layout, highlightedRange: candidate, backgroundRect: backgroundRect, preeditRect: preeditRect, containingRect: containingRect, extraExpansion:_layout.surroundingExtraExpansion)
                     if candidatePaths == nil {
                         candidatePaths = CGMutablePath()
                     }
@@ -968,7 +978,7 @@ class SquirrelView: NSView {
             innerBox.size.width -= (_layout.edgeInset.width + 1) * 2
             innerBox.origin.x += _layout.edgeInset.width + 1
             innerBox.origin.y += _layout.edgeInset.height + 1
-            if _candidateRanges.count == 0 {
+            if _candidates.count == 0 {
                 innerBox.size.height -= (_layout.edgeInset.height + 1) * 2
             } else {
                 innerBox.size.height -= _layout.edgeInset.height + _layout.preeditLinespace / 2 + _layout.hilitedCornerRadius / 2 + 2
@@ -979,9 +989,10 @@ class SquirrelView: NSView {
             outerBox.origin.x += max(0, _layout.hilitedCornerRadius + _layout.borderLineWidth) / 2
             outerBox.origin.y += max(0, _layout.hilitedCornerRadius + _layout.borderLineWidth) / 2
             
-            let (leadingRect, bodyRect, trailingRect) = multilineRects(forRange: _highlightedPreeditRange)
+            let (leadingRect, bodyRect, trailingRect) = multilineRects(forRange: convert(range: _highlightedPreeditRange), extraSurounding: 0, bounds: outerBox)
             var (highlightedPoints, highlightedPoints2, rightCorners, rightCorners2) = linearMultilineFor(body: bodyRect, leading: leadingRect, trailing: trailingRect)
             
+            containingRect = carveInset(rect: preeditRect, theme: _layout)
             highlightedPoints = expand(vertex: highlightedPoints, innerBorder: innerBox, outerBorder: outerBox)
             rightCorners = removeCorner(highlightedPoints: highlightedPoints, rightCorners: rightCorners, containingRect: containingRect)
             highlightedPreeditPath = drawSmoothLines(highlightedPoints, straightCorner: rightCorners, alpha: 0.3*_layout.hilitedCornerRadius, beta: 1.4*_layout.hilitedCornerRadius)?.mutableCopy()
@@ -1003,11 +1014,13 @@ class SquirrelView: NSView {
         if let path = preeditPath {
             backPath?.addPath(path)
         }
-        if _layout.mutualExclusive, let path = highlightedPath {
-            backPath?.addPath(path)
-        }
-        if _layout.mutualExclusive, let path = candidatePaths {
-            backPath?.addPath(path)
+        if _layout.mutualExclusive {
+            if let path = highlightedPath {
+                backPath?.addPath(path)
+            }
+            if let path = candidatePaths {
+                backPath?.addPath(path)
+            }
         }
         let panelLayer = shapeFromPath(path: backPath)
         panelLayer.fillColor = _layout.backgroundColor?.cgColor
@@ -1057,17 +1070,60 @@ class SquirrelView: NSView {
                 outerPath?.addPath(path)
                 let shadowLayerMask = shapeFromPath(path: outerPath)
                 shadowLayer.mask = shadowLayerMask
-                layer.strokeColor = NSColor.black.withAlphaComponent(0.2).cgColor
+                layer.strokeColor = NSColor.black.withAlphaComponent(0.15).cgColor
                 layer.lineWidth = 0.5
                 layer.addSublayer(shadowLayer)
             }
             panelLayer.addSublayer(layer)
         }
-        _textView.textContainerInset = NSMakeSize(textOrigin.x, textOrigin.y)
+    }
+    
+    func clickAt(point _point: NSPoint, returnIndex: Bool, returnPreeditIndex: Bool) -> (Bool, Int?, Int?) {
+        var index: Int? = nil
+        var preeditIndex: Int? = nil
+        if let path = shape.path, path.contains(_point) {
+            var point = NSMakePoint(_point.x - _textView.textContainerInset.width,
+                                    _point.y - _textView.textContainerInset.height)
+            let fragment = _layoutManager.textLayoutFragment(for: point)
+            if let fragment = fragment {
+                point = NSMakePoint(point.x - NSMinX(fragment.layoutFragmentFrame),
+                                    point.y - NSMinY(fragment.layoutFragmentFrame))
+                index = _layoutManager.offset(from: _layoutManager.documentRange.location, to: fragment.rangeInElement.location)
+                for i in 0..<fragment.textLineFragments.count {
+                    let lineFragment = fragment.textLineFragments[i]
+                    if lineFragment.typographicBounds.contains(point) {
+                        point = NSMakePoint(point.x - NSMinX(lineFragment.typographicBounds),
+                                            point.y - NSMinY(lineFragment.typographicBounds))
+                        index! += lineFragment.characterIndex(for: point)
+                        if index! >= _preeditRange.location && index! < NSMaxRange(_preeditRange) {
+                            if returnPreeditIndex {
+                                preeditIndex = index
+                            }
+                        } else {
+                            for i in 0..<_candidates.count {
+                                let range = _candidates[i]
+                                if index! >= range.location && index! < NSMaxRange(range) {
+                                    if (returnIndex) {
+                                        index = i
+                                    } else {
+                                        index = nil
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+            return (true, index, preeditIndex)
+        } else {
+            return (false, nil, nil)
+        }
     }
 }
 
-class SquirrelPanel: NSWindow {
+class SquirrelPanel: NSPanel {
     static let kOffsetHeight: CGFloat = 5
     private var _position: NSRect
     private let _view: SquirrelView
@@ -1081,8 +1137,12 @@ class SquirrelPanel: NSWindow {
     private var _preedit = ""
     private var _selRange: NSRange = NSMakeRange(NSNotFound, 0)
     private var _candidates = Array<String>()
+    private var _candidateRanges = Array<NSRange>()
+    private var _highlightedPreeditRange = NSMakeRange(NSNotFound, 0)
+    private var _separatorWidth = 0.0
     private var _comments = Array<String>()
     private var _labels = Array<String>()
+    private var _index: Int = 0
     private var _hilitedIndex: UInt = 0
     private var upperLeft: NSPoint?
     weak var parentView: ViewController?
@@ -1145,6 +1205,56 @@ class SquirrelPanel: NSWindow {
             }
         }
     }
+    
+    func mousePosition() -> NSPoint {
+        var point = NSEvent.mouseLocation
+        point = convertPoint(fromScreen: point)
+        return _view.convert(point, from: nil)
+    }
+    override func sendEvent(_ event: NSEvent) {
+        switch event.type {
+        case .leftMouseDown:
+            let point = mousePosition()
+            let (hit, index, _) = _view.clickAt(point: point, returnIndex: true, returnPreeditIndex: false)
+            if hit, let index = index {
+                if (index >= 0 && index < _candidates.count) {
+                    _index = index
+                }
+            }
+        case .leftMouseUp:
+            let point = mousePosition()
+            let (hit, index, _) = _view.clickAt(point: point, returnIndex: true, returnPreeditIndex: false)
+            if hit, let index = index {
+                if index >= 0 && index < _candidates.count && index == _index {
+                    inputSource.index = UInt(_index)
+                    setup(input: inputSource)
+                    updateAndShow(changeLayout: false)
+                }
+            }
+        case .mouseEntered:
+            self.acceptsMouseMovedEvents = true
+        case .mouseExited:
+            self.acceptsMouseMovedEvents = false
+            if (_hilitedIndex != inputSource.index) {
+                setup(input: inputSource)
+                updateAndShow(changeLayout: false)
+            }
+        case .mouseMoved:
+            let point = mousePosition()
+            let (hit, index, _) = _view.clickAt(point: point, returnIndex: true, returnPreeditIndex: false)
+            if hit, let index = index {
+                if (index >= 0 && index < _candidates.count && _index != index) {
+                    _hilitedIndex = UInt(index)
+                    _index = index
+                    updateAndShow(changeLayout: false)
+                }
+            }
+        default:
+            break
+        }
+        super.sendEvent(event)
+    }
+    
     func getCurrentScreen() {
         _screenRect = NSScreen.main!.frame
         let screens = NSScreen.screens
@@ -1183,6 +1293,7 @@ class SquirrelPanel: NSWindow {
                 _view._textView.textContainer!.containerSize = NSMakeSize(_maxHeight, maxTextHeight)
             }
         }
+        _view._textView.textContainerInset = layout.edgeInset
         if self.layout.vertical {
             windowRect.size = NSMakeSize(contentRect.size.height + self.layout.edgeInset.height * 2,
                                          contentRect.size.width + self.layout.edgeInset.width * 2)
@@ -1227,10 +1338,12 @@ class SquirrelPanel: NSWindow {
             self.contentView!.boundsRotation = -90
             _view._textView.boundsRotation = 0
             self.contentView?.setBoundsOrigin(NSMakePoint(0, windowRect.size.width))
+            _view._textView.setBoundsOrigin(NSMakePoint(0, 0))
         } else {
             self.contentView?.boundsRotation = 0
             _view._textView.boundsRotation = 0
             self.contentView?.setBoundsOrigin(NSMakePoint(0, 0))
+            _view._textView.setBoundsOrigin(NSMakePoint(0, 0))
         }
         _view.frame = _view.superview!.bounds
         _view._textView.frame = _view.superview!.bounds
@@ -1289,7 +1402,7 @@ class SquirrelPanel: NSWindow {
         setCandidateFormat(input.candidateFormat as NSString)
     }
     
-    func updateAndShow() {
+    func updateAndShow(changeLayout: Bool = true) {
         
         func fixDefaultFont(text: NSMutableAttributedString) {
             text.fixAttributes(in: NSMakeRange(0, text.length))
@@ -1320,7 +1433,6 @@ class SquirrelPanel: NSWindow {
         }
         
         let text = NSMutableAttributedString()
-        _preeditRange = NSMakeRange(NSNotFound, 0)
         var highlightedPreeditRange = NSMakeRange(NSNotFound, 0)
         if !_preedit.isEmpty && !self.layout.inlinePreedit {
             let line = NSMutableAttributedString()
@@ -1438,6 +1550,7 @@ class SquirrelPanel: NSWindow {
             if i > 0 {
                 text.append(separator)
             }
+            
             func modifiedStyle(baseStyle: NSParagraphStyle) -> NSParagraphStyle {
                 let paragraphStyleCandidate = baseStyle.mutableCopy() as! NSMutableParagraphStyle
                 if self.layout.linear {
@@ -1456,17 +1569,18 @@ class SquirrelPanel: NSWindow {
             candidateRanges.append(NSMakeRange(text.length, line.length))
             text.append(line)
         }
-        
-        // Fix font rendering
-        fixDefaultFont(text: text)
-        
-        _view._textView.textStorage!.setAttributedString(text)
+        _view._textStorage.attributedString = text
         if self.layout.vertical {
             _view._textView.setLayoutOrientation(.vertical)
         } else {
             _view._textView.setLayoutOrientation(.horizontal)
         }
         _view.drawView(withCandidateRanges: candidateRanges, hilitedIndex: Int(_hilitedIndex), preeditRange: _preeditRange, hilitedPreeditRange: highlightedPreeditRange, separatorWidth: separatorWidth)
-        self.show()
+        _candidateRanges = candidateRanges
+        _highlightedPreeditRange = highlightedPreeditRange
+        _separatorWidth = separatorWidth
+        if changeLayout {
+            self.show()
+        }
     }
 }
