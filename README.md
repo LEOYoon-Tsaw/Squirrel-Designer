@@ -11,5 +11,5 @@ Preview:
 
 ![Squirrel Designer Preview](./SquirrelDesignerPreview.png)
 
-*Requires macOS 11.0+*
+*Requires macOS 13.0+*
 *This app does not collect any user data*
