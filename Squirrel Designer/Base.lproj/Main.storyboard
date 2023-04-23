@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1458,7 +1457,7 @@
                                                             </popUpButton>
                                                         </gridCell>
                                                         <gridCell row="2qu-gD-wvZ" column="Dfk-R9-y8s" id="BSp-I3-Its">
-                                                            <button key="contentView" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GeQ-kJ-eAX">
+                                                            <button key="contentView" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GeQ-kJ-eAX">
                                                                 <rect key="frame" x="182" y="-2" width="26" height="26"/>
                                                                 <buttonCell key="cell" type="round" bezelStyle="circular" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="LL8-DM-uqR">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1517,7 +1516,7 @@
                                                             </popUpButton>
                                                         </gridCell>
                                                         <gridCell row="I4X-pr-MQa" column="oxu-g3-1O1" id="D60-67-LHM">
-                                                            <button key="contentView" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vq8-WA-rzK">
+                                                            <button key="contentView" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vq8-WA-rzK">
                                                                 <rect key="frame" x="181" y="-2" width="26" height="26"/>
                                                                 <buttonCell key="cell" type="round" bezelStyle="circular" image="NSAddTemplate" imagePosition="overlaps" alignment="center" enabled="NO" borderStyle="border" inset="2" id="V4i-4t-l4f">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1576,7 +1575,7 @@
                                                             </popUpButton>
                                                         </gridCell>
                                                         <gridCell row="0e5-5b-jug" column="PFU-d1-9xv" id="SvT-1Y-kFN">
-                                                            <button key="contentView" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yh2-Nk-Zbs">
+                                                            <button key="contentView" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yh2-Nk-Zbs">
                                                                 <rect key="frame" x="181" y="-2" width="26" height="26"/>
                                                                 <buttonCell key="cell" type="round" bezelStyle="circular" image="NSAddTemplate" imagePosition="overlaps" alignment="center" enabled="NO" borderStyle="border" inset="2" id="XyJ-sy-2dZ">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1710,7 +1709,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="525" height="56"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xdb-rt-ofg">
+                                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xdb-rt-ofg">
                                         <rect key="frame" x="202" y="7" width="120" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="V9F-ww-S2S">
@@ -1721,7 +1720,7 @@
                                             <action selector="resetPressed:" target="XfG-lQ-9wD" id="JJQ-vu-S9d"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X23-Hi-l4l">
+                                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X23-Hi-l4l">
                                         <rect key="frame" x="55" y="7" width="120" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <buttonCell key="cell" type="push" title="Show Preview" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="2Li-yx-Pl2">
@@ -1736,7 +1735,7 @@
                                         <rect key="frame" x="24" y="53" width="475" height="5"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     </box>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="euo-uC-PJ7">
+                                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="euo-uC-PJ7">
                                         <rect key="frame" x="350" y="7" width="120" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <buttonCell key="cell" type="push" title="Show Code" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="sj4-SO-WsK">
@@ -1854,7 +1853,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="350"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XGw-40-muR">
+                            <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XGw-40-muR">
                                 <rect key="frame" x="13" y="7" width="175" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <buttonCell key="cell" type="push" title="Read from Code" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="YC0-U5-XIB">
@@ -1865,7 +1864,7 @@
                                     <action selector="readCodeButtonPressed:" target="ZW2-vd-qPC" id="Dj9-Bd-vRa"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vuk-MW-cWh">
+                            <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vuk-MW-cWh">
                                 <rect key="frame" x="292" y="7" width="175" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <buttonCell key="cell" type="push" title="Update Code" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="o1L-A1-6jj">
@@ -2074,7 +2073,7 @@
                                                             </textField>
                                                         </gridCell>
                                                         <gridCell row="IjD-z9-fFY" column="mVh-na-OSs" id="6wL-w5-InF">
-                                                            <button key="contentView" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="S56-T0-3iK">
+                                                            <button key="contentView" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="S56-T0-3iK">
                                                                 <rect key="frame" x="75" y="-2" width="26" height="26"/>
                                                                 <buttonCell key="cell" type="round" bezelStyle="circular" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="yFM-sC-5Q0">
                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2129,7 +2128,7 @@
                                                             </textField>
                                                         </gridCell>
                                                         <gridCell row="eQ5-0j-iMz" column="oss-lY-oFW" id="ySe-3b-SpZ">
-                                                            <button key="contentView" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AG7-Et-Iyd">
+                                                            <button key="contentView" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AG7-Et-Iyd">
                                                                 <rect key="frame" x="385" y="-2" width="26" height="26"/>
                                                                 <buttonCell key="cell" type="round" bezelStyle="circular" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="mdA-gl-Ud6">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -2174,7 +2173,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="610" height="48"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9HW-34-L17">
+                                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9HW-34-L17">
                                         <rect key="frame" x="55" y="8" width="120" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lol-xe-1g6">
@@ -2188,7 +2187,7 @@ Gw
                                             <action selector="closeWindow:" target="5fl-nL-oFT" id="i1e-Ny-YM2"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ahb-Oe-PYF">
+                                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ahb-Oe-PYF">
                                         <rect key="frame" x="245" y="8" width="120" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aJ7-PA-AbO">
@@ -2202,7 +2201,7 @@ Gw
                                             <action selector="reset:" target="5fl-nL-oFT" id="zMi-Ia-aL7"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vd9-w6-frB">
+                                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vd9-w6-frB">
                                         <rect key="frame" x="435" y="8" width="120" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CRD-E2-Y6t">

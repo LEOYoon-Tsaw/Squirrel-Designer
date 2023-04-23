@@ -142,16 +142,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         alert.informativeText = NSLocalizedString("Unsaved Work Will Be Lost! Do you want to proceed?", comment: "")
         alert.addButton(withTitle: NSLocalizedString("Abort", comment: "Abort"))
         alert.addButton(withTitle: NSLocalizedString("Proceed", comment: "Proceed"))
-        var result: NSApplication.ModalResponse = .alertFirstButtonReturn
         if let window = ViewController.currentInstance?.view.window {
-            alert.beginSheetModal(for: window) { result = $0 }
-        } else {
-            result = alert.runModal()
-        }
-        if result == .alertSecondButtonReturn {
-            layout = SquirrelLayout(new: true)
-            ViewController.currentInstance?.updateUI()
-            CodeViewController.currentInstance?.codeField.string = layout.encode()
+            alert.beginSheetModal(for: window) { result in
+                if result == .alertSecondButtonReturn {
+                    layout = SquirrelLayout(new: true)
+                    ViewController.currentInstance?.updateUI()
+                    CodeViewController.currentInstance?.codeField.string = layout.encode()
+                }
+            }
         }
     }
     
@@ -210,16 +208,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         alert.informativeText = NSLocalizedString("Unsaved Work Will Be Lost! Do you want to proceed?", comment: "")
         alert.addButton(withTitle: NSLocalizedString("Abort", comment: "Abort"))
         alert.addButton(withTitle: NSLocalizedString("Proceed", comment: "Proceed"))
-        var result: NSApplication.ModalResponse = .alertFirstButtonReturn
         if let window = SettingViewController.currentInstance?.view.window {
-            alert.beginSheetModal(for: window) { result = $0 }
-        } else {
-            result = alert.runModal()
-        }
-        if result == .alertSecondButtonReturn {
-            inputSource = InputSource(new: true)
-            preview.setup(input: inputSource)
-            SettingViewController.currentInstance?.reloadUI()
+            alert.beginSheetModal(for: window) { result in
+                if result == .alertSecondButtonReturn {
+                    inputSource = InputSource(new: true)
+                    preview.setup(input: inputSource)
+                    SettingViewController.currentInstance?.reloadUI()
+                }
+            }
         }
     }
 

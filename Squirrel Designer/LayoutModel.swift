@@ -492,9 +492,10 @@ class SquirrelView: NSView {
     }
     
     func convert(range: NSRange) -> NSTextRange {
-        let startLoc = _layoutManager.location(_layoutManager.documentRange.location, offsetBy: range.location)!
-        let endLoc = _layoutManager.location(startLoc, offsetBy: range.length)!
-        return NSTextRange(location: startLoc, end: endLoc)!
+        guard let startLoc = _layoutManager.location(_layoutManager.documentRange.location, offsetBy: range.location) else { return NSTextRange(location: _layoutManager.documentRange.location) }
+        guard let endLoc = _layoutManager.location(startLoc, offsetBy: range.length) else { return NSTextRange(location: startLoc) }
+        guard let textRange = NSTextRange(location: startLoc, end: endLoc) else { return NSTextRange(location: startLoc) }
+        return textRange
     }
     // Get the rectangle containing entire contents, expensive to calculate
     var contentRect: NSRect {
@@ -1078,9 +1079,9 @@ class SquirrelView: NSView {
         }
     }
     
-    func clickAt(point _point: NSPoint, returnIndex: Bool, returnPreeditIndex: Bool) -> (Bool, Int?, Int?) {
-        var index: Int? = nil
-        var preeditIndex: Int? = nil
+    func clickAt(point _point: NSPoint) -> Int? {
+        var index = 0
+        var candidateIndex: Int? = nil
         if let path = shape.path, path.contains(_point) {
             var point = NSMakePoint(_point.x - _textView.textContainerInset.width,
                                     _point.y - _textView.textContainerInset.height)
@@ -1089,37 +1090,26 @@ class SquirrelView: NSView {
                 point = NSMakePoint(point.x - NSMinX(fragment.layoutFragmentFrame),
                                     point.y - NSMinY(fragment.layoutFragmentFrame))
                 index = _layoutManager.offset(from: _layoutManager.documentRange.location, to: fragment.rangeInElement.location)
-                for i in 0..<fragment.textLineFragments.count {
-                    let lineFragment = fragment.textLineFragments[i]
+                for lineFragment in fragment.textLineFragments {
                     if lineFragment.typographicBounds.contains(point) {
                         point = NSMakePoint(point.x - NSMinX(lineFragment.typographicBounds),
                                             point.y - NSMinY(lineFragment.typographicBounds))
-                        index! += lineFragment.characterIndex(for: point)
-                        if index! >= _preeditRange.location && index! < NSMaxRange(_preeditRange) {
-                            if returnPreeditIndex {
-                                preeditIndex = index
-                            }
-                        } else {
+                        index += lineFragment.characterIndex(for: point)
+                        if index >= (_preeditRange.location == NSNotFound ? 0 : NSMaxRange(_preeditRange)) {
                             for i in 0..<_candidates.count {
                                 let range = _candidates[i]
-                                if index! >= range.location && index! < NSMaxRange(range) {
-                                    if (returnIndex) {
-                                        index = i
-                                    } else {
-                                        index = nil
-                                    }
-                                    break;
+                                if index >= range.location && index < NSMaxRange(range) {
+                                    candidateIndex = i
+                                    break
                                 }
                             }
                         }
-                        break;
+                        break
                     }
                 }
             }
-            return (true, index, preeditIndex)
-        } else {
-            return (false, nil, nil)
         }
+        return candidateIndex
     }
 }
 
@@ -1215,16 +1205,14 @@ class SquirrelPanel: NSPanel {
         switch event.type {
         case .leftMouseDown:
             let point = mousePosition()
-            let (hit, index, _) = _view.clickAt(point: point, returnIndex: true, returnPreeditIndex: false)
-            if hit, let index = index {
+            if let index = _view.clickAt(point: point) {
                 if (index >= 0 && index < _candidates.count) {
                     _index = index
                 }
             }
         case .leftMouseUp:
             let point = mousePosition()
-            let (hit, index, _) = _view.clickAt(point: point, returnIndex: true, returnPreeditIndex: false)
-            if hit, let index = index {
+            if let index = _view.clickAt(point: point) {
                 if index >= 0 && index < _candidates.count && index == _index {
                     inputSource.index = UInt(_index)
                     setup(input: inputSource)
@@ -1241,8 +1229,7 @@ class SquirrelPanel: NSPanel {
             }
         case .mouseMoved:
             let point = mousePosition()
-            let (hit, index, _) = _view.clickAt(point: point, returnIndex: true, returnPreeditIndex: false)
-            if hit, let index = index {
+            if let index = _view.clickAt(point: point) {
                 if (index >= 0 && index < _candidates.count && _index != index) {
                     _hilitedIndex = UInt(index)
                     _index = index
@@ -1434,6 +1421,7 @@ class SquirrelPanel: NSPanel {
         
         let text = NSMutableAttributedString()
         var highlightedPreeditRange = NSMakeRange(NSNotFound, 0)
+        _preeditRange = NSMakeRange(NSNotFound, 0)
         if !_preedit.isEmpty && !self.layout.inlinePreedit {
             let line = NSMutableAttributedString()
             if _selRange.location > 0 {
@@ -1575,10 +1563,10 @@ class SquirrelPanel: NSPanel {
         } else {
             _view._textView.setLayoutOrientation(.horizontal)
         }
-        _view.drawView(withCandidateRanges: candidateRanges, hilitedIndex: Int(_hilitedIndex), preeditRange: _preeditRange, hilitedPreeditRange: highlightedPreeditRange, separatorWidth: separatorWidth)
         _candidateRanges = candidateRanges
         _highlightedPreeditRange = highlightedPreeditRange
         _separatorWidth = separatorWidth
+        _view.drawView(withCandidateRanges: _candidateRanges, hilitedIndex: Int(_hilitedIndex), preeditRange: _preeditRange, hilitedPreeditRange: _highlightedPreeditRange, separatorWidth: _separatorWidth)
         if changeLayout {
             self.show()
         }
