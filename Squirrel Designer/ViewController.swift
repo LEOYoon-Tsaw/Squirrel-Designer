@@ -981,6 +981,7 @@ class ViewController: NSViewController {
         NSColorPanel.shared.mode = .wheel
         Self.currentInstance = nil
         mainWindowFrame = view.window!.convertToScreen(view.frame)
+        exit(0)
     }
 
     override var representedObject: Any? {
