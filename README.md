@@ -7,6 +7,8 @@
 * Auto-generate code
 * Load color scheme from code
 
+You can also download from [Mac App Store](https://apps.apple.com/app/squirrel-designer/id1530616498)
+
 Preview:
 
 ![Squirrel Designer Preview](./SquirrelDesignerPreview.png)
