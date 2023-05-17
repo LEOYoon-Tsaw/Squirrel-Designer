@@ -15,3 +15,7 @@ Preview:
 
 *Requires macOS 13.0+*
 *This app does not collect any user data*
+
+## License
+
+[GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
