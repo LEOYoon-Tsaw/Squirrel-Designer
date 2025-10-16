@@ -1,0 +1,18 @@
+preedit:
+  prologue: 我想去
+  highlighted: shang hai
+  postlude: wanjitian
+candidates:
+- candidate: 上海
+  label: '1'
+  comment: Shàng Hǎi
+- candidate: 商海
+  label: '2'
+  comment: ㄕㄤ ㄏㄞˇ
+- candidate: 傷害
+  label: '3'
+  comment: Harm
+- candidate: Shanghai
+  label: '4'
+  comment: 上海
+selection: 0

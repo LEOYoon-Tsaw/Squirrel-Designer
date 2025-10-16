@@ -3,54 +3,100 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 90;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D24509822621E8D800EB4BAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D24509842621E8D800EB4BAC /* Main.storyboard */; };
-		D24509922621F4AA00EB4BAC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D24509942621F4AA00EB4BAC /* Localizable.strings */; };
-		D2830BBB24FEC87E00BF44BE /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2830BBA24FEC87E00BF44BE /* Template.swift */; };
-		D2830BBF24FEFDD400BF44BE /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2830BBE24FEFDD400BF44BE /* CodeView.swift */; };
-		D2B5B52024FD85CA00F7304E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B5B51F24FD85CA00F7304E /* AppDelegate.swift */; };
-		D2B5B52224FD85CA00F7304E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B5B52124FD85CA00F7304E /* ViewController.swift */; };
+		B30140AC2E848F9A0075CE86 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30140AB2E848F920075CE86 /* DataModel.swift */; };
+		B30140B82E8623310075CE86 /* ColorSchemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30140B72E86232B0075CE86 /* ColorSchemeView.swift */; };
+		B30140BA2E8625DD0075CE86 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30140B92E8625DB0075CE86 /* Utils.swift */; };
+		B30140BC2E86E2EE0075CE86 /* StyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30140BB2E86E2EB0075CE86 /* StyleView.swift */; };
+		B30140BE2E87028C0075CE86 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30140BD2E87026F0075CE86 /* MainView.swift */; };
+		B38E64F52EA006F2008762B3 /* Rime.icon in Resources */ = {isa = PBXBuildFile; fileRef = B38E64F42EA006F2008762B3 /* Rime.icon */; };
+		B38E65022EA0196E008762B3 /* squirrel_settings.yaml in Resources */ = {isa = PBXBuildFile; fileRef = B38E65012EA0196E008762B3 /* squirrel_settings.yaml */; };
+		B38E65032EA0196E008762B3 /* input_template.yaml in Resources */ = {isa = PBXBuildFile; fileRef = B38E65002EA0196E008762B3 /* input_template.yaml */; };
+		B38E65052EA04330008762B3 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B38E65042EA04330008762B3 /* InfoPlist.xcstrings */; };
+		B3CC931D2E7DDFC9005FD289 /* ConfigData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CC931C2E7DDFB4005FD289 /* ConfigData.swift */; };
+		B3CC93292E7DE062005FD289 /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = B3CC93282E7DE062005FD289 /* Yams */; };
+		B3E48C412E9DCD2E00AFCF90 /* SquirrelPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E48C3E2E9DCD2E00AFCF90 /* SquirrelPanel.swift */; };
+		B3E48C422E9DCD2E00AFCF90 /* SquirrelTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E48C3F2E9DCD2E00AFCF90 /* SquirrelTheme.swift */; };
+		B3E48C432E9DCD2E00AFCF90 /* SquirrelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E48C402E9DCD2E00AFCF90 /* SquirrelView.swift */; };
+		B3E657E62E7DDE900000B94F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B3E657E52E7DDE900000B94F /* Localizable.xcstrings */; };
+		B3E7AF502E87305600D5A1F7 /* TemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E7AF4F2E87305300D5A1F7 /* TemplateView.swift */; };
+		B3E7AF5B2E88B7F800D5A1F7 /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E7AF5A2E88B7F500D5A1F7 /* CodeView.swift */; };
+		D2B5B52024FD85CA00F7304E /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B5B51F24FD85CA00F7304E /* App.swift */; };
 		D2B5B52424FD85CC00F7304E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2B5B52324FD85CC00F7304E /* Assets.xcassets */; };
-		D2B5B53424FDCE2700F7304E /* LayoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B5B53324FDCE2700F7304E /* LayoutModel.swift */; };
-		D2BAA6A825009BEF007B6521 /* SquirrelLayout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D2BAA6A625009BEF007B6521 /* SquirrelLayout.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D24509832621E8D800EB4BAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D24509932621F4AA00EB4BAC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		D24509952621F4AF00EB4BAC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		D2830BBA24FEC87E00BF44BE /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
-		D2830BBE24FEFDD400BF44BE /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
-		D2A48D2F2707BDA7002F5086 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
-		D2A48D312707BDBD002F5086 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		B30140AB2E848F920075CE86 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		B30140B72E86232B0075CE86 /* ColorSchemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeView.swift; sourceTree = "<group>"; };
+		B30140B92E8625DB0075CE86 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		B30140BB2E86E2EB0075CE86 /* StyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleView.swift; sourceTree = "<group>"; };
+		B30140BD2E87026F0075CE86 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		B38E64F42EA006F2008762B3 /* Rime.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = Rime.icon; sourceTree = "<group>"; };
+		B38E65002EA0196E008762B3 /* input_template.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = input_template.yaml; sourceTree = "<group>"; };
+		B38E65012EA0196E008762B3 /* squirrel_settings.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = squirrel_settings.yaml; sourceTree = "<group>"; };
+		B38E65042EA04330008762B3 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = InfoPlist.xcstrings; path = "Squirrel Designer/InfoPlist.xcstrings"; sourceTree = SOURCE_ROOT; };
+		B3CC931C2E7DDFB4005FD289 /* ConfigData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigData.swift; sourceTree = "<group>"; };
+		B3E48C3E2E9DCD2E00AFCF90 /* SquirrelPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelPanel.swift; sourceTree = "<group>"; };
+		B3E48C3F2E9DCD2E00AFCF90 /* SquirrelTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelTheme.swift; sourceTree = "<group>"; };
+		B3E48C402E9DCD2E00AFCF90 /* SquirrelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelView.swift; sourceTree = "<group>"; };
+		B3E657E52E7DDE900000B94F /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		B3E7AF4F2E87305300D5A1F7 /* TemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateView.swift; sourceTree = "<group>"; };
+		B3E7AF5A2E88B7F500D5A1F7 /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 		D2B5B51C24FD85CA00F7304E /* Squirrel Designer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Squirrel Designer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2B5B51F24FD85CA00F7304E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D2B5B52124FD85CA00F7304E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D2B5B51F24FD85CA00F7304E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		D2B5B52324FD85CC00F7304E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2B5B52824FD85CC00F7304E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2B5B52924FD85CC00F7304E /* Squirrel_Designer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Squirrel_Designer.entitlements; sourceTree = "<group>"; };
-		D2B5B53324FDCE2700F7304E /* LayoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutModel.swift; sourceTree = "<group>"; };
-		D2BAA6A725009BEF007B6521 /* SquirrelLayout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SquirrelLayout.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		D2B5B51924FD85CA00F7304E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
+				B3CC93292E7DE062005FD289 /* Yams in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B30140B62E8623250075CE86 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B30140BD2E87026F0075CE86 /* MainView.swift */,
+				B30140B72E86232B0075CE86 /* ColorSchemeView.swift */,
+				B30140BB2E86E2EB0075CE86 /* StyleView.swift */,
+				B3E7AF4F2E87305300D5A1F7 /* TemplateView.swift */,
+				B3E7AF5A2E88B7F500D5A1F7 /* CodeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B38E64FF2EA01959008762B3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B38E65002EA0196E008762B3 /* input_template.yaml */,
+				B38E65012EA0196E008762B3 /* squirrel_settings.yaml */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B3E48C372E9DCC3900AFCF90 /* SquirrelViews */ = {
+			isa = PBXGroup;
+			children = (
+				B3E48C3F2E9DCD2E00AFCF90 /* SquirrelTheme.swift */,
+				B3E48C402E9DCD2E00AFCF90 /* SquirrelView.swift */,
+				B3E48C3E2E9DCD2E00AFCF90 /* SquirrelPanel.swift */,
+			);
+			path = SquirrelViews;
+			sourceTree = "<group>";
+		};
 		D2B5B51324FD85CA00F7304E = {
 			isa = PBXGroup;
 			children = (
-				D24509942621F4AA00EB4BAC /* Localizable.strings */,
+				B38E64F42EA006F2008762B3 /* Rime.icon */,
 				D2B5B51E24FD85CA00F7304E /* Squirrel Designer */,
 				D2B5B51D24FD85CA00F7304E /* Products */,
 			);
@@ -67,16 +113,18 @@
 		D2B5B51E24FD85CA00F7304E /* Squirrel Designer */ = {
 			isa = PBXGroup;
 			children = (
-				D2830BBE24FEFDD400BF44BE /* CodeView.swift */,
-				D2B5B51F24FD85CA00F7304E /* AppDelegate.swift */,
-				D2B5B52124FD85CA00F7304E /* ViewController.swift */,
-				D2B5B53324FDCE2700F7304E /* LayoutModel.swift */,
-				D2830BBA24FEC87E00BF44BE /* Template.swift */,
+				B3E657E52E7DDE900000B94F /* Localizable.xcstrings */,
+				B38E65042EA04330008762B3 /* InfoPlist.xcstrings */,
+				D2B5B51F24FD85CA00F7304E /* App.swift */,
+				B3CC931C2E7DDFB4005FD289 /* ConfigData.swift */,
+				B30140AB2E848F920075CE86 /* DataModel.swift */,
+				B30140B92E8625DB0075CE86 /* Utils.swift */,
+				B30140B62E8623250075CE86 /* Views */,
+				B3E48C372E9DCC3900AFCF90 /* SquirrelViews */,
+				B38E64FF2EA01959008762B3 /* Resources */,
 				D2B5B52324FD85CC00F7304E /* Assets.xcassets */,
 				D2B5B52824FD85CC00F7304E /* Info.plist */,
-				D24509842621E8D800EB4BAC /* Main.storyboard */,
 				D2B5B52924FD85CC00F7304E /* Squirrel_Designer.entitlements */,
-				D2BAA6A625009BEF007B6521 /* SquirrelLayout.xcdatamodeld */,
 			);
 			path = "Squirrel Designer";
 			sourceTree = "<group>";
@@ -94,9 +142,10 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			name = "Squirrel Designer";
+			packageProductDependencies = (
+				B3CC93282E7DE062005FD289 /* Yams */,
+			);
 			productName = "Squirrel Designer";
 			productReference = D2B5B51C24FD85CA00F7304E /* Squirrel Designer.app */;
 			productType = "com.apple.product-type.application";
@@ -107,8 +156,9 @@
 		D2B5B51424FD85CA00F7304E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 2600;
 				ORGANIZATIONNAME = "Yuncao Liu";
 				TargetAttributes = {
 					D2B5B51B24FD85CA00F7304E = {
@@ -117,7 +167,6 @@
 				};
 			};
 			buildConfigurationList = D2B5B51724FD85CA00F7304E /* Build configuration list for PBXProject "Squirrel Designer" */;
-			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -127,6 +176,10 @@
 				"zh-Hans",
 			);
 			mainGroup = D2B5B51324FD85CA00F7304E;
+			packageReferences = (
+				B3CC93272E7DE062005FD289 /* XCRemoteSwiftPackageReference "Yams" */,
+			);
+			preferredProjectObjectVersion = 90;
 			productRefGroup = D2B5B51D24FD85CA00F7304E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,60 +192,44 @@
 /* Begin PBXResourcesBuildPhase section */
 		D2B5B51A24FD85CA00F7304E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
+				B38E65052EA04330008762B3 /* InfoPlist.xcstrings in Resources */,
 				D2B5B52424FD85CC00F7304E /* Assets.xcassets in Resources */,
-				D24509922621F4AA00EB4BAC /* Localizable.strings in Resources */,
-				D24509822621E8D800EB4BAC /* Main.storyboard in Resources */,
+				B38E65022EA0196E008762B3 /* squirrel_settings.yaml in Resources */,
+				B38E65032EA0196E008762B3 /* input_template.yaml in Resources */,
+				B3E657E62E7DDE900000B94F /* Localizable.xcstrings in Resources */,
+				B38E64F52EA006F2008762B3 /* Rime.icon in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D2B5B51824FD85CA00F7304E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
-				D2BAA6A825009BEF007B6521 /* SquirrelLayout.xcdatamodeld in Sources */,
-				D2B5B52224FD85CA00F7304E /* ViewController.swift in Sources */,
-				D2830BBB24FEC87E00BF44BE /* Template.swift in Sources */,
-				D2B5B52024FD85CA00F7304E /* AppDelegate.swift in Sources */,
-				D2830BBF24FEFDD400BF44BE /* CodeView.swift in Sources */,
-				D2B5B53424FDCE2700F7304E /* LayoutModel.swift in Sources */,
+				B3E7AF5B2E88B7F800D5A1F7 /* CodeView.swift in Sources */,
+				B30140BC2E86E2EE0075CE86 /* StyleView.swift in Sources */,
+				B3E48C412E9DCD2E00AFCF90 /* SquirrelPanel.swift in Sources */,
+				B3E48C422E9DCD2E00AFCF90 /* SquirrelTheme.swift in Sources */,
+				B3E48C432E9DCD2E00AFCF90 /* SquirrelView.swift in Sources */,
+				B30140BE2E87028C0075CE86 /* MainView.swift in Sources */,
+				B30140BA2E8625DD0075CE86 /* Utils.swift in Sources */,
+				B3CC931D2E7DDFC9005FD289 /* ConfigData.swift in Sources */,
+				B30140B82E8623310075CE86 /* ColorSchemeView.swift in Sources */,
+				B3E7AF502E87305600D5A1F7 /* TemplateView.swift in Sources */,
+				D2B5B52024FD85CA00F7304E /* App.swift in Sources */,
+				B30140AC2E848F9A0075CE86 /* DataModel.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		D24509842621E8D800EB4BAC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D24509832621E8D800EB4BAC /* Base */,
-				D2A48D2F2707BDA7002F5086 /* zh-Hans */,
-				D2A48D312707BDBD002F5086 /* zh-Hant */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		D24509942621F4AA00EB4BAC /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D24509932621F4AA00EB4BAC /* zh-Hant */,
-				D24509952621F4AF00EB4BAC /* zh-Hans */,
-			);
-			name = Localizable.strings;
-			path = "Squirrel Designer";
-			sourceTree = SOURCE_ROOT;
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		D2B5B52A24FD85CC00F7304E /* Debug */ = {
+		D2B5B52A24FD85CC00F7304E /* Debug configuration for PBXProject "Squirrel Designer" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -223,9 +260,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -241,20 +280,26 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
-		D2B5B52B24FD85CC00F7304E /* Release */ = {
+		D2B5B52B24FD85CC00F7304E /* Release configuration for PBXProject "Squirrel Designer" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -285,9 +330,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -297,26 +344,33 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
-		D2B5B52D24FD85CC00F7304E /* Debug */ = {
+		D2B5B52D24FD85CC00F7304E /* Debug configuration for PBXNativeTarget "Squirrel Designer" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Rime;
 				CODE_SIGN_ENTITLEMENTS = "Squirrel Designer/Squirrel_Designer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 36;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 28HU5A7B46;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Squirrel Designer/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Squirrel Designer";
@@ -325,24 +379,27 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.12;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Rime.Squirrel-Designer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
-		D2B5B52E24FD85CC00F7304E /* Release */ = {
+		D2B5B52E24FD85CC00F7304E /* Release configuration for PBXNativeTarget "Squirrel Designer" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Rime;
 				CODE_SIGN_ENTITLEMENTS = "Squirrel Designer/Squirrel_Designer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 36;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 28HU5A7B46;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Squirrel Designer/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Squirrel Designer";
@@ -351,11 +408,11 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.12;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Rime.Squirrel-Designer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
@@ -365,35 +422,39 @@
 		D2B5B51724FD85CA00F7304E /* Build configuration list for PBXProject "Squirrel Designer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D2B5B52A24FD85CC00F7304E /* Debug */,
-				D2B5B52B24FD85CC00F7304E /* Release */,
+				D2B5B52A24FD85CC00F7304E /* Debug configuration for PBXProject "Squirrel Designer" */,
+				D2B5B52B24FD85CC00F7304E /* Release configuration for PBXProject "Squirrel Designer" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		D2B5B52C24FD85CC00F7304E /* Build configuration list for PBXNativeTarget "Squirrel Designer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D2B5B52D24FD85CC00F7304E /* Debug */,
-				D2B5B52E24FD85CC00F7304E /* Release */,
+				D2B5B52D24FD85CC00F7304E /* Debug configuration for PBXNativeTarget "Squirrel Designer" */,
+				D2B5B52E24FD85CC00F7304E /* Release configuration for PBXNativeTarget "Squirrel Designer" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCVersionGroup section */
-		D2BAA6A625009BEF007B6521 /* SquirrelLayout.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				D2BAA6A725009BEF007B6521 /* SquirrelLayout.xcdatamodel */,
-			);
-			currentVersion = D2BAA6A725009BEF007B6521 /* SquirrelLayout.xcdatamodel */;
-			path = SquirrelLayout.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
+/* Begin XCRemoteSwiftPackageReference section */
+		B3CC93272E7DE062005FD289 /* XCRemoteSwiftPackageReference "Yams" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jpsim/Yams";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 6.1.0;
+			};
 		};
-/* End XCVersionGroup section */
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B3CC93282E7DE062005FD289 /* Yams */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3CC93272E7DE062005FD289 /* XCRemoteSwiftPackageReference "Yams" */;
+			productName = Yams;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D2B5B51424FD85CA00F7304E /* Project object */;
 }
