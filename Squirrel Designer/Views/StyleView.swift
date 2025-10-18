@@ -56,7 +56,6 @@ struct StyleView: View {
             }
             StaticRow {
                 TextField("CAND_FORMAT", text: _style.candidateFormat)
-                    .textFieldStyle(.roundedBorder)
             }
         } footer: {
             Text(String(localized: "CAND_FORMAT_TIP") + String("[label], [candidate], [comment]"))
@@ -199,12 +198,10 @@ struct FontsSelector: View {
                         HStack {
                             FontSelector(font: $fonts[index])
                             if (index == 0 && (allowEmpty || fonts.count > 1)) || index > 0 {
-                                Button {
+                                Button("DELETE_ROW", systemImage: "minus.circle") {
                                     if index >= 0 && index < fonts.count {
                                         fonts.remove(at: index)
                                     }
-                                } label: {
-                                    Label("DELETE_ROW", systemImage: "minus.circle")
                                 }
                                 .labelStyle(.iconOnly)
                                 .buttonStyle(.borderless)

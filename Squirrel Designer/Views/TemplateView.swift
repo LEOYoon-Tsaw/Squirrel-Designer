@@ -41,7 +41,6 @@ struct TemplateView: View {
             TextField("PREEDIT_HILIT", text: _template.preedit.highlighted)
             TextField("PREEDIT_AFTER_HILIT", text: _template.preedit.afterHighlighted)
         }
-        .textFieldStyle(.roundedBorder)
     }
 
     var candidatesSection: some View {
@@ -63,12 +62,10 @@ struct TemplateView: View {
             }
         } header: {
             AddableTitle(title: "CANDIDATES", show: true) {
-                Button {
+                Button("ADD_ITEM", systemImage: "plus.circle") {
                     var newCandidate = Candidate()
                     newCandidate.label = "\(template.candidates.count + 1)"
                     _template.wrappedValue.candidates.append(newCandidate)
-                } label: {
-                    Label("ADD_ITEM", systemImage: "plus.circle")
                 }
                 .labelStyle(.iconOnly)
                 .buttonStyle(.borderless)
@@ -101,10 +98,8 @@ struct CandidateRow: View {
     }
 
     var deleteButton: some View {
-        Button {
+        Button("DELETE_ROW", systemImage: "minus.circle") {
             onDelete()
-        } label: {
-            Label("DELETE_ROW", systemImage: "minus.circle")
         }
         .labelStyle(.iconOnly)
         .buttonStyle(.borderless)

@@ -48,10 +48,8 @@ struct DeletableRow<T, Content: View>: View {
     }
 
     var deleteButton: some View {
-        Button {
+        Button("DELETE_ROW", systemImage: "minus.circle") {
             optional = nil
-        } label: {
-            Label("DELETE_ROW", systemImage: "minus.circle")
         }
         .labelStyle(.iconOnly)
         .buttonStyle(.borderless)

@@ -25,28 +25,33 @@ struct MainView: View {
 
     var body: some View {
         NavigationSplitView {
-            List(selection: viewModel.binding(\.selection)) {
-                pinnedTopButtons
+            let list = List(selection: viewModel.binding(\.selection)) {
+                Text("STYLE")
+                    .tag(Selection.style)
                 colorSchemesSection
             }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                pinnedBottomButtons
+            if #available(macOS 26.0, *) {
+                list
+                .safeAreaBar(edge: .bottom) {
+                    pinnedBottomMenu
+                }
+            } else {
+                list
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    pinnedBottomButtons
+                }
             }
         } detail: {
             detailsView
         }
         .toolbar {
             ToolbarItemGroup(placement: .navigation) {
-                Button {
+                Button("UNDO", systemImage: "arrow.uturn.backward") {
                     viewModel.undoManager.undo()
-                } label: {
-                    Label("UNDO", systemImage: "arrow.uturn.backward")
                 }
                 .disabled(!viewModel.undoManager.canUndo)
-                Button {
+                Button("REDO", systemImage: "arrow.uturn.forward") {
                     viewModel.undoManager.redo()
-                } label: {
-                    Label("REDO", systemImage: "arrow.uturn.forward")
                 }
                 .disabled(!viewModel.undoManager.canRedo)
             }
@@ -88,17 +93,13 @@ struct MainView: View {
                         if index >= 0 && index < viewModel.squirrelSetting.colorSchemes.count {
                             Text(viewModel.squirrelSetting.colorSchemes[index].codeName)
                                 .contextMenu {
-                                    Button {
+                                    Button("RENAME", systemImage: "pencil") {
                                         performRename(index: index)
-                                    } label: {
-                                        Label("RENAME", systemImage: "pencil")
                                     }
-                                    Button {
+                                    Button("DUPLICATE", systemImage: "document.on.document") {
                                         performDuplication(index: index)
-                                    } label: {
-                                        Label("DUPLICATE", systemImage: "document.on.document")
                                     }
-                                    Button(role: .destructive) {
+                                    Button("DELETE", systemImage: "trash", role: .destructive) {
                                         if index >= 0 && index < viewModel.squirrelSetting.colorSchemes.count {
                                             viewModel.squirrelSetting.colorSchemes.remove(at: index)
                                             viewModel.save()
@@ -110,8 +111,6 @@ struct MainView: View {
                                                 }
                                             }
                                         }
-                                    } label: {
-                                        Label("DELETE", systemImage: "trash")
                                     }
                                 }
                         }
@@ -126,10 +125,8 @@ struct MainView: View {
             }
         } header: {
             AddableTitle(title: "COLOR_SCHEMES", show: true) {
-                Button {
+                Button("ADD_ITEM", systemImage: "plus.circle") {
                     addNewScheme()
-                } label: {
-                    Label("ADD_ITEM", systemImage: "plus.circle")
                 }
                 .labelStyle(.iconOnly)
                 .buttonStyle(.borderless)
@@ -138,34 +135,41 @@ struct MainView: View {
         }
     }
 
-    var pinnedTopButtons: some View {
-        ForEach([Selection.style], id: \.self) { sel in
-            switch sel {
-            case .style:
-                Text("STYLE")
-            default:
-                EmptyView()
-            }
-        }
-    }
-
     var pinnedBottomButtons: some View {
         List(selection: viewModel.binding(\.selection)) {
-            ForEach([Selection.allSettings, .template], id: \.self) { sel in
-                switch sel {
-                case .allSettings:
-                    Text("ALL_CODE")
-                case .template:
-                    Text("TEMPLATE")
-                default:
-                    EmptyView()
-                }
-            }
+            Text("ALL_CODE")
+                .tag(Selection.allSettings)
+            Text("TEMPLATE")
+                .tag(Selection.template)
         }
         .frame(maxHeight: 75)
         .listStyle(.sidebar)
         .padding(.top, 10)
         .background(.ultraThinMaterial)
+    }
+
+    @available(macOS 26.0, *)
+    var pinnedBottomMenu: some View {
+        HStack {
+            Menu("SETTINGS", systemImage: "ellipsis") {
+                Button("ALL_CODE", systemImage: "doc.append.rtl") {
+                    viewModel.selection = .allSettings
+                }
+                .labelStyle(.titleAndIcon)
+                Button("TEMPLATE", systemImage: "filemenu.and.selection") {viewModel.selection = .template
+                }
+                .labelStyle(.titleAndIcon)
+            }
+            .padding(5)
+            .menuIndicator(.hidden)
+            .menuStyle(.button)
+            .labelStyle(.iconOnly)
+            .buttonBorderShape(.circle)
+            .buttonStyle(.borderless)
+            .glassEffect(.clear.tint(.accentColor.opacity(0.12)))
+            Spacer()
+        }
+        .padding(7)
     }
 
     var detailsView: some View {

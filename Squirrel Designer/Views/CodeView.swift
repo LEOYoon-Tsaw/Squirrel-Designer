@@ -67,11 +67,9 @@ struct CodeView: View {
         .toolbar {
             ToolbarItemGroup(placement: .confirmationAction) {
                 if isEditing {
-                    Button {
+                    Button("RESTORE", systemImage: "arrow.trianglehead.counterclockwise") {
                         encode()
                         isEditing = false
-                    } label: {
-                        Label("RESTORE", systemImage: "arrow.trianglehead.counterclockwise")
                     }
                 }
                 Toggle(isOn: $isEditing) {
