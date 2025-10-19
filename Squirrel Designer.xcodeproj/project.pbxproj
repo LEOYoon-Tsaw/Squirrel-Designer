@@ -12,6 +12,9 @@
 		B30140BA2E8625DD0075CE86 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30140B92E8625DB0075CE86 /* Utils.swift */; };
 		B30140BC2E86E2EE0075CE86 /* StyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30140BB2E86E2EB0075CE86 /* StyleView.swift */; };
 		B30140BE2E87028C0075CE86 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30140BD2E87026F0075CE86 /* MainView.swift */; };
+		B3439CF52EA55F09006B5DFB /* squirrel_settings.yaml in Resources */ = {isa = PBXBuildFile; fileRef = B38E65012EA0196E008762B3 /* squirrel_settings.yaml */; };
+		B3439CF62EA55F09006B5DFB /* input_template.yaml in Resources */ = {isa = PBXBuildFile; fileRef = B38E65002EA0196E008762B3 /* input_template.yaml */; };
+		B3439CF72EA55FA2006B5DFB /* ConfigData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CC931C2E7DDFB4005FD289 /* ConfigData.swift */; };
 		B38E64F52EA006F2008762B3 /* Rime.icon in Resources */ = {isa = PBXBuildFile; fileRef = B38E64F42EA006F2008762B3 /* Rime.icon */; };
 		B38E65022EA0196E008762B3 /* squirrel_settings.yaml in Resources */ = {isa = PBXBuildFile; fileRef = B38E65012EA0196E008762B3 /* squirrel_settings.yaml */; };
 		B38E65032EA0196E008762B3 /* input_template.yaml in Resources */ = {isa = PBXBuildFile; fileRef = B38E65002EA0196E008762B3 /* input_template.yaml */; };
@@ -28,12 +31,23 @@
 		D2B5B52424FD85CC00F7304E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2B5B52324FD85CC00F7304E /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B3439CF02EA55E2C006B5DFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2B5B51424FD85CA00F7304E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D2B5B51B24FD85CA00F7304E;
+			remoteInfo = "Squirrel Designer";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		B30140AB2E848F920075CE86 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		B30140B72E86232B0075CE86 /* ColorSchemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeView.swift; sourceTree = "<group>"; };
 		B30140B92E8625DB0075CE86 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B30140BB2E86E2EB0075CE86 /* StyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleView.swift; sourceTree = "<group>"; };
 		B30140BD2E87026F0075CE86 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		B3439CEC2EA55E2C006B5DFB /* Squirrel Designer Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Squirrel Designer Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B38E64F42EA006F2008762B3 /* Rime.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = Rime.icon; sourceTree = "<group>"; };
 		B38E65002EA0196E008762B3 /* input_template.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = input_template.yaml; sourceTree = "<group>"; };
 		B38E65012EA0196E008762B3 /* squirrel_settings.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = squirrel_settings.yaml; sourceTree = "<group>"; };
@@ -52,7 +66,20 @@
 		D2B5B52924FD85CC00F7304E /* Squirrel_Designer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Squirrel_Designer.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		B3439CED2EA55E2C006B5DFB /* Squirrel Designer Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Squirrel Designer Tests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		B3439CE92EA55E2C006B5DFB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
 		D2B5B51924FD85CA00F7304E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
@@ -98,6 +125,7 @@
 			children = (
 				B38E64F42EA006F2008762B3 /* Rime.icon */,
 				D2B5B51E24FD85CA00F7304E /* Squirrel Designer */,
+				B3439CED2EA55E2C006B5DFB /* Squirrel Designer Tests */,
 				D2B5B51D24FD85CA00F7304E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -106,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				D2B5B51C24FD85CA00F7304E /* Squirrel Designer.app */,
+				B3439CEC2EA55E2C006B5DFB /* Squirrel Designer Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,6 +161,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B3439CEB2EA55E2C006B5DFB /* Squirrel Designer Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3439CF42EA55E2C006B5DFB /* Build configuration list for PBXNativeTarget "Squirrel Designer Tests" */;
+			buildPhases = (
+				B3439CE82EA55E2C006B5DFB /* Sources */,
+				B3439CE92EA55E2C006B5DFB /* Frameworks */,
+				B3439CEA2EA55E2C006B5DFB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3439CF12EA55E2C006B5DFB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				B3439CED2EA55E2C006B5DFB /* Squirrel Designer Tests */,
+			);
+			name = "Squirrel Designer Tests";
+			productName = "Squirrel Designer Tests";
+			productReference = B3439CEC2EA55E2C006B5DFB /* Squirrel Designer Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D2B5B51B24FD85CA00F7304E /* Squirrel Designer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D2B5B52C24FD85CC00F7304E /* Build configuration list for PBXNativeTarget "Squirrel Designer" */;
@@ -157,10 +207,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1160;
+				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
 				ORGANIZATIONNAME = "Yuncao Liu";
 				TargetAttributes = {
+					B3439CEB2EA55E2C006B5DFB = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = D2B5B51B24FD85CA00F7304E;
+					};
 					D2B5B51B24FD85CA00F7304E = {
 						CreatedOnToolsVersion = 11.6;
 					};
@@ -185,11 +239,19 @@
 			projectRoot = "";
 			targets = (
 				D2B5B51B24FD85CA00F7304E /* Squirrel Designer */,
+				B3439CEB2EA55E2C006B5DFB /* Squirrel Designer Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B3439CEA2EA55E2C006B5DFB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				B3439CF52EA55F09006B5DFB /* squirrel_settings.yaml in Resources */,
+				B3439CF62EA55F09006B5DFB /* input_template.yaml in Resources */,
+			);
+		};
 		D2B5B51A24FD85CA00F7304E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
@@ -204,6 +266,12 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B3439CE82EA55E2C006B5DFB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				B3439CF72EA55FA2006B5DFB /* ConfigData.swift in Sources */,
+			);
+		};
 		D2B5B51824FD85CA00F7304E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
@@ -223,7 +291,62 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		B3439CF12EA55E2C006B5DFB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D2B5B51B24FD85CA00F7304E /* Squirrel Designer */;
+			targetProxy = B3439CF02EA55E2C006B5DFB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		B3439CF22EA55E2C006B5DFB /* Debug configuration for PBXNativeTarget "Squirrel Designer Tests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 28HU5A7B46;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Rime.Squirrel-Designer-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Squirrel Designer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Squirrel Designer";
+			};
+			name = Debug;
+		};
+		B3439CF32EA55E2C006B5DFB /* Release configuration for PBXNativeTarget "Squirrel Designer Tests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 28HU5A7B46;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Rime.Squirrel-Designer-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Squirrel Designer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Squirrel Designer";
+			};
+			name = Release;
+		};
 		D2B5B52A24FD85CC00F7304E /* Debug configuration for PBXProject "Squirrel Designer" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -419,6 +542,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B3439CF42EA55E2C006B5DFB /* Build configuration list for PBXNativeTarget "Squirrel Designer Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3439CF22EA55E2C006B5DFB /* Debug configuration for PBXNativeTarget "Squirrel Designer Tests" */,
+				B3439CF32EA55E2C006B5DFB /* Release configuration for PBXNativeTarget "Squirrel Designer Tests" */,
+			);
+			defaultConfigurationName = Release;
+		};
 		D2B5B51724FD85CA00F7304E /* Build configuration list for PBXProject "Squirrel Designer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
