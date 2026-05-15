@@ -272,7 +272,7 @@ struct Style: Codable, Hashable {
         case translucency = "translucency"
         case mutualExclusive = "mutual_exclusive"
         case memorizeSize = "memorize_size"
-        case showPaging = "showPaging"
+        case showPaging = "show_paging"
 
         case alpha = "alpha"
         case cornerRadius = "corner_radius"
