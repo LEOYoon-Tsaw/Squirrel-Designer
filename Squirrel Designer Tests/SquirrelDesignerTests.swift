@@ -20,7 +20,7 @@ struct Squirrel_Designer_Tests {
         let settings = try decoder.decode(SquirrelSetting.self, from: settingsData)
         #expect(type(of: settings) == SquirrelSetting.self)
     }
-    
+
     @Test("Decode and encode initial input templates")
     func inputTemplates() async throws {
         let inputTemplatesFile = URL(fileURLWithPath: Bundle.main.path(forResource: "input_template", ofType: "yaml")!)
