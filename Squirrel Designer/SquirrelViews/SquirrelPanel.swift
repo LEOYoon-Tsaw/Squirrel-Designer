@@ -9,7 +9,7 @@ import AppKit
 
 final class SquirrelPanel: NSPanel {
     private let view: SquirrelView
-    private let back: NSVisualEffectView
+    private let back: NSView
 
     private var screenRect: NSRect = .zero
     private var maxHeight: CGFloat = 0
@@ -33,15 +33,12 @@ final class SquirrelPanel: NSPanel {
 
     init(position: NSRect) {
         self.view = SquirrelView(frame: position)
-        self.back = NSVisualEffectView()
+        self.back = Self.makeBackgroundView()
         super.init(contentRect: position, styleMask: .nonactivatingPanel, backing: .buffered, defer: true)
         self.level = .init(Int(CGShieldingWindowLevel()))
         self.hasShadow = true
         self.isOpaque = false
         self.backgroundColor = .clear
-        back.blendingMode = .behindWindow
-        back.material = .hudWindow
-        back.state = .active
         back.wantsLayer = true
         back.layer?.mask = view.shape
         let contentView = NSView()
@@ -464,5 +461,19 @@ private extension SquirrelPanel {
         let startPos = range.lowerBound.utf16Offset(in: string)
         let endPos = range.upperBound.utf16Offset(in: string)
         return NSRange(location: startPos, length: endPos - startPos)
+    }
+
+    static func makeBackgroundView() -> NSView {
+        if #available(macOS 26.0, *) {
+            let glassView = NSGlassEffectView()
+            glassView.style = .clear
+            return glassView
+        } else {
+            let visualEffectView = NSVisualEffectView()
+            visualEffectView.blendingMode = .behindWindow
+            visualEffectView.material = .hudWindow
+            visualEffectView.state = .active
+            return visualEffectView
+        }
     }
 }
