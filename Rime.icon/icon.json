@@ -1,5 +1,9 @@
 {
   "color-space-for-untagged-svg-colors" : "display-p3",
+  "features" : [
+    "refractivity",
+    "specular-location"
+  ],
   "fill-specializations" : [
     {
       "value" : "system-light"
@@ -14,34 +18,82 @@
       "blur-material" : null,
       "layers" : [
         {
+          "blend-mode-specializations" : [
+            {
+              "value" : "normal"
+            },
+            {
+              "appearance" : "dark",
+              "value" : "normal"
+            }
+          ],
           "fill-specializations" : [
             {
               "appearance" : "dark",
               "value" : {
-                "solid" : "gray:1.00000,1.00000"
+                "solid" : "gray:0.79943,1.00000"
               }
             },
             {
               "appearance" : "tinted",
               "value" : {
-                "solid" : "extended-gray:1.00000,1.00000"
+                "solid" : "gray:1.00000,1.00000"
               }
             }
           ],
           "glass" : true,
           "image-name" : "logo.svg",
-          "name" : "logo"
+          "name" : "logo",
+          "opacity-specializations" : [
+            {
+              "value" : 0.8
+            },
+            {
+              "appearance" : "dark",
+              "value" : 0.8
+            }
+          ]
         }
       ],
+      "refractivity" : {
+        "depth" : 0.2,
+        "enabled" : true,
+        "strength" : -0.2
+      },
       "shadow" : {
         "kind" : "neutral",
         "opacity" : 0.5
       },
-      "specular" : true,
-      "translucency" : {
-        "enabled" : false,
-        "value" : 0.5
-      }
+      "specular" : "inside",
+      "translucency-specializations" : [
+        {
+          "value" : {
+            "enabled" : true,
+            "value" : 0.25
+          }
+        },
+        {
+          "appearance" : "light",
+          "value" : {
+            "enabled" : true,
+            "value" : 0.25
+          }
+        },
+        {
+          "appearance" : "dark",
+          "value" : {
+            "enabled" : true,
+            "value" : 0.25
+          }
+        },
+        {
+          "appearance" : "tinted",
+          "value" : {
+            "enabled" : true,
+            "value" : 0.5
+          }
+        }
+      ]
     },
     {
       "blur-material" : null,
